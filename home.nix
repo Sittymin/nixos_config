@@ -37,7 +37,7 @@
   # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
   home.packages = with pkgs;[
-    # 如下是我常用的一些命令行工具，你可以根据自己的需要进行增删
+    firefox
     neofetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
     nnn # terminal file manager
 
