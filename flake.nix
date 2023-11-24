@@ -43,7 +43,7 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          ./hardware-configuration.nix
+          /etc/nixos/hardware-configuration.nix
           # WSL设置
           # nixos-wsl.nixosModules.default
 
