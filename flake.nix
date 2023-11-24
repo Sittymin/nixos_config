@@ -45,7 +45,7 @@
           ./configuration.nix
 
           # WSL设置
-          nixos-wsl.nixosModules.default
+          # nixos-wsl.nixosModules.default
 
           home-manager.nixosModules.home-manager
           {
