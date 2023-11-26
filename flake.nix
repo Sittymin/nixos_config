@@ -44,6 +44,7 @@
         modules = [
           ./configuration.nix
           ./hardware-configuration.nix
+
           # WSL设置
           # nixos-wsl.nixosModules.default
 
