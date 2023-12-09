@@ -2,23 +2,6 @@
   description = "Sittymin's NixOS Flake";
 
 
-  # 使用镜像
-  # nixConfig = {
-  #   experimental-features = [ "nix-command" "flakes" ];
-  #   substituters = [
-  #     # replace official cache with a mirror located in China
-  #     "https://mirrors.ustc.edu.cn/nix-channels/store"
-  #     "https://cache.nixos.org/"
-  #   ];
-
-  #   # nix community's cache server
-  #   extra-substituters = [
-  #     "https://nix-community.cachix.org"
-  #   ];
-  #   extra-trusted-public-keys = [
-  #     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-  #   ];
-  # };
 
 
 
@@ -27,19 +10,16 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     hyprland.url = "github:hyprwm/Hyprland";
+    
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
-    # WSL设置
-    # nixos-wsl.url = "github:nix-community/nixos-wsl";
-    # nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs: {
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -50,9 +30,10 @@
           ./configuration.nix
           ./hardware-configuration.nix
 
-          # WSL设置
-          # nixos-wsl.nixosModules.default
 
+          hyprland.nixosModules.default
+          {programs.hyprland.enable = true;}
+          
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
