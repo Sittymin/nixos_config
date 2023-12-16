@@ -20,6 +20,16 @@
   };
 
   outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs: {
+    homeConfigurations."Sittymin@nixos" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+
+      modules = [
+        hyprland.homeManagerModules.default
+        {
+          wayland.windowManager.hyprland.enable = true;
+        }
+      ];
+    };
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -31,8 +41,12 @@
           ./hardware-configuration.nix
 
 
-          hyprland.nixosModules.default
-          {programs.hyprland.enable = true;}
+          #hyprland.nixosModules.default
+          #{programs.hyprland = {
+          #  enable = true;
+          #  xwayland.enable = true;
+          #  };
+          #}
           
           home-manager.nixosModules.home-manager
           {

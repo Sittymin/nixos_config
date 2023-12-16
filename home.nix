@@ -20,11 +20,34 @@
   #     xxx
   # '';
 
-  # 设置鼠标指针大小以及字体 DPI（适用于 2K 显示器）
-  xresources.properties = {
-    "Xcursor.size" = 24;
-    "Xft.dpi" = 120;
+  
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = {
+      "$mod" = "SUPER";
+      bind =
+        [
+          "$mod, Q, exec, alacritty"
+          "$mod, F, exec, firefox"
+        ];
+    };
   };
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 16;
+  };
+
+
+  # 设置鼠标指针大小以及字体 DPI（适用于 2K 显示器）
+#  xresources.properties = {
+#  
+#    "Xcursor.size" = 24;
+#    "Xft.dpi" = 120;
+#  };
 
   # git 相关配置
   programs.git = {
