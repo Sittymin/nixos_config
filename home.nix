@@ -20,11 +20,21 @@
   #     xxx
   # '';
 
-  
+
 
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
+      # See https://wiki.hyprland.org/Configuring/Monitors/
+      # 第一个参数是接口名，第二个参数是分辨率，第三个参数是位置，第四个参数是缩放
+      monitor=",preferred,auto,auto";
+
+      # See https://wiki.hyprland.org/Configuring/Keywords/ for more
+      # exec-once=command 启动时执行一次
+      exec-once = "waybar & hyprpaper";
+      # exec=command 每次重启Hyprland或重新登录时执行
+
+
       "$mod" = "SUPER";
       bind =
         [
@@ -44,7 +54,7 @@
 
   # 设置鼠标指针大小以及字体 DPI（适用于 2K 显示器）
 #  xresources.properties = {
-#  
+#
 #    "Xcursor.size" = 24;
 #    "Xft.dpi" = 120;
 #  };
@@ -90,17 +100,29 @@
     ltrace # library call monitoring
     lsof # list open files
 
+    # 桌面环境相关
+    waybar # 一个漂亮的状态栏
+
   ];
 
-  # 启用 starship，这是一个漂亮的 shell 提示符
-  programs.starship = {
-    enable = true;
-    # 自定义配置
-    settings = {
-      add_newline = false;
-      aws.disabled = true;  # 使用AWS不显示任何AWS相关的信息
-      gcloud.disabled = true;  # 使用Google Cloud Platform不显示任何AWS相关的信息
-      line_break.disabled = true; # 表示不在每个提示符之间添加额外的空行
+
+  programs = {
+    nushell = {
+      enable = true;
+    };
+    # 一个自动补全工具
+    carapace.enable = true;
+    carapace.enableNushellIntegration = true;
+    # 启用 starship，这是一个漂亮的 shell 提示符
+    starship = {
+      enable = true;
+      settings = {
+        add_newline = true;
+        character = {
+          success_symbol = "[➜](bold green)";
+          error_symbol = "[➜](bold red)";
+        };
+      };
     };
   };
 
@@ -119,21 +141,6 @@
     };
   };
 
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    # TODO 在这里添加你的自定义 zshrc 内容
-    # zshrcExtra = ''
-    #   export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
-    # '';
-
-    # 如果您想设置别名，可以在这里添加
-    shellAliases = {
-      # 这里添加您的别名
-      # 例如：
-      # l = "ls -lah"
-    };
-  };
 
 
   # This value determines the Home Manager release that your

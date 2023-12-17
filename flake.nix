@@ -10,7 +10,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     hyprland.url = "github:hyprwm/Hyprland";
-    
+
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -38,7 +38,7 @@
 
         modules = [
           ./configuration.nix
-          ./hardware-configuration.nix
+          #./hardware-configuration.nix
 
 
           #hyprland.nixosModules.default
@@ -47,7 +47,7 @@
           #  xwayland.enable = true;
           #  };
           #}
-          
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
