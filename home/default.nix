@@ -6,7 +6,11 @@
   home.homeDirectory = "/home/Sittymin";
 
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
-  # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
+  home.file = {
+    ".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
+    "sing-box/config.json".source = ./singbox/config.json;
+    ".config/waybar/config.json".source = ./waybar/config.json;
+  };
 
   # 递归将某个文件夹中的文件，链接到 Home 目录下的指定位置
   # home.file.".config/i3/scripts" = {
@@ -22,12 +26,10 @@
 
 
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-  };
 
   home.pointerCursor = {
     gtk.enable = true;
+    x11.enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
     size = 16;
@@ -42,10 +44,15 @@
 #  };
 
   # git 相关配置
-  programs.git = {
-    enable = true;
-    userName = "Sittymin";
-    userEmail = "wu2890108976@gmail.com";
+  programs = {
+    git = {
+      enable = true;
+      userName = "Sittymin";
+      userEmail = "wu2890108976@gmail.com";
+    };
+    #anyrun = {
+    #  enable = true;
+    #};
   };
 
   # 通过 home.packages 安装一些常用的软件
@@ -54,7 +61,8 @@
   home.packages = with pkgs;[
     firefox
     neofetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
-    nnn # terminal file manager
+    yazi # terminal file manager
+    neovim
 
     # archives
     zip
@@ -69,7 +77,7 @@
     eza # 现代化的ls命令替代品，用于列出文件和目录。
     fzf # 命令行模糊查找工具。
 
-
+    sing-box
 
     # 与Nix相关的工具，提供更详细的日志输出。
     nix-output-monitor
@@ -84,7 +92,7 @@
 
     # 桌面环境相关
     waybar # 一个漂亮的状态栏
-
+    
   ];
 
 

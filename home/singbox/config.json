@@ -51,7 +51,7 @@
       "tcp_fast_open": true,
       "udp_fragment": true,
       "sniff": true,
-      "set_system_proxy": true
+      "set_system_proxy": false
     }
   ],
   "outbounds": [

@@ -10,7 +10,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     hyprland.url = "github:hyprwm/Hyprland";
-
+    anyrun.url = "github:Kirottu/anyrun";
+    anyrun.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -19,22 +20,24 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs: {
-    homeConfigurations."Sittymin@nixos" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+  outputs = { self, nixpkgs, home-manager, anyrun, ... }@inputs: {
+    #homeConfigurations."Sittymin@nixos" = home-manager.lib.homeManagerConfiguration {
+    #  pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
-      modules = [
-        hyprland.homeManagerModules.default
-        {
-          wayland.windowManager.hyprland.enable = true;
-        }
-      ];
-    };
+    #  modules = [
+    #    hyprland.homeManagerModules.default
+    #    {
+    #      wayland.windowManager.hyprland.enable = true;
+    #    }
+    #  ];
+    #};
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
         specialArgs = { inherit inputs; };
+
+        #system.packages = [anyrun.packages.${system}.anyrun];
 
         modules = [
           ./configuration.nix
