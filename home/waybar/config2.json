@@ -1,0 +1,16 @@
+{
+    "layer": "top",
+    "position": "top",
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["tray", "network"],
+    "clock": {
+      "interval": 60,
+      "format": "{:%H:%M}",
+      "tooltip": true,
+      "tooltip-format": "{:%Y/%m/%d}"
+    },
+    "tary": {
+      "spacing": 10
+    }
+}

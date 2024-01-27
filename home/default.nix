@@ -9,7 +9,26 @@
   home.file = {
     ".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
     "sing-box/config.json".source = ./singbox/config.json;
-    ".config/waybar/config.json".source = ./waybar/config.json;
+    ".config/waybar/config".source = ./waybar/config.json;
+    ".config/yazi" = {
+    	source = ./yazi;
+	recursive = true;
+	executable = true;
+    };
+    ".local/share/fcitx5/themes" = {
+        source = ./fcitx5/themes;
+	recursive = true;
+	executable = true;
+    };
+    ".config/fcitx5/conf" = {
+        source = ./fcitx5/conf;
+	recursive = true;
+	executable = true;
+    };
+    ".local/share/fcitx5/rime" = {
+	source = ./fcitx5/rime;
+	recursive = true;
+    };
   };
 
   # 递归将某个文件夹中的文件，链接到 Home 目录下的指定位置
@@ -63,6 +82,7 @@
     neofetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
     yazi # terminal file manager
     neovim
+    mpv
 
     # archives
     zip
@@ -74,7 +94,6 @@
     ripgrep # 替代grep
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processer https://github.com/mikefarah/yq
-    eza # 现代化的ls命令替代品，用于列出文件和目录。
     fzf # 命令行模糊查找工具。
 
     sing-box
@@ -92,7 +111,9 @@
 
     # 桌面环境相关
     waybar # 一个漂亮的状态栏
-    
+
+    steam
+   
   ];
 
 
@@ -107,7 +128,7 @@
     starship = {
       enable = true;
       settings = {
-        add_newline = true;
+        # add_newline = true;
         character = {
           success_symbol = "[➜](bold green)";
           error_symbol = "[➜](bold red)";
@@ -115,23 +136,6 @@
       };
     };
   };
-
-  # alacritty - 一个跨平台终端，带 GPU 加速功能
-  programs.alacritty = {
-    enable = true;
-    # 自定义配置
-    settings = {
-      env.TERM = "xterm-256color";
-      font = {
-        size = 12;
-        draw_bold_text_with_bright_colors = true;
-      };
-      scrolling.multiplier = 5;
-      selection.save_to_clipboard = true;
-    };
-  };
-
-
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
