@@ -13,6 +13,7 @@
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
 
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,7 +21,7 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, anyrun, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     #homeConfigurations."Sittymin@nixos" = home-manager.lib.homeManagerConfiguration {
     #  pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
@@ -37,7 +38,6 @@
 
         specialArgs = { inherit inputs; };
 
-        #system.packages = [anyrun.packages.${system}.anyrun];
 
         modules = [
           ./configuration.nix

@@ -1,6 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, anyrun, ... }:
 
 {
+
+  imports = [
+    anyrun.homeManagerModules.default
+  ];
+
   # 注意修改这里的用户名与用户目录
   home.username = "Sittymin";
   home.homeDirectory = "/home/Sittymin";
@@ -113,7 +118,6 @@
     waybar # 一个漂亮的状态栏
 
     steam
-   
   ];
 
 
@@ -121,9 +125,11 @@
     nushell = {
       enable = true;
     };
+
     # 一个自动补全工具
     carapace.enable = true;
     carapace.enableNushellIntegration = true;
+
     # 启用 starship，这是一个漂亮的 shell 提示符
     starship = {
       enable = true;
@@ -134,6 +140,82 @@
           error_symbol = "[➜](bold red)";
         };
       };
+    };
+
+    anyrun = {
+      enable = true;
+      config = {
+        plugins = with anyrun.packages.${pkgs.system}; [
+          applications
+	];
+	width.fraction = 0.3;
+        y.absolute = 15;
+	hideIcons = false;
+        ignoreExclusiveZones = false;
+        layer = "overlay";
+        hidePluginInfo = false;
+        closeOnClick = true;
+        showResultsImmediately = false;
+        maxEntries = null;
+      };
+      extraCss = ''
+      	@define-color bg-col  rgba(30, 30, 46, 0.7);
+      	@define-color bg-col-light rgba(150, 220, 235, 0.7);
+      	@define-color border-col rgba(30, 30, 46, 0.7);
+      	@define-color selected-col rgba(150, 205, 251, 0.7);
+      	@define-color fg-col #D9E0EE;
+      	@define-color fg-col2 #F28FAD;
+
+      	* {
+      	  transition: 200ms ease;
+      	  font-family: "JetBrainsMono Nerd Font";
+      	  font-size: 1.3rem;
+      	}
+
+      	#window {
+      	  background: transparent;
+      	}
+
+      	#plugin,
+      	#main {
+      	  border: 3px solid @border-col;
+      	  color: @fg-col;
+      	  background-color: @bg-col;
+     	}
+      	/* anyrun's input window - Text */
+      	#entry {
+      	  color: @fg-col;
+      	  background-color: @bg-col;
+     	}
+
+      	/* anyrun's ouput matches entries - Base */
+      	#match {
+      	  color: @fg-col;
+      	  background: @bg-col;
+      	}
+
+      	/* anyrun's selected entry - Red */
+      	#match:selected {
+      	  color: @fg-col2;
+      	  background: @selected-col;
+      	}
+
+      	#match {
+      	  padding: 3px;
+      	  border-radius: 16px;
+      	}
+
+      	#entry, #plugin:hover {
+      	  border-radius: 16px;
+      	}
+
+      	box#main {
+	  background: rgba(30, 30, 46, 0.7);
+          border: 1px solid @border-col;
+          border-radius: 15px;
+          padding: 5px;
+        }
+      '';
     };
   };
 
