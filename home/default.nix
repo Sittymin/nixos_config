@@ -17,9 +17,13 @@
     "sing-box/config.json".source = ./singbox/config.json;
     ".config/waybar/config".source = ./waybar/config.json;
     ".config/yazi" = {
-    	source = ./yazi;
-	recursive = true;
-	executable = true;
+      source = ./yazi;
+      recursive = true;
+      executable = true;
+    };
+    ".config/mpv" = {
+      source = ./mpv;
+      recursive = true;
     };
   };
 
@@ -72,7 +76,6 @@
   home.packages = with pkgs;[
     firefox
     neofetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
-    yazi # terminal file manager
     neovim
     mpv
 
@@ -81,14 +84,6 @@
     xz
     unzip
     p7zip
-
-    # utils
-    ripgrep # 替代grep
-    jq # A lightweight and flexible command-line JSON processor
-    yq-go # yaml processer https://github.com/mikefarah/yq
-    fzf # 命令行模糊查找工具。
-
-    sing-box
 
     # 与Nix相关的工具，提供更详细的日志输出。
     nix-output-monitor
@@ -105,6 +100,8 @@
     waybar # 一个漂亮的状态栏
 
     steam
+    # 适用于Hyprland 的截图软件
+    hyprshot
   ];
 
 
@@ -120,15 +117,33 @@
     # 启用 starship，这是一个漂亮的 shell 提示符
     starship = {
       enable = true;
+      enableNushellIntegration = true;
       settings = {
         # add_newline = true;
         character = {
-          success_symbol = "[➜](bold green)";
-          error_symbol = "[➜](bold red)";
+          success_symbol = "[›](bold green)";
+          error_symbol = "[›](bold red)";
         };
+	palette = "catppuccin_mocha";
       };
     };
 
+    kitty = {
+      enable = true;
+      theme = "Catppuccin-Mocha";
+      font = {
+        name = "MonaspiceNe NFM";
+	size = 12;
+      };
+      settings = {
+	tab_bar_edge = "top";
+      };
+
+    };
+    yazi = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
     anyrun = {
       enable = true;
       config = {
