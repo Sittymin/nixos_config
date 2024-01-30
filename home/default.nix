@@ -4,6 +4,7 @@
 
   imports = [
     anyrun.homeManagerModules.default
+    ./fcitx5
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -19,20 +20,6 @@
     	source = ./yazi;
 	recursive = true;
 	executable = true;
-    };
-    ".local/share/fcitx5/themes" = {
-        source = ./fcitx5/themes;
-	recursive = true;
-	executable = true;
-    };
-    ".config/fcitx5/conf" = {
-        source = ./fcitx5/conf;
-	recursive = true;
-	executable = true;
-    };
-    ".local/share/fcitx5/rime" = {
-	source = ./fcitx5/rime;
-	recursive = true;
     };
   };
 
