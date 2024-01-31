@@ -1,11 +1,11 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 30,
+    "height": 40,
     "spacing": 4, 
     "modules-left": ["clock", "hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["wireplumber", "network", "cpu", "memory", "temperature","hyprland/language", "tray"],
+    "modules-right": ["wireplumber", "network", "cpu", "memory", "temperature", "tray"],
     "tray": {
         "spacing": 10
     },
@@ -30,7 +30,7 @@
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
+        "format-disconnected": "无网络连接 ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "wireplumber": {
@@ -39,7 +39,9 @@
         "on-click": "helvum",
         "max-volume": 150,
         "scroll-step": 0.2
+    },
+    "hyprland/window": {
+      "format": "> {initialClass}"
     }
-
 }
 

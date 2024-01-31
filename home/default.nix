@@ -5,6 +5,7 @@
   imports = [
     anyrun.homeManagerModules.default
     ./fcitx5
+    ./waybar
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -14,8 +15,6 @@
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
   home.file = {
     ".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
-    "sing-box/config.json".source = ./singbox/config.json;
-    ".config/waybar/config".source = ./waybar/config.json;
     ".config/yazi" = {
       source = ./yazi;
       recursive = true;
@@ -100,6 +99,7 @@
     waybar # 一个漂亮的状态栏
 
     steam
+    qq
     # 适用于Hyprland 的截图软件
     hyprshot
   ];
@@ -124,7 +124,6 @@
           success_symbol = "[›](bold green)";
           error_symbol = "[›](bold red)";
         };
-	palette = "catppuccin_mocha";
       };
     };
 

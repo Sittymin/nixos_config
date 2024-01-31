@@ -4,12 +4,12 @@
   ...
 } : {
   home.file = {
-    ".local" = {
-      source = ./.local;
+    ".local/share" = {
+      source = ./.local/share;
       recursive = true;
     };
-    ".config" = {
-      source = ./.config;
+    ".config/fcitx5" = {
+      source = ./.config/fcitx5;
       recursive = true;
     };
   };
