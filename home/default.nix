@@ -48,6 +48,17 @@
     name = "Bibata-Modern-Classic";
     size = 16;
   };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-Mocha-Pink";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "pink" ];
+        tweaks = [ "rimless" "black" ];
+        variant = "mocha";
+      };
+    };
+  };
 
 
   # 设置鼠标指针大小以及字体 DPI（适用于 2K 显示器）
