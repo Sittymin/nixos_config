@@ -5,7 +5,7 @@
     "spacing": 4, 
     "modules-left": ["clock", "hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["wireplumber", "network", "cpu", "memory", "temperature", "tray"],
+    "modules-right": ["wireplumber", "network", "cpu", "memory", "tray"],
     "tray": {
         "spacing": 10
     },
@@ -14,31 +14,25 @@
         "format-alt": "{:%Y-%m-%d}"
     },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "{usage}% ",
         "tooltip": false
     },
     "memory": {
         "format": "{}% "
     },
-    "temperature": {
-        "critical-threshold": 80,
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
     "network": {
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "无网络连接 ⚠",
+        "tooltip": false,
+        "format-wifi": "{essid} ({signalStrength}%) 󰖩",
+        "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+        "format-disconnected": "无网络连接 󰌙",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "wireplumber": {
-        "format": "{volume}%",
+        "format": " {volume}%",
         "format-muted": "",
         "on-click": "helvum",
         "max-volume": 150,
-        "scroll-step": 0.2
+        "scroll-step": 5
     },
     "hyprland/window": {
       "format": "> {initialClass}"

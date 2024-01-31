@@ -1,4 +1,4 @@
-{ config, pkgs, anyrun, ... }:
+{ config, pkgs, anyrun, Neve, ... }:
 
 {
 
@@ -62,11 +62,11 @@
 
 
   # 设置鼠标指针大小以及字体 DPI（适用于 2K 显示器）
-#  xresources.properties = {
-#
-#    "Xcursor.size" = 24;
-#    "Xft.dpi" = 120;
-#  };
+  #  xresources.properties = {
+  #
+  #    "Xcursor.size" = 24;
+  #    "Xft.dpi" = 120;
+  #  };
 
   # git 相关配置
   programs = {
@@ -86,9 +86,10 @@
   home.packages = with pkgs;[
     firefox
     neofetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
-    neovim
     mpv
 
+    # 基于 Nixvim 配置的 Neovim 的 Neve
+    Neve.packages."${pkgs.system}".default
     # archives
     zip
     xz
@@ -100,11 +101,14 @@
 
     glow # markdown previewer in terminal
 
-    btop  # 系统和网络监控工具
+    btop # 系统和网络监控工具
     # system call monitoring
     strace # system call monitoring
     ltrace # library call monitoring
     lsof # list open files
+
+    # 用于调节音频设备的软件
+    helvum
 
     # 桌面环境相关
     waybar # 一个漂亮的状态栏
@@ -114,8 +118,6 @@
     # 适用于Hyprland 的截图软件
     hyprshot
   ];
-
-
   programs = {
     nushell = {
       enable = true;
@@ -143,10 +145,10 @@
       theme = "Catppuccin-Mocha";
       font = {
         name = "MonaspiceNe NFM";
-	size = 12;
+        size = 12;
       };
       settings = {
-	tab_bar_edge = "top";
+        tab_bar_edge = "top";
       };
 
     };
@@ -159,10 +161,10 @@
       config = {
         plugins = with anyrun.packages.${pkgs.system}; [
           applications
-	];
-	width.fraction = 0.3;
+        ];
+        width.fraction = 0.3;
         y.absolute = 15;
-	hideIcons = false;
+        hideIcons = false;
         ignoreExclusiveZones = false;
         layer = "overlay";
         hidePluginInfo = false;
@@ -171,62 +173,62 @@
         maxEntries = null;
       };
       extraCss = ''
-      	@define-color bg-col  rgba(30, 30, 46, 0.7);
-      	@define-color bg-col-light rgba(150, 220, 235, 0.7);
-      	@define-color border-col rgba(30, 30, 46, 0.7);
-      	@define-color selected-col rgba(150, 205, 251, 0.7);
-      	@define-color fg-col #D9E0EE;
-      	@define-color fg-col2 #F28FAD;
+              	@define-color bg-col  rgba(30, 30, 46, 0.7);
+              	@define-color bg-col-light rgba(150, 220, 235, 0.7);
+              	@define-color border-col rgba(30, 30, 46, 0.7);
+              	@define-color selected-col rgba(150, 205, 251, 0.7);
+              	@define-color fg-col #D9E0EE;
+              	@define-color fg-col2 #F28FAD;
 
-      	* {
-      	  transition: 200ms ease;
-      	  font-family: "JetBrainsMono Nerd Font";
-      	  font-size: 1.3rem;
-      	}
+              	* {
+              	  transition: 200ms ease;
+              	  font-family: "JetBrainsMono Nerd Font";
+              	  font-size: 1.3rem;
+              	}
 
-      	#window {
-      	  background: transparent;
-      	}
+              	#window {
+              	  background: transparent;
+              	}
 
-      	#plugin,
-      	#main {
-      	  border: 3px solid @border-col;
-      	  color: @fg-col;
-      	  background-color: @bg-col;
-     	}
-      	/* anyrun's input window - Text */
-      	#entry {
-      	  color: @fg-col;
-      	  background-color: @bg-col;
-     	}
+              	#plugin,
+              	#main {
+              	  border: 3px solid @border-col;
+              	  color: @fg-col;
+              	  background-color: @bg-col;
+             	}
+              	/* anyrun's input window - Text */
+              	#entry {
+              	  color: @fg-col;
+              	  background-color: @bg-col;
+             	}
 
-      	/* anyrun's ouput matches entries - Base */
-      	#match {
-      	  color: @fg-col;
-      	  background: @bg-col;
-      	}
+              	/* anyrun's ouput matches entries - Base */
+              	#match {
+              	  color: @fg-col;
+              	  background: @bg-col;
+              	}
 
-      	/* anyrun's selected entry - Red */
-      	#match:selected {
-      	  color: @fg-col2;
-      	  background: @selected-col;
-      	}
+              	/* anyrun's selected entry - Red */
+              	#match:selected {
+              	  color: @fg-col2;
+              	  background: @selected-col;
+              	}
 
-      	#match {
-      	  padding: 3px;
-      	  border-radius: 16px;
-      	}
+              	#match {
+              	  padding: 3px;
+              	  border-radius: 16px;
+              	}
 
-      	#entry, #plugin:hover {
-      	  border-radius: 16px;
-      	}
+              	#entry, #plugin:hover {
+              	  border-radius: 16px;
+              	}
 
-      	box#main {
-	  background: rgba(30, 30, 46, 0.7);
-          border: 1px solid @border-col;
-          border-radius: 15px;
-          padding: 5px;
-        }
+              	box#main {
+        	  background: rgba(30, 30, 46, 0.7);
+                  border: 1px solid @border-col;
+                  border-radius: 15px;
+                  padding: 5px;
+                }
       '';
     };
   };
