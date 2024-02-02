@@ -1,4 +1,4 @@
-{ config, pkgs, anyrun, Neve, ... }:
+{ config, pkgs, anyrun, Neve, nur, ... }:
 
 {
 
@@ -6,6 +6,7 @@
     anyrun.homeManagerModules.default
     ./fcitx5
     ./waybar
+    ./firefox
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -60,6 +61,13 @@
     };
   };
 
+  # 环境变量设置
+  home.sessionVariables = {
+    QT_QPA_PLATFORM = "wayland";
+    GDK_BACKEND = "wayland";
+    MOZ_ENABLE_WAYLAND = "1";
+  };
+
 
   # 设置鼠标指针大小以及字体 DPI（适用于 2K 显示器）
   #  xresources.properties = {
@@ -84,10 +92,8 @@
   # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
   home.packages = with pkgs;[
-    firefox
     neofetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
     mpv
-
     # 基于 Nixvim 配置的 Neovim 的 Neve
     Neve.packages."${pkgs.system}".default
     # archives
