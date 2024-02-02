@@ -1,56 +1,55 @@
-
 * {
-	border: none;
-	border-radius: 0;
-	font-family: MonaspiceNe NF;
-	font-size: 14px;
-	min-height: 24px;
+  border: none;
+  border-radius: 0;
+  font-family: MonaspiceNe NF;
+  font-size: 14px;
+  min-height: 24px;
 }
 
 #clock {
-	margin-top: 8px;
-	margin-left: 8px;
-	margin-right: 12px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: #f8f8f2;
-	background: #282a36;
+  margin-top: 8px;
+  margin-left: 8px;
+  margin-right: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 0;
+  border-radius: 26px;
+  transition: none;
+  color: #f8f8f2;
+  background: #282a36;
 }
 
 #workspaces {
-	margin-top: 8px;
-	margin-left: 12px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	background: #282a36;
-	transition: none;
+  margin-top: 8px;
+  margin-left: 12px;
+  margin-bottom: 0;
+  border-radius: 26px;
+  background: #282a36;
+  transition: none;
 }
 
 #workspaces button {
-	transition: none;
-	color: #f8f8f2;
-	background: transparent;
-	font-size: 16px;
+  transition: none;
+  color: #f8f8f2;
+  background: transparent;
+  font-size: 16px;
 }
 
-#workspaces button.active{
-	border-radius: 26px;
-	color: #4d4d4d;
-	background: #5af78e;
+#workspaces button.active {
+  border-radius: 26px;
+  color: #4d4d4d;
+  background: #5af78e;
 }
 
 #workspaces button:hover {
-	transition: none;
-	box-shadow: inherit;
-	text-shadow: inherit;
-	color: #ff79c6;
+  transition: none;
+  box-shadow: inherit;
+  text-shadow: inherit;
+  color: #ff79c6;
 }
 
 window#waybar {
-	background: transparent;
+  background: transparent;
 }
 
 window#waybar.empty #window {
@@ -58,77 +57,78 @@ window#waybar.empty #window {
   margin: 0px;
   border: 0px;
   color: transparent;
+  transition: all 0.5s cubic-bezier(0.1, 1.05, 0.05, 0.9);
   background-color: transparent;
 }
 
 #window {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: #4d4d4d;
-	background: #5af78e;
+  margin-top: 8px;
+  margin-left: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 0;
+  border-radius: 26px;
+  transition: all 0.5s cubic-bezier(0.05, 0.9, 0.1, 1.05);
+  color: #4d4d4d;
+  background: #5af78e;
 }
 
 #wireplumber {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: #4d4d4d;
-	background: #9aedfe;
+  margin-top: 8px;
+  margin-left: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 0;
+  border-radius: 26px;
+  transition: none;
+  color: #4d4d4d;
+  background: #9aedfe;
 }
 
 #network {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: #4d4d4d;
-	background: #bd93f9;
+  margin-top: 8px;
+  margin-left: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 0;
+  border-radius: 26px;
+  transition: none;
+  color: #4d4d4d;
+  background: #bd93f9;
 }
 
 #cpu {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: #4d4d4d;
-	background: #f1fa8c;
+  margin-top: 8px;
+  margin-left: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 0;
+  border-radius: 26px;
+  transition: none;
+  color: #4d4d4d;
+  background: #f1fa8c;
 }
 
 #memory {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: #4d4d4d;
-	background: #ff6e67;
+  margin-top: 8px;
+  margin-left: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 0;
+  border-radius: 26px;
+  transition: none;
+  color: #4d4d4d;
+  background: #ff6e67;
 }
 
 #tray {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding-left: 16px;
-	padding-right: 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: #f8f8f2;
-	background: #282a36;
+  margin-top: 8px;
+  margin-left: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 0;
+  border-radius: 26px;
+  transition: none;
+  color: #f8f8f2;
+  background: #282a36;
 }
