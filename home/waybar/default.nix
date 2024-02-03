@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  ...
-} : {
+{ config
+, pkgs
+, ...
+}: {
   home.file = {
     ".config/waybar" = {
       source = ./.config/waybar;

@@ -1,12 +1,13 @@
-{ config, pkgs, anyrun, Neve, nur, ... }:
+{ config, pkgs, Neve, ... }:
 
 {
 
   imports = [
-    anyrun.homeManagerModules.default
     ./fcitx5
     ./waybar
     ./firefox
+    ./anyrun
+    ./minecraft
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -59,6 +60,10 @@
         variant = "mocha";
       };
     };
+    iconTheme = {
+      name = "Papirus";
+      package = pkgs.papirus-icon-theme;
+    };
   };
 
   # 环境变量设置
@@ -94,6 +99,7 @@
   home.packages = with pkgs;[
     neofetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
     mpv
+    qview
     # 基于 Nixvim 配置的 Neovim 的 Neve
     Neve.packages."${pkgs.system}".default
     # archives
@@ -101,6 +107,9 @@
     xz
     unzip
     p7zip
+
+    # JDK
+    graalvm-ce
 
     # 与Nix相关的工具，提供更详细的日志输出。
     nix-output-monitor
@@ -121,6 +130,7 @@
 
     steam
     qq
+    telegram-desktop
     # 适用于Hyprland 的截图软件
     hyprshot
   ];
@@ -162,81 +172,6 @@
       enable = true;
       enableNushellIntegration = true;
     };
-    anyrun = {
-      enable = true;
-      config = {
-        plugins = with anyrun.packages.${pkgs.system}; [
-          applications
-        ];
-        width.fraction = 0.3;
-        y.absolute = 15;
-        hideIcons = false;
-        ignoreExclusiveZones = false;
-        layer = "overlay";
-        hidePluginInfo = false;
-        closeOnClick = true;
-        showResultsImmediately = false;
-        maxEntries = null;
-      };
-      extraCss = ''
-              	@define-color bg-col  rgba(30, 30, 46, 0.7);
-              	@define-color bg-col-light rgba(150, 220, 235, 0.7);
-              	@define-color border-col rgba(30, 30, 46, 0.7);
-              	@define-color selected-col rgba(150, 205, 251, 0.7);
-              	@define-color fg-col #D9E0EE;
-              	@define-color fg-col2 #F28FAD;
-
-              	* {
-              	  transition: 200ms ease;
-              	  font-family: "JetBrainsMono Nerd Font";
-              	  font-size: 1.3rem;
-              	}
-
-              	#window {
-              	  background: transparent;
-              	}
-
-              	#plugin,
-              	#main {
-              	  border: 3px solid @border-col;
-              	  color: @fg-col;
-              	  background-color: @bg-col;
-             	}
-              	/* anyrun's input window - Text */
-              	#entry {
-              	  color: @fg-col;
-              	  background-color: @bg-col;
-             	}
-
-              	/* anyrun's ouput matches entries - Base */
-              	#match {
-              	  color: @fg-col;
-              	  background: @bg-col;
-              	}
-
-              	/* anyrun's selected entry - Red */
-              	#match:selected {
-              	  color: @fg-col2;
-              	  background: @selected-col;
-              	}
-
-              	#match {
-              	  padding: 3px;
-              	  border-radius: 16px;
-              	}
-
-              	#entry, #plugin:hover {
-              	  border-radius: 16px;
-              	}
-
-              	box#main {
-        	  background: rgba(30, 30, 46, 0.7);
-                  border: 1px solid @border-col;
-                  border-radius: 15px;
-                  padding: 5px;
-                }
-      '';
-    };
   };
 
   # This value determines the Home Manager release that your
@@ -247,7 +182,7 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "23.05";
+  home.stateVersion = "23.11";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
