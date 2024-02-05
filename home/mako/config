@@ -1,0 +1,106 @@
+# 配置文件位于 ~/.config/mako/config 或 $XDG_CONFIG_HOME/mako/config。可以指定选项行来配置mako，如下所示：
+max-history=5
+# 将历史缓冲区中保留的过期通知的最大数量设置为 n。如果缓冲区已满，新过期的通知将替换最旧的通知。如果设置为 0，则禁用历史记录。
+
+sort=-time
+# 按时间以升序(+)或降序(-)排序来排列传入的通知。
+
+# 绑定允许在触发事件时执行操作。支持的值有 none, dismiss, dismiss-all, dismiss-group, invoke-action <action>, invoke-default-action 和 exec <command>。
+
+on-button-left=invoke-default-action
+
+on-button-middle=dismiss-all
+
+on-button-right=dismiss
+
+on-touch=invoke-default-action
+
+on-notify=none
+
+# 使用 exec 时，命令将在 POSIX shell 中执行。shell 变量 id 将被设置为通知 ID。例如，以下选项将在中键点击时显示一个交互式操作菜单：
+
+#       on-button-middle=exec makoctl menu -n "$id" dmenu -p '选择操作：' 
+#   当新通知打开时，以下选项将播放声音：
+#
+#       on-notify=exec mpv /usr/share/sounds/freedesktop/stereo/message.oga
+#
+#   当使用 invoke-action 或 invoke-default-action 时，xdg-激活令牌将被发送到客户端，允许客户端向合成器请求焦点。合成器必须支持 xdg_activation_v1 协议并允许焦点请求，例如才能正确工作：
+#
+#       [app-name="some-app-id" actionable]
+#       on-button-left=invoke-action mail-reply-sender
+
+# 样式选项
+font=更纱黑体 SC
+
+background-color=#282a36
+
+text-color=#f8f8f2
+
+width=300
+
+height=100
+
+outer-margin=20
+# 屏幕边缘间距
+
+margin=5
+# 每个单独通知的边缘
+
+
+padding=10
+# 内部边缘
+
+border-size=2
+
+border-color=#313244
+
+border-radius=10
+
+progress-color=over #33ccffee
+# 进度条颜色设置为 color。仅改变进度条颜色，请使用 over 属性。要替换背景颜色，请使用 source 属性（当通知半透明时这可能很有用）。
+
+icons=1
+# 在通知中显示图标。
+# 默认值：1
+
+max-icon-size=62
+
+icon-path=""
+# 当通知指定名称而非完整路径时，搜索图标的路径。以冒号分隔。这大致模仿了 XDG 图标主题规范使用的搜索算法，但不支持任何主题元数据。因此，如果您想搜索父主题，您需要手动将它们添加到路径中。
+
+icon-location=left
+# 图标相对于显示文本的位置。有效选项为 left, right, top 和 bottom。
+
+markup=1
+# 如果为 1，则启用HTML标记
+
+actions=1
+# 应用程序可能请求将操作与激活通知相关联。禁用此功能将导致 mako 忽略这些请求。
+# 默认值：1
+
+history=1
+# 如果设置，mako 将在通知达到超时时将其保存到历史缓冲区中，而不是立即删除。max-history 决定历史缓冲区的大小。
+# 默认值：1
+
+text-alignment=left
+# 设置通知文本对齐。left|center|right
+
+default-timeout=0
+# 将默认超时设置为毫秒的 timeout。要禁用超时，请将其设置为零。
+
+ignore-timeout=0
+# 如果设置1，mako 将忽略通知发送的过期超时，并使用 default-timeout 提供的超时
+
+group-by=category
+# 一个逗号分隔的标准字段列表，将用于与其他可见通知比较，以确定此通知是否应与它们形成一个组。所有列出的标准必须完全相等，两个通知才能分组,field[,field,...]可以以此匹配
+
+
+max-visible=5
+# 将可见通知的最大数量设置为 n。较旧的通知将被隐藏。如果为 -1，则所有通知都可见。
+
+
+layer=top
+# 将 mako 安排在相对于普通窗口的指定层。支持的值有 background, bottom, top 和 overlay。使用 overlay 将导致通知显示在全屏窗口之上，尽管根据您的合成器，这也可能发生在 top。
+
+anchor=top-right
+# 在输出上指定的位置显示通知。支持的值有 top-right, top-center, top-left, bottom-right, bottom-center, bottom-left, center-right, center-left 和 center。

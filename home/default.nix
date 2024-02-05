@@ -18,6 +18,7 @@
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
   home.file = {
     ".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
+    ".config/mako/config".source = ./mako/config;
     ".config/yazi" = {
       source = ./yazi;
       recursive = true;
@@ -54,7 +55,7 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Mocha-Pink";
+      name = "Catppuccin-Mocha-Pink-dark";
       package = pkgs.catppuccin-gtk.override {
         accents = [ "pink" ];
         tweaks = [ "rimless" "black" ];
@@ -62,13 +63,9 @@
       };
     };
     iconTheme = {
-      name = "Papirus";
+      name = "Papirus-dark";
       package = pkgs.papirus-icon-theme;
     };
-  };
-  # 通知程序
-  services.mako = {
-    enable = true;
   };
 
 
@@ -93,10 +90,12 @@
     # 基于 Nixvim 配置的 Neovim 的 Neve
     Neve.packages."${pkgs.system}".default
     # archives
-    zip
-    xz
-    unzip
-    p7zip
+    zip # 压缩为zip
+    unzip # 解压zip
+    xz # xz
+    p7zip # 7z
+    zstd # zstd
+    unrar # rar
 
     # GUI文件管理器
     cinnamon.nemo
@@ -105,6 +104,7 @@
     graalvm-ce
     # nodejs
     bun
+    nodejs_21
 
     # 与Nix相关的工具，提供更详细的日志输出。
     nix-output-monitor
@@ -122,9 +122,13 @@
 
     # 桌面环境相关
     waybar # 一个漂亮的状态栏
+    # 通知程序
+    mako
 
     # SSH 
     termius
+    #wine
+    wineWowPackages.stagingFull
     steam
     qq
     telegram-desktop
