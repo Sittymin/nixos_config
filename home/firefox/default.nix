@@ -36,6 +36,8 @@
         "font.language.group" = "zh-CN";
         #       设置网站首选语言
         "intl.accept_languages" = "zh-cn,zh,zh-tw";
+        #       设置下载默认文件夹
+        "browser.download.dir" = "/home/Sittymin/Downloads";
       };
       userChrome = ''
         @import "firefox-gnome-theme/userChrome.css";

@@ -7,7 +7,12 @@
     enable = true;
     config = {
       plugins = with anyrun.packages.${pkgs.system}; [
+        # 安装的软件
         applications
+        # 翻译（:en>zh 翻译原文，或者简写:zh 翻译原文）
+        translate
+        # 搜索文件
+        kidex
       ];
       width.fraction = 0.3;
       y.absolute = 15;

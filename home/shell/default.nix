@@ -1,0 +1,6 @@
+{ pkgs, ... }: {
+  imports = [
+    ./nushell
+    ./starship
+  ];
+}
