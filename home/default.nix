@@ -137,6 +137,8 @@
     hyprshot
     # 命令行备忘录
     cheat
+    # 一个写盘工具
+    #    etcher
   ];
   programs = {
     git = {
@@ -158,6 +160,8 @@
       };
       settings = {
         tab_bar_edge = "top";
+        background_opacity = "0.5";
+        # 模糊需要在Hyprland
       };
 
     };
