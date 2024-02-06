@@ -19,6 +19,7 @@
   home.file = {
     ".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
     ".config/mako/config".source = ./mako/config;
+    ".config/cheat".source = ./cheat;
     ".config/yazi" = {
       source = ./yazi;
       recursive = true;
@@ -134,6 +135,8 @@
     telegram-desktop
     # 适用于Hyprland 的截图软件
     hyprshot
+    # 命令行备忘录
+    cheat
   ];
   programs = {
     git = {
