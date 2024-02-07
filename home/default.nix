@@ -96,7 +96,9 @@
     # Qt图片加载库（JXL）
     libsForQt5.kimageformats
     # 基于Qt的图片浏览器
-    qview
+    (qview.override {
+      x11Support = false;
+    })
     # 基于 Nixvim 配置的 Neovim 的 Neve
     Neve.packages."${pkgs.system}".default
     # vim复制到系统剪贴
