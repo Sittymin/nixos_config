@@ -56,7 +56,7 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-Mocha-Pink-dark";
+      name = "Catppuccin-Mocha-Pink";
       package = pkgs.catppuccin-gtk.override {
         accents = [ "pink" ];
         tweaks = [ "rimless" "black" ];
@@ -64,9 +64,14 @@
       };
     };
     iconTheme = {
-      name = "Papirus-dark";
+      name = "Papirus";
       package = pkgs.papirus-icon-theme;
     };
+  };
+  # 设置GTK颜色偏好为暗色
+  dconf = {
+    enable = true;
+    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   };
 
 
@@ -85,11 +90,17 @@
   home.packages = with pkgs;[
     neofetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
     mpv
-    (qview.override {
-      x11Support = false;
-    })
+    libjxl
+    # 基于libvips的图片浏览器
+    # vipsdisp
+    # Qt图片加载库（JXL）
+    libsForQt5.kimageformats
+    # 基于Qt的图片浏览器
+    qview
     # 基于 Nixvim 配置的 Neovim 的 Neve
     Neve.packages."${pkgs.system}".default
+    # vim复制到系统剪贴
+    wl-clipboard
     # archives
     zip # 压缩为zip
     unzip # 解压zip
@@ -137,8 +148,6 @@
     hyprshot
     # 命令行备忘录
     cheat
-    # 一个写盘工具
-    #    etcher
   ];
   programs = {
     git = {
