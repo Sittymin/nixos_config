@@ -44,46 +44,6 @@
   # '';
 
 
-
-
-  home.pointerCursor = {
-    gtk.enable = true;
-    x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 16;
-  };
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Catppuccin-Mocha-Pink";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "pink" ];
-        tweaks = [ "rimless" "black" ];
-        variant = "mocha";
-      };
-    };
-    iconTheme = {
-      name = "Papirus";
-      package = pkgs.papirus-icon-theme;
-    };
-  };
-  # 设置GTK颜色偏好为暗色
-  dconf = {
-    enable = true;
-    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-  };
-
-
-  # 设置鼠标指针大小以及字体 DPI（适用于 2K 显示器）
-  #  xresources.properties = {
-  #
-  #    "Xcursor.size" = 24;
-  #    "Xft.dpi" = 120;
-  #  };
-
-
-
   # 通过 home.packages 安装一些常用的软件
   # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
@@ -150,7 +110,48 @@
     hyprshot
     # 命令行备忘录
     cheat
+    # 种子文件客户端
+    transmission_4-gtk
   ];
+
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24; # 1080P下16，2K下24
+  };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-Mocha-Pink";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "pink" ];
+        tweaks = [ "rimless" "black" ];
+        variant = "mocha";
+      };
+    };
+    iconTheme = {
+      name = "Papirus";
+      package = pkgs.papirus-icon-theme;
+    };
+  };
+  # 设置GTK颜色偏好为暗色
+  dconf = {
+    enable = true;
+    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  };
+
+
+  # 设置字体 DPI（适用于 2K 显示器）
+  # xresources.properties = {
+  #
+  #   "Xft.dpi" = 120;
+  # };
+
+
+
   programs = {
     git = {
       enable = true;
