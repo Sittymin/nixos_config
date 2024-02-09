@@ -112,8 +112,15 @@
     cheat
     # 种子文件客户端
     transmission_4-gtk
+    # 矢量图形编辑器
+    inkscape
+    # 绘画应用程序
+    krita
+    # GNU 图像处理程序
+    gimp
+    # Blender-HIP 的目的是使Blender能够更有效地利用不同类型的GPU
+    blender-hip
   ];
-
 
   home.pointerCursor = {
     gtk.enable = true;
