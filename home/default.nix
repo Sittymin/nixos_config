@@ -17,7 +17,7 @@
 
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
   home.file = {
-    ".config/hypr/hyprland.conf".source = ./hyprland/hyprland.conf;
+    ".config/hypr".source = ./hypr;
     ".config/mako/config".source = ./mako/config;
     ".config/cheat".source = ./cheat;
     ".config/yazi" = {
@@ -49,6 +49,7 @@
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
   home.packages = with pkgs;[
     neofetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
+    hyprpaper # 一个壁纸软件
     mpv
     libjxl
     # 基于libvips的图片浏览器
