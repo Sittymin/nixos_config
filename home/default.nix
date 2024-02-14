@@ -53,6 +53,8 @@
     hyprpaper # 一个壁纸软件
     mpv
     libjxl
+    # 一个回收站工具
+    trashy
     # 基于libvips的图片浏览器
     # vipsdisp
     # Qt图片加载库（JXL）
