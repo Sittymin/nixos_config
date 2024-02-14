@@ -1,0 +1,7 @@
+[font]
+normal = ["MonaspiceNe NF"]
+size = 18
+
+[font.features]
+MonoLisa = [ "+ss01", "+ss02", "+ss03", "+ss04", "ss06", "ss07", "ss08", "calt"]
+

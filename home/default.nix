@@ -20,6 +20,7 @@
     ".config/hypr".source = ./hypr;
     ".config/mako/config".source = ./mako/config;
     ".config/cheat".source = ./cheat;
+    ".config/neovide".source = ./neovide;
     ".config/yazi" = {
       source = ./yazi;
       recursive = true;
@@ -62,6 +63,7 @@
     })
     # 基于 Nixvim 配置的 Neovim 的 Neve
     Neve.packages."${pkgs.system}".default
+    neovide
     # vim复制到系统剪贴
     wl-clipboard
     # archives
@@ -87,10 +89,9 @@
     glow # markdown previewer in terminal
 
     btop # 系统和网络监控工具
-    # system call monitoring
-    strace # system call monitoring
-    ltrace # library call monitoring
-    lsof # list open files
+    intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
+
+    lsof # 列出打开文件的工具
 
     # 用于调节音频设备的软件
     helvum
