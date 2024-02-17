@@ -392,6 +392,21 @@
         "type": "github"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1708180222,
+        "narHash": "sha256-9Y9w2OB97Xsau8Z61d7eFVBjVG7Xz9AAjyIpOui847Q=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "0799ad071162f5b534cc55722491f94b61832993",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -429,7 +444,8 @@
         "firefox-gnome-theme": "firefox-gnome-theme",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_4",
+        "nur": "nur"
       }
     },
     "systems": {
