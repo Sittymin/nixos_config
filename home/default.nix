@@ -119,7 +119,7 @@
     # 命令行备忘录
     cheat
     # 种子文件客户端
-    transmission_4-gtk
+    transmission_4
     # 矢量图形编辑器
     inkscape
     # 绘画应用程序
