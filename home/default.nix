@@ -149,6 +149,9 @@
         variant = "mocha";
       };
     };
+    # GTK3/4偏好暗色主题
+    gtk3.extraConfig = { gtk-application-prefer-dark-theme = 1; };
+    gtk4.extraConfig = { gtk-application-prefer-dark-theme = true; };
     iconTheme = {
       name = "Papirus";
       package = pkgs.papirus-icon-theme;
