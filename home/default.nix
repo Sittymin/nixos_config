@@ -128,6 +128,8 @@
     gimp
     # Blender-HIP 的目的是使Blender能够更有效地利用不同类型的GPU
     blender-hip
+    # 挖矿程序
+    # xmrig
   ];
 
   home.pointerCursor = {
