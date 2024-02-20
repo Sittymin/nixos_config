@@ -187,7 +187,7 @@
       enable = true;
       theme = "Catppuccin-Mocha";
       font = {
-        name = "MonaspiceNe NFM";
+        name = "MonaspiceNe Nerd Font Mono";
         size = 12;
       };
       settings = {

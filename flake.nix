@@ -34,6 +34,7 @@
 
         modules = [
           ./configuration.nix
+          ./overlay
           nur.nixosModules.nur
           ({ config, ... }: {
             environment.systemPackages = [
