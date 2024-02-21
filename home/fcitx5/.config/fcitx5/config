@@ -37,7 +37,7 @@ ActiveByDefault=False
 # 共享输入状态
 ShareInputState=No
 # 在程序中显示预编辑文本
-PreeditEnabledByDefault=True
+PreeditEnabledByDefault=False
 # 切换输入法时显示输入法信息
 ShowInputMethodInformation=True
 # 在焦点更改时显示输入法信息

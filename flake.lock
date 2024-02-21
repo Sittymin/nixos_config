@@ -459,6 +459,22 @@
         "type": "github"
       }
     },
+    "rime_dicts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708458640,
+        "narHash": "sha256-8ZC9qt2xbV9/J6te/ngxJayvcLTDMT44/QsgmYHEc0U=",
+        "owner": "iDvel",
+        "repo": "rime-ice",
+        "rev": "362288fed5814b3fe10fe9819672767c38d836c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "iDvel",
+        "repo": "rime-ice",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "Neve": "Neve",
@@ -467,7 +483,8 @@
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
         "nixpkgs": "nixpkgs_4",
-        "nur": "nur"
+        "nur": "nur",
+        "rime_dicts": "rime_dicts"
       }
     },
     "systems": {
