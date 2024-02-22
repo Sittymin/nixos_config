@@ -75,7 +75,8 @@
     xz # xz
     p7zip # 7z
     zstd # zstd
-    unrar # rar
+    # unrar # rar
+    rar
 
     # GUI文件管理器
     cinnamon.nemo
@@ -130,6 +131,7 @@
     blender-hip
     # 挖矿程序
     # xmrig
+    epiphany
   ];
 
   home.pointerCursor = {

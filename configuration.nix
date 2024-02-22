@@ -22,13 +22,6 @@
     interval = "weekly";
     fileSystems = [ "/" ];
   };
-  # 自动挂载额外磁盘
-  fileSystems."/mnt/CT1000MX500SSD1" = {
-    device = "/dev/sda";
-    fsType = "btrfs";
-    options = [ "defaults" "noatime" "nodiratime" "user=Sittymin" ];
-  };
-
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
@@ -99,6 +92,10 @@
         PasswordAuthentication = false; # 禁止使用密码登录
       };
       openFirewall = true; # 在防火墙中打开SSH端口
+    };
+    # 启用沙盒应用程序
+    flatpak = {
+      enable = true;
     };
     pipewire = {
       enable = true;
@@ -174,8 +171,43 @@
 
   # waydroid
   virtualisation.waydroid.enable = true;
+  # 文件系统的设置大部分为flatpak解决字体问题
+  system.fsPackages = [ pkgs.bindfs ];
+  fileSystems =
+    let
+      mkRoSymBind = path: {
+        device = path;
+        fsType = "fuse.bindfs";
+        options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
+      };
+      aggregatedIcons = pkgs.buildEnv {
+        name = "system-icons";
+        paths = with pkgs; [
+          #libsForQt5.breeze-qt5  # for plasma
+          gnome.gnome-themes-extra
+        ];
+        pathsToLink = [ "/share/icons" ];
+      };
+      aggregatedFonts = pkgs.buildEnv {
+        name = "system-fonts";
+        paths = config.fonts.packages;
+        pathsToLink = [ "/share/fonts" ];
+      };
+    in
+    {
+      # 这个为挂在磁盘与上下部分独立
+      "/mnt/CT1000MX500SSD1" = {
+        device = "/dev/sda";
+        fsType = "btrfs";
+        options = [ "defaults" "noatime" "nodiratime" "user=Sittymin" ];
+      };
+      # 解决Flatpak无法访问系统字体和图标的临时办法
 
+      "/usr/share/icons" = mkRoSymBind "${aggregatedIcons}/share/icons";
+      "/usr/local/share/fonts" = mkRoSymBind "${aggregatedFonts}/share/fonts";
+    };
   fonts = {
+    fontDir.enable = true;
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Monaspace" ]; })
       #(noto-fonts.override { variants = [ "NotoSans" ]; })
