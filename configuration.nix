@@ -213,14 +213,14 @@
       #(noto-fonts.override { variants = [ "NotoSans" ]; })
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
+      # Steam的字体
+      wqy_zenhei
     ];
     fontconfig = {
       enable = true;
-      defaultFonts = {
-        emoji = [ "Noto Color Emoji" ];
-        sansSerif = [ "Noto Sans CJK SC" ];
-        monospace = [ "MonaspiceNe Nerd Font Mono" "Noto Sans CJK SC" ];
-      };
     };
+
+    # defaultFonts 会让Steam找不到字体
+    enableDefaultPackages = false;
   };
 }
