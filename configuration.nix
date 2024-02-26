@@ -127,18 +127,31 @@
       #   }
       # ];
     };
+    #  蓝牙配对的一个GUI
+    blueman.enable = true;
   };
 
 
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      intel-compute-runtime
-    ];
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Experimental = true;
+        };
+      };
+    };
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-compute-runtime
+      ];
+    };
   };
   # 允许非自由软件
   nixpkgs.config.allowUnfree = true;

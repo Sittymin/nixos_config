@@ -24,7 +24,7 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-	{ exec = 'nvim "$@"', block = true,  for = "unix" },
+	{ exec = 'neovide "$@"', block = true,  for = "unix" },
 	{ exec = 'code "%*"',    orphan = true, for = "windows" },
 ]
 open = [

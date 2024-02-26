@@ -20,7 +20,6 @@
     ".config/hypr".source = ./hypr;
     ".config/mako/config".source = ./mako/config;
     ".config/cheat".source = ./cheat;
-    ".config/neovide".source = ./neovide;
     ".config/yazi" = {
       source = ./yazi;
       recursive = true;
@@ -128,7 +127,7 @@
     # GNU 图像处理程序
     gimp
     # Blender-HIP 的目的是使Blender能够更有效地利用不同类型的GPU
-    blender-hip
+    #暂时无法构建 blender-hip
     # 挖矿程序
     # xmrig
     epiphany
