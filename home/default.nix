@@ -110,8 +110,9 @@
     # SSH 
     termius
     #wine
-    wineWowPackages.stagingFull
+    wineWow64Packages.waylandFull
     steam
+    heroic
     qq
     telegram-desktop
     # 适用于Hyprland 的截图软件
@@ -131,6 +132,7 @@
     # 挖矿程序
     # xmrig
     epiphany
+    sing-box
   ];
 
   home.pointerCursor = {
@@ -171,7 +173,10 @@
   #   "Xft.dpi" = 120;
   # };
 
-
+  wayland.windowManager.hyprland = {
+    enable = true;
+    systemd.enable = true;
+  };
 
   programs = {
     git = {
