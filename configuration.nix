@@ -155,7 +155,6 @@
   };
   # 允许非自由软件
   nixpkgs.config.allowUnfree = true;
-
   programs.hyprland = {
     enable = true;
     # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -223,21 +222,26 @@
       # "/usr/local/share/fonts" = mkRoSymBind "${aggregatedFonts}/share/fonts";
     };
   fonts = {
-    fontDir.enable = true;
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "Monaspace" ]; })
       #(noto-fonts.override { variants = [ "NotoSans" ]; })
-      # maple-mono-otf
-      noto-fonts-cjk-sans
+      # noto-fonts-cjk-sans
+      lxgw-neoxihei
+      lxgw-wenkai
       noto-fonts-color-emoji
       # Steam的字体
-      wqy_zenhei
+      # wqy_zenhei
     ];
+    fontDir.enable = true;
     fontconfig = {
       enable = true;
+      defaultFonts = {
+        emoji = [ "Noto Color Emoji" ];
+        monospace = [ "MonaspiceNe Nerd Font Mono" ];
+        sansSerif = [ "LXGW Neo XiHei" ];
+      };
     };
 
-    # defaultFonts 会让Steam找不到字体
-    enableDefaultPackages = false;
+    enableDefaultPackages = true;
   };
 }

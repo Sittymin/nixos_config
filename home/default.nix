@@ -59,6 +59,8 @@
     # vipsdisp
     # Qt图片加载库（JXL）
     libsForQt5.kimageformats
+    # GTK_image_lib
+    gdk-pixbuf
     # 基于Qt的图片浏览器
     (qview.override {
       x11Support = false;
@@ -78,7 +80,7 @@
     rar
 
     # GUI文件管理器
-    cinnamon.nemo
+    gnome.nautilus
     # adb_and_other
     android-tools
 
@@ -176,6 +178,11 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
+    extraConfig = ''
+      xwayland {
+        force_zero_scaling = true
+      }
+    '';
   };
 
   programs = {
@@ -207,6 +214,7 @@
       enable = true;
       enableNushellIntegration = true;
     };
+
   };
 
   # This value determines the Home Manager release that your
@@ -222,3 +230,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
+
+
+
