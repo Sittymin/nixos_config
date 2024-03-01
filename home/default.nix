@@ -65,6 +65,8 @@
     (qview.override {
       x11Support = false;
     })
+    # Doc view
+    evince
     # 基于 Nixvim 配置的 Neovim 的 Neve
     Neve.packages."${pkgs.system}".default
     neovide
@@ -135,6 +137,10 @@
     # xmrig
     epiphany
     sing-box
+    # gnome
+    gnome.gnome-font-viewer
+    gnome.dconf-editor
+    d-spy
   ];
 
   home.pointerCursor = {
@@ -178,11 +184,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
-    extraConfig = ''
-      xwayland {
-        force_zero_scaling = true
-      }
-    '';
+    xwayland.enable = true;
   };
 
   programs = {

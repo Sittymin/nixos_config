@@ -11,8 +11,6 @@
         applications
         # 翻译（:en>zh 翻译原文，或者简写:zh 翻译原文）
         translate
-        # 搜索文件
-        kidex
       ];
       width.fraction = 0.3;
       y.absolute = 15;
@@ -21,7 +19,8 @@
       layer = "overlay";
       hidePluginInfo = false;
       closeOnClick = true;
-      showResultsImmediately = false;
+      # 立即显示结果
+      showResultsImmediately = true;
       maxEntries = null;
     };
     extraCss = ''

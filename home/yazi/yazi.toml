@@ -28,24 +28,19 @@ edit = [
 ]
 open = [
 	{ exec = 'xdg-open "$@"',                desc = "Open", for = "linux" },
-	{ exec = 'open "$@"',                    desc = "Open", for = "macos" },
-	{ exec = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" }
 ]
 reveal = [
-	{ exec = 'open -R "$1"',                          desc = "Reveal", for = "macos" },
-	{ exec = 'explorer /select, "%1"', orphan = true, desc = "Reveal", for = "windows" },
 	{ exec = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
 	{ exec = 'unar "$1"', desc = "Extract here", for = "unix" },
-	{ exec = 'unar "%1"', desc = "Extract here", for = "windows" },
 ]
 play = [
 	{ exec = 'mpv "$@"', orphan = true, for = "unix" },
-	{ exec = 'mpv "%1"', orphan = true, for = "windows" },
-	{ exec = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info", for = "unix" },
 ]
-
+doc = [
+{ exec = 'evince "$@"', orphan = true},
+]
 [open]
 rules = [
 	{ name = "*/", use = [ "edit", "open", "reveal" ] },
@@ -67,6 +62,20 @@ rules = [
 	{ mime = "application/x-7z-compressed", use = [ "extract", "reveal" ] },
 	{ mime = "application/x-rar",           use = [ "extract", "reveal" ] },
 	{ mime = "application/xz",              use = [ "extract", "reveal" ] },
+
+  # Doc view
+	{ mime = "application/x-cb7",              use = [ "doc" ] },
+  { mime = "application/x-cbr",              use = [ "doc" ] },
+  { mime = "application/x-cbt",              use = [ "doc" ] },
+  { mime = "application/x-cbz",              use = [ "doc" ] },
+  { mime = "image/vnd.djvu",              use = [ "doc" ] },
+  { mime = "application/x-dvi",              use = [ "doc" ] },
+  { mime = "application/oxps",              use = [ "doc" ] },
+  { mime = "application/vnd.ms-xpsdocument",              use = [ "doc" ] },
+  { mime = "application/pdf",              use = [ "doc" ] },
+  { mime = "application/postscript",              use = [ "doc" ] },
+  { mime = "image/tiff",              use = [ "doc" ] },
+
 
 	{ mime = "*", use = [ "open", "reveal" ] },
 ]
