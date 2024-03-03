@@ -1,0 +1,19 @@
+基本 zpaqfranz 命令
+
+a - 添加文件到存档
+zpaqfranz a archive.zpaq file1 file2 folder1
+
+e - 从存档中提取文件
+zpaqfranz e archive.zpaq file1 file2 folder1
+
+l - 列出存档中的文件
+zpaqfranz l archive.zpaq
+
+i - 显示存档信息
+zpaqfranz i archive.zpaq
+
+t - 测试存档的完整性
+zpaqfranz t archive.zpaq
+
+v - 验证存档
+zpaqfranz v archive.zpaq
