@@ -4,9 +4,9 @@
 
 [manager]
 ratio          = [ 1, 4, 3 ]
-sort_by        = "modified"
+sort_by        = "natural"
 sort_sensitive = true
-sort_reverse   = true
+sort_reverse   = false
 sort_dir_first = true
 linemode       = "size"
 show_hidden    = true
@@ -17,6 +17,7 @@ tab_size        = 2
 max_width       = 600
 max_height      = 900
 cache_dir       = ""
+image_filter    = "triangle"
 image_quality   = 75
 sixel_fraction  = 15
 ueberzug_scale  = 1
@@ -36,9 +37,9 @@ extract = [
 	{ exec = 'unar "$1"', desc = "Extract here", for = "unix" },
 ]
 play = [
-	{ exec = 'mpv "$@"', orphan = true, for = "unix" },
+	{ exec = 'mpv --force-window "$@"', orphan = true, for = "unix" },
 ]
-doc = [
+evince_open = [
 { exec = 'evince "$@"', orphan = true},
 ]
 [open]
@@ -63,18 +64,18 @@ rules = [
 	{ mime = "application/x-rar",           use = [ "extract", "reveal" ] },
 	{ mime = "application/xz",              use = [ "extract", "reveal" ] },
 
-  # Doc view
-	{ mime = "application/x-cb7",              use = [ "doc" ] },
-  { mime = "application/x-cbr",              use = [ "doc" ] },
-  { mime = "application/x-cbt",              use = [ "doc" ] },
-  { mime = "application/x-cbz",              use = [ "doc" ] },
-  { mime = "image/vnd.djvu",              use = [ "doc" ] },
-  { mime = "application/x-dvi",              use = [ "doc" ] },
-  { mime = "application/oxps",              use = [ "doc" ] },
-  { mime = "application/vnd.ms-xpsdocument",              use = [ "doc" ] },
-  { mime = "application/pdf",              use = [ "doc" ] },
-  { mime = "application/postscript",              use = [ "doc" ] },
-  { mime = "image/tiff",              use = [ "doc" ] },
+  # Evince view
+	{ mime = "application/x-cb7",              use = [ "evince_open"  ] },
+  { mime = "application/x-cbr",              use = [ "evince_open"  ] },
+  { mime = "application/x-cbt",              use = [ "evince_open"  ] },
+  { mime = "application/x-cbz",              use = [ "evince_open"  ] },
+  { mime = "image/vnd.djvu",                 use = [ "evince_open"  ] },
+  { mime = "application/x-dvi",              use = [ "evince_open"  ] },
+  { mime = "application/oxps",               use = [ "evince_open"  ] },
+  { mime = "application/vnd.ms-xpsdocument", use = [ "evince_open"  ] },
+  { mime = "application/pdf",                use = [ "evince_open"  ] },
+  { mime = "application/postscript",         use = [ "evince_open"  ] },
+  { mime = "image/tiff",                     use = [ "evince_open"  ] },
 
 
 	{ mime = "*", use = [ "open", "reveal" ] },

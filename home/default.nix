@@ -80,6 +80,7 @@
     zstd # zstd
     # unrar # rar
     rar
+    zpaqfranz
 
     # GUI文件管理器
     gnome.nautilus

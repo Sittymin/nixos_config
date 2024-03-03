@@ -81,5 +81,12 @@
                 padding: 5px;
               }
     '';
+    extraConfigFiles."applications.ron".text = ''
+      Config(
+        desktop_actions: false,
+        max_entries: 7, 
+        terminal: Some("kitty"),
+      )
+    '';
   };
 }

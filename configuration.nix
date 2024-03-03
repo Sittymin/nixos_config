@@ -227,12 +227,9 @@
       (nerdfonts.override { fonts = [ "Monaspace" ]; })
       #(noto-fonts.override { variants = [ "NotoSans" ]; })
       # noto-fonts-cjk-sans
-      sarasa-gothic
       lxgw-neoxihei
       lxgw-wenkai
       noto-fonts-color-emoji
-      # Steam的字体
-      # wqy_zenhei
     ];
     fontDir.enable = true;
     fontconfig = {
