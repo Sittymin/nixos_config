@@ -33,7 +33,7 @@
 
             	* {
             	  transition: 200ms ease;
-            	  font-family: "JetBrainsMono Nerd Font";
+            	  font-family: "Monaspace Neon";
             	  font-size: 1.3rem;
             	}
 

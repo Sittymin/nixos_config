@@ -9,6 +9,7 @@
     ./anyrun
     ./minecraft
     ./shell
+    ./fontconfig
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -116,7 +117,6 @@
     termius
     #wine
     wineWow64Packages.waylandFull
-    steam
     heroic
     qq
     telegram-desktop
@@ -203,7 +203,7 @@
       enable = true;
       theme = "Catppuccin-Mocha";
       font = {
-        name = "MonaspiceNe Nerd Font Mono";
+        name = "Monaspace Neon Var Medium";
         size = 12;
       };
       settings = {
@@ -217,7 +217,6 @@
       enable = true;
       enableNushellIntegration = true;
     };
-
   };
 
   # This value determines the Home Manager release that your

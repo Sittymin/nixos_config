@@ -155,12 +155,44 @@
   };
   # 允许非自由软件
   nixpkgs.config.allowUnfree = true;
-  programs.hyprland = {
-    enable = true;
-    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  programs = {
+    # Steam参考于
+    # https://github.com/fufexan/dotfiles/blob/main/system/programs/steam.nix
+    steam = {
+      enable = true;
+
+      # fix gamescope inside steam
+      package = pkgs.steam.override {
+        extraPkgs = pkgs:
+          with pkgs; [
+            keyutils
+            libkrb5
+            libpng
+            libpulseaudio
+            libvorbis
+            stdenv.cc.cc.lib
+            xorg.libXcursor
+            xorg.libXi
+            xorg.libXinerama
+            xorg.libXScrnSaver
+          ];
+      };
+    };
+    hyprland = {
+      enable = true;
+      # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    };
   };
   xdg.portal = {
     enable = true;
+    # https://github.com/NixOS/nixpkgs/issues/160923
+    xdgOpenUsePortal = true;
+    # 设置后端关联
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [ "gtk" "hyprland" ];
+    };
+
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
@@ -224,9 +256,15 @@
     };
   fonts = {
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Monaspace" ]; })
-      #(noto-fonts.override { variants = [ "NotoSans" ]; })
-      # noto-fonts-cjk-sans
+      # Icon fonts
+      material-symbols
+      # Nerd Fonts
+      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      # (nerdfonts.override { fonts = [ "Monaspace" ]; })
+      # mono fonts
+      # kitty用的是Var版本
+      monaspace
+      #noto-fonts
       lxgw-neoxihei
       lxgw-wenkai
       noto-fonts-color-emoji
@@ -236,11 +274,13 @@
       enable = true;
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
-        monospace = [ "MonaspiceNe Nerd Font Mono" ];
-        sansSerif = [ "LXGW Neo XiHei" ];
+        monospace = [ "Monaspace Neon" "Noto Color Emoji" ];
+        sansSerif = [ "LXGW Neo XiHei" "Noto Color Emoji" ];
+        serif = [ "LXGW WenKai" "Noto Color Emoji" ];
       };
     };
-
-    enableDefaultPackages = true;
+    # 触发问题比解决问题多
+    # https://github.com/fufexan/dotfiles/blob/0cf7097bb093f3f60a165981a1996d9cf6e96f9f/system/programs/fonts.nix#L21
+    enableDefaultPackages = false;
   };
 }

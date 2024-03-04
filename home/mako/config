@@ -30,7 +30,7 @@ on-notify=none
 #       on-button-left=invoke-action mail-reply-sender
 
 # 样式选项
-font=更纱黑体 SC
+font=LXGW Neo XiHei
 
 background-color=#282a36
 
