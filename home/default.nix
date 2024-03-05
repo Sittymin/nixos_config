@@ -10,6 +10,7 @@
     ./minecraft
     ./shell
     ./fontconfig
+    ./hypr
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -18,7 +19,6 @@
 
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
   home.file = {
-    ".config/hypr".source = ./hypr;
     ".config/mako/config".source = ./mako/config;
     ".config/cheat".source = ./cheat;
     ".config/yazi" = {
@@ -51,7 +51,8 @@
   home.packages = with pkgs;[
     hyfetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
     cpu-x
-    hyprpaper # 一个壁纸软件
+    #hyprpaper # 一个壁纸软件
+    mpvpaper
     mpv
     libjxl
     # 一个回收站工具
@@ -182,11 +183,6 @@
   #   "Xft.dpi" = 120;
   # };
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    systemd.enable = true;
-    xwayland.enable = true;
-  };
 
   programs = {
     git = {
