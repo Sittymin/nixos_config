@@ -40,14 +40,16 @@ play = [
 	{ exec = 'mpv --force-window "$@"', orphan = true, for = "unix" },
 ]
 evince_open = [
-{ exec = 'evince "$@"', orphan = true},
+  { exec = 'evince "$@"', orphan = true},
+]
+imv_open = [
+  { exec = 'imv -n "$@" ./ -u linear', orphan = true},
 ]
 [open]
 rules = [
 	{ name = "*/", use = [ "edit", "open", "reveal" ] },
 
 	{ mime = "text/*",  use = [ "edit", "reveal" ] },
-	{ mime = "image/*", use = [ "open", "reveal" ] },
 	{ mime = "video/*", use = [ "play", "reveal" ] },
 	{ mime = "audio/*", use = [ "play", "reveal" ] },
 	{ mime = "inode/x-empty", use = [ "edit", "reveal" ] },
@@ -75,8 +77,18 @@ rules = [
   { mime = "application/vnd.ms-xpsdocument", use = [ "evince_open"  ] },
   { mime = "application/pdf",                use = [ "evince_open"  ] },
   { mime = "application/postscript",         use = [ "evince_open"  ] },
-  { mime = "image/tiff",                     use = [ "evince_open"  ] },
 
+# imv view
+  { mime = "image/tiff",                     use = [ "imv_open"  ] },
+  { mime = "image/x-tiff",                   use = [ "imv_open"  ] },
+  { mime = "image/png",                      use = [ "imv_open"  ] },
+  { mime = "image/jpeg",                     use = [ "imv_open"  ] },
+  { mime = "image/svg+xml",                  use = [ "imv_open"  ] },
+  { mime = "image/heif",                     use = [ "imv_open"  ] },
+  { mime = "image/heif-sequence",            use = [ "imv_open"  ] },
+  { mime = "image/heic",                     use = [ "imv_open"  ] },
+  { mime = "image/heic-sequence",            use = [ "imv_open"  ] },
+  { mime = "image/jxl",                      use = [ "imv_open"  ] },
 
 	{ mime = "*", use = [ "open", "reveal" ] },
 ]

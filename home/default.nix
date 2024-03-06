@@ -1,4 +1,9 @@
-{ config, pkgs, Neve, ... }:
+{ nixpkgs-wayland
+, config
+, pkgs
+, Neve
+, ...
+}:
 
 {
 
@@ -64,9 +69,10 @@
     # GTK_image_lib
     gdk-pixbuf
     # 基于Qt的图片浏览器
-    (qview.override {
-      x11Support = false;
-    })
+    # (qview.override {
+    #   x11Support = false;
+    # })
+    nixpkgs-wayland.packages.${pkgs.system}.imv
     # Doc view
     evince
     # 基于 Nixvim 配置的 Neovim 的 Neve

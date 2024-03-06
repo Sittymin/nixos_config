@@ -186,12 +186,12 @@
   xdg.portal = {
     enable = true;
     # https://github.com/NixOS/nixpkgs/issues/160923
-    xdgOpenUsePortal = true;
+    # xdgOpenUsePortal = true;
     # 设置后端关联
-    # config = {
-    #   common.default = [ "gtk" ];
-    #   hyprland.default = [ "hyprland" "gtk" ];
-    # };
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [ "hyprland" "gtk" ];
+    };
 
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };

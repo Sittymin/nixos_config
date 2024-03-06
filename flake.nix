@@ -7,6 +7,8 @@
       url = "github:nix-community/NUR";
     };
 
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+
     # hyprland.url = "github:hyprwm/Hyprland";
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
