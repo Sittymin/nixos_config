@@ -149,7 +149,10 @@
       driSupport32Bit = true;
       extraPackages = with pkgs; [
         intel-media-driver
+
         intel-compute-runtime
+        # 用于X11与Wayland硬件加速互通 
+        libvdpau-va-gl
       ];
     };
   };
@@ -210,7 +213,12 @@
     mesa
 
     wireplumber
-
+    # VA-API（视频加速API）的实现
+    libva
+    # VA-API的一组实用工具和示例
+    libva-utils
+    # 英特尔视频处理库
+    libvpl
     # 音频兼容层(当前对于我的世界有用)
     alsa-oss
     # 显示文件类型的程序

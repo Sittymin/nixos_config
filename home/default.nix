@@ -73,6 +73,7 @@
     #   x11Support = false;
     # })
     nixpkgs-wayland.packages.${pkgs.system}.imv
+    jellyfin-ffmpeg
     # Doc view
     evince
     # 基于 Nixvim 配置的 Neovim 的 Neve
@@ -94,6 +95,7 @@
     gnome.nautilus
     # adb_and_other
     android-tools
+    scrcpy
 
     python3
     # JDK
@@ -218,6 +220,12 @@
     yazi = {
       enable = true;
       enableNushellIntegration = true;
+    };
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+      ];
     };
   };
 
