@@ -60,6 +60,7 @@
     mpvpaper
     mpv
     libjxl
+    libavif
     # 一个回收站工具
     trashy
     # 基于libvips的图片浏览器
