@@ -25,6 +25,7 @@
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
   home.file = {
     ".config/mako/config".source = ./mako/config;
+    ".config/hyfetch.json".source = ./hyfetch.json;
     ".config/cheat".source = ./cheat;
     ".config/yazi" = {
       source = ./yazi;
@@ -59,6 +60,8 @@
     #hyprpaper # 一个壁纸软件
     mpvpaper
     mpv
+    # Log
+    tailspin
     libjxl
     libavif
     # 一个回收站工具
@@ -77,6 +80,8 @@
     jellyfin-ffmpeg
     # Doc view
     evince
+    # EPUB and other
+    foliate
     # 基于 Nixvim 配置的 Neovim 的 Neve
     Neve.packages."${pkgs.system}".default
     neovide
@@ -107,8 +112,6 @@
 
     # 与Nix相关的工具，提供更详细的日志输出。
     nix-output-monitor
-
-    glow # markdown previewer in terminal
 
     btop # 系统和网络监控工具
     intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
@@ -207,14 +210,15 @@
     kitty = {
       enable = true;
       theme = "Catppuccin-Mocha";
-      font = {
-        name = "Monaspace Neon Var Medium";
-        size = 12;
-      };
       settings = {
         tab_bar_edge = "top";
         background_opacity = "0.5";
         # 模糊需要在Hyprland
+        font_family = "Monaspace Neon Var Medium";
+        bold_font = "Monaspace Neon Var ExtraBold";
+        italic_font = "Monaspace Neon Var Medium Italic";
+        bold_italic_font = "Monaspace Neon Var ExtraBold Italic";
+        font_size = "12.0";
       };
 
     };

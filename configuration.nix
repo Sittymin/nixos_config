@@ -211,7 +211,7 @@
     wget
 
     mesa
-
+    ntfs3g
     wireplumber
     # VA-API（视频加速API）的实现
     libva
@@ -225,8 +225,11 @@
     file
   ];
 
-  # waydroid
-  virtualisation.waydroid.enable = true;
+  # waydroid and docker
+  virtualisation = {
+    waydroid.enable = true;
+    docker.enable = true;
+  };
   # 文件系统的设置大部分为flatpak解决字体问题
   system.fsPackages = [ pkgs.bindfs ];
   fileSystems =
