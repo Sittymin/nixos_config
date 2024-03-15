@@ -6,7 +6,6 @@
 }:
 
 {
-
   imports = [
     ./fcitx5
     ./waybar
@@ -185,7 +184,14 @@
   # 设置GTK颜色偏好为暗色
   dconf = {
     enable = true;
-    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+    settings = {
+      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      # KVM
+      "org/virt-manager/virt-manager/connections" = {
+        autoconnect = [ "qemu:///system" ];
+        uris = [ "qemu:///system" ];
+      };
+    };
   };
 
 
@@ -220,6 +226,10 @@
         bold_italic_font = "Monaspace Neon Var ExtraBold Italic";
         font_size = "12.0";
       };
+      extraConfig = "
+        symbol_map U+4E00-U+9FFF LXGW Neo XiHei
+        symbol_map U+2300-U+23FF,U+2600-U+26FF,U+2700-U+27BF,U+2B58,U+E000-U+F8FF,U+F0000-U+FFFFD Symbols Nerd Font
+      ";
 
     };
     yazi = {
@@ -247,6 +257,3 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
-
-
-

@@ -65,7 +65,8 @@
     mutableUsers = false;
     users.Sittymin = {
       isNormalUser = true; # 这是一个普通用户，不是管理员
-      extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+      #                                                                   KVM
+      extraGroups = [ "networkmanager" "wheel" "video" "audio" "libvirtd" ];
       home = "/home/Sittymin"; # 这个用户的家目录
       shell = pkgs.nushell; # 这个用户使用nushell作为默认shell
       # 使用mkpasswd -m yescrypt生成的密码
@@ -185,6 +186,8 @@
       enable = true;
       # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     };
+    # KVM
+    virt-manager.enable = true;
   };
   xdg.portal = {
     enable = true;
@@ -229,42 +232,17 @@
   virtualisation = {
     waydroid.enable = true;
     docker.enable = true;
+    # KVM
+    libvirtd.enable = true;
   };
-  # 文件系统的设置大部分为flatpak解决字体问题
-  system.fsPackages = [ pkgs.bindfs ];
-  fileSystems =
-    let
-      mkRoSymBind = path: {
-        device = path;
-        fsType = "fuse.bindfs";
-        options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
-      };
-      aggregatedIcons = pkgs.buildEnv {
-        name = "system-icons";
-        paths = with pkgs; [
-          #libsForQt5.breeze-qt5  # for plasma
-          gnome.gnome-themes-extra
-        ];
-        pathsToLink = [ "/share/icons" ];
-      };
-      aggregatedFonts = pkgs.buildEnv {
-        name = "system-fonts";
-        paths = config.fonts.packages;
-        pathsToLink = [ "/share/fonts" ];
-      };
-    in
-    {
-      # 这个为挂在磁盘与上下部分独立
-      "/mnt/CT1000MX500SSD1" = {
-        device = "/dev/sda";
-        fsType = "btrfs";
-        options = [ "defaults" "noatime" "nodiratime" "user=Sittymin" ];
-      };
-      # 解决Flatpak无法访问系统字体和图标的临时办法
-
-      "/usr/share/icons" = mkRoSymBind "${aggregatedIcons}/share/icons";
-      "/usr/local/share/fonts" = mkRoSymBind "${aggregatedFonts}/share/fonts";
+  fileSystems = {
+    # 这个为挂载磁盘与上下部分独立
+    "/mnt/CT1000MX500SSD1" = {
+      device = "/dev/sda";
+      fsType = "btrfs";
+      options = [ "defaults" "noatime" "nodiratime" "user=Sittymin" ];
     };
+  };
   fonts = {
     packages = with pkgs; [
       # Icon fonts
