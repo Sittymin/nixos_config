@@ -259,11 +259,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710506163,
-        "narHash": "sha256-Xpl2LzbAIUHcTkAZ08UZM0USxVaQn194I8ma9c8wnAA=",
+        "lastModified": 1710714957,
+        "narHash": "sha256-eZCxuF58YWgaJMMRrn8oRkwRhxooe5kBS/s2wRVr9PA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "dc2f3812b41f825ed466c24c4211160d75cb890c",
+        "rev": "7b3fca5adcf6c709874a8f2e0c364fe9c58db989",
         "type": "github"
       },
       "original": {
@@ -278,11 +278,11 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1710184940,
-        "narHash": "sha256-FzYm4td3FJfzOAuEkCXt3KdUgZuA072OAQXqIq+IAMo=",
+        "lastModified": 1710677371,
+        "narHash": "sha256-yqjXunc+Zvqf6rcH7W9wMvhr18jMZhDvIdnretlfj78=",
         "owner": "nix-community",
         "repo": "lib-aggregate",
-        "rev": "45b75bf534592c0c1c881a1c447f7fdb37a87eaf",
+        "rev": "f890211817b941d9ed9de48d62ba8553fa2c20f3",
         "type": "github"
       },
       "original": {
@@ -372,11 +372,11 @@
     },
     "nixpkgs-lib": {
       "locked": {
-        "lastModified": 1710031547,
-        "narHash": "sha256-pkUg3hOKuGWMGF9WEMPPN/G4pqqdbNGJQ54yhyQYDVY=",
+        "lastModified": 1710636348,
+        "narHash": "sha256-/kB+ZWSdkZjbZ0FTqm0u84sf2jFS+30ysaEajmBjtoY=",
         "owner": "nix-community",
         "repo": "nixpkgs.lib",
-        "rev": "630ebdc047ca96d8126e16bb664c7730dc52f6e6",
+        "rev": "fa827dda806c5aa98f454da4c567991ab8ce422c",
         "type": "github"
       },
       "original": {
@@ -393,11 +393,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1710506805,
-        "narHash": "sha256-IauKMKwC3ut3aTSQUCp9fY7pAGb+8g6OkYtYiJ9zVks=",
+        "lastModified": 1710757050,
+        "narHash": "sha256-BYpYqc1th7+FJV8ve6NtI+ocs9BtGfXB0W47L2nB1zE=",
         "owner": "nix-community",
         "repo": "nixpkgs-wayland",
-        "rev": "b1305ecfd4b53f97cf106b0b9b6493350b01db40",
+        "rev": "cb7f2ffeb1a485aa5217d54fcf7eedce01d6e17a",
         "type": "github"
       },
       "original": {
@@ -424,11 +424,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1710451336,
-        "narHash": "sha256-pP86Pcfu3BrAvRO7R64x7hs+GaQrjFes+mEPowCfkxY=",
+        "lastModified": 1710631334,
+        "narHash": "sha256-rL5LSYd85kplL5othxK5lmAtjyMOBg390sGBTb3LRMM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d691274a972b3165335d261cc4671335f5c67de9",
+        "rev": "c75037bbf9093a2acb617804ee46320d6d1fea5a",
         "type": "github"
       },
       "original": {
@@ -456,11 +456,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1710451336,
-        "narHash": "sha256-pP86Pcfu3BrAvRO7R64x7hs+GaQrjFes+mEPowCfkxY=",
+        "lastModified": 1710631334,
+        "narHash": "sha256-rL5LSYd85kplL5othxK5lmAtjyMOBg390sGBTb3LRMM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d691274a972b3165335d261cc4671335f5c67de9",
+        "rev": "c75037bbf9093a2acb617804ee46320d6d1fea5a",
         "type": "github"
       },
       "original": {
@@ -494,11 +494,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1710506669,
-        "narHash": "sha256-9m+oWHbBZi3c7YyiMs5hiOIqCG+WgP1sMA+s60AtWOU=",
+        "lastModified": 1710758009,
+        "narHash": "sha256-E60fc4liidYWo+0FKGwDFndhcmV40ZNwfDbROTwaInA=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "90155b2212a941712b74575db564c6afd24492b5",
+        "rev": "fc4f9acb61749a12a7ff7ac4020142b121a5dd25",
         "type": "github"
       },
       "original": {
@@ -540,11 +540,11 @@
     "rime_dicts": {
       "flake": false,
       "locked": {
-        "lastModified": 1710175943,
-        "narHash": "sha256-Io0+4xlzAa1Albp6rSAMlCvRfkRl2pfKVrplzWUC4lM=",
+        "lastModified": 1710695469,
+        "narHash": "sha256-1lxBjVIIIDlz6JGZrRf2ZjCAiEQN9Ru8MSX12tDoGo8=",
         "owner": "iDvel",
         "repo": "rime-ice",
-        "rev": "a33bd8d204c3f8a47507fa8f71ccfc93fa44d1e0",
+        "rev": "563ef2645ba995c45ba109dde60f7ac64a7443b9",
         "type": "github"
       },
       "original": {

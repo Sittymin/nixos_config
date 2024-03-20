@@ -128,7 +128,7 @@
     # SSH 
     termius
     #wine
-    wineWow64Packages.waylandFull
+    wineWowPackages.waylandFull
     heroic
     qq
     telegram-desktop
@@ -191,6 +191,8 @@
         autoconnect = [ "qemu:///system" ];
         uris = [ "qemu:///system" ];
       };
+      # KVM 默认虚拟机使用缩放
+      "org/virt-manager/virt-manager/console".scaling = 2;
     };
   };
 

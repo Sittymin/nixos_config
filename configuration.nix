@@ -15,6 +15,14 @@
       efi.canTouchEfiVariables = true; # 允许GRUB修改EFI变量
       systemd-boot.enable = true; # 启用systemd-boot引导
     };
+    # NOTE: 启用嵌套虚拟化
+    # NOTE: 不模拟无效的客户机状态
+    # NOTE: 忽略模型特定的寄存器（MSRs）
+    extraModprobeConfig = ''
+      options kvm_intel nested=1
+      options kvm_intel emulate_invalid_guest_state=0
+      options kvm ignore_msrs=1
+    '';
   };
   # Btrfs自动清理
   services.btrfs.autoScrub = {
@@ -65,7 +73,7 @@
     mutableUsers = false;
     users.Sittymin = {
       isNormalUser = true; # 这是一个普通用户，不是管理员
-      #                                                                   KVM
+      #                                                          KVM
       extraGroups = [ "networkmanager" "wheel" "video" "audio" "libvirtd" ];
       home = "/home/Sittymin"; # 这个用户的家目录
       shell = pkgs.nushell; # 这个用户使用nushell作为默认shell
@@ -150,7 +158,6 @@
       driSupport32Bit = true;
       extraPackages = with pkgs; [
         intel-media-driver
-
         intel-compute-runtime
         # 用于X11与Wayland硬件加速互通 
         libvdpau-va-gl
@@ -220,8 +227,12 @@
     libva
     # VA-API的一组实用工具和示例
     libva-utils
-    # 英特尔视频处理库
+    # Intel 视频处理库
     libvpl
+    # Intel OneAPI 数学核心库
+    mkl
+    # Intel OneAPI深度神经网络库
+    oneDNN
     # 音频兼容层(当前对于我的世界有用)
     alsa-oss
     # 显示文件类型的程序
@@ -253,10 +264,12 @@
       # mono fonts
       # kitty用的是Var版本
       monaspace
-      #noto-fonts
+      # noto-fonts
       lxgw-neoxihei
       lxgw-wenkai
       noto-fonts-color-emoji
+      # Steam maybe
+      wqy_zenhei
     ];
     fontDir.enable = true;
     fontconfig = {
