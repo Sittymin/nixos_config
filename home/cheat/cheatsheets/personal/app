@@ -19,7 +19,6 @@
 - intel_gpu_top       一个工具，用于监视Intel GPU的使用情况。
 - lsof                一个工具，用于列出打开的文件和使用它们的进程。
 - helvum              一个图形化的PipeWire音频路由器和混音器。
-- termius             一个跨平台的SSH客户端。
 - wine                一个允许在Linux和其他Unix-like系统上运行Windows应用程序的兼容性层。
 - heroic              一个开源的Epic Games Launcher替代品。
 - qq                  腾讯QQ，一个在中国广泛使用的即时通讯软件。

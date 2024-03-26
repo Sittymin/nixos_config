@@ -6,22 +6,28 @@
 {
   nixpkgs.overlays = [
     (final: prev: {
-      # kitty = prev.kitty.overrideAttrs (oldAttrs: rec {
-      #   version = "0.31.0";
+      # pythonPackagesExtensions =
+      #   prev.pythonPackagesExtensions
+      #   ++ [
+      #     (
+      #       python-final: python-prev: {
+      #         catppuccin = python-prev.catppuccin.overridePythonAttrs (oldAttrs: rec {
+      #           version = "1.3.2";
+      #           src = prev.fetchFromGitHub {
+      #             owner = "catppuccin";
+      #             repo = "python";
+      #             rev = "refs/tags/v${version}";
+      #             hash = "sha256-spPZdQ+x3isyeBXZ/J2QE6zNhyHRfyRQGiHreuXzzik=";
+      #           };
       #
-      #   src = prev.fetchFromGitHub {
-      #     owner = "kovidgoyal";
-      #     repo = "kitty";
-      #     rev = "refs/tags/v${version}";
-      #     hash = "sha256-VWWuC4T0pyTgqPNm0gNL1j3FShU5b8S157C1dKLon1g=";
-      #   };
-      #
-      #   goModules = (prev.buildGoModule {
-      #     pname = "kitty-go-modules";
-      #     inherit src version;
-      #     vendorHash = "sha256-OyZAWefSIiLQO0icxMIHWH3BKgNas8HIxLcse/qWKcU=";
-      #   }).goModules;
-      # });
+      #           # can be removed next version
+      #           disabledTestPaths = [
+      #             "tests/test_flavour.py" # would download a json to check correctness of flavours
+      #           ];
+      #         });
+      #       }
+      #     )
+      #   ];
       monaspace = prev.monaspace.overrideAttrs (finalAttrs: previousAttrs: {
         installPhase = ''
           runHook preInstall

@@ -7,9 +7,13 @@
       url = "github:nix-community/NUR";
     };
 
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
-    # hyprland.url = "github:hyprwm/Hyprland";
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -42,9 +46,18 @@
           ./configuration.nix
           ./overlay
           nur.nixosModules.nur
+          # PERF: nh NixOS 模块提供了一种垃圾回收方式，可替代默认的垃圾回收方式
+          inputs.nh.nixosModules.default
+          {
+            nh = {
+              enable = true;
+              clean.enable = true;
+              clean.extraArgs = "--keep-since 4d --keep 3";
+            };
+          }
           ({ config, ... }: {
             environment.systemPackages = [
-              # 主要用于给waydroid提供转译层
+              # NOTE:主要用于给waydroid提供转译层
               # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
               config.nur.repos.ataraxiasjel.waydroid-script
               # config.nur.repos.gricad.intel-oneapi
@@ -55,10 +68,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            # 这里的 import 函数在前面 Nix 语法中介绍过了，不再赘述
             home-manager.users.Sittymin = import ./home;
 
-            # 使用 home-manager.extraSpecialArgs 自定义传递给 ./home.nix 的参数
+            # NOTE:使用 home-manager.extraSpecialArgs 自定义传递给 ./home.nix 的参数
             # 取消注释下面这一行，就可以在 home.nix 中使用 flake 的所有 inputs 参数了
             home-manager.extraSpecialArgs = inputs;
           }

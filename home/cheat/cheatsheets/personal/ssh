@@ -1,0 +1,20 @@
+连接到远程服务器
+使用用户名 "user" 连接到主机 "host"
+  ssh user@host:
+使用端口 "port" 连接到主机 "host"
+  ssh -p port user@host
+使用私钥文件 "keyfile" 进行身份验证
+  ssh -i keyfile user@host
+    强制使用密钥连接(如果远程支持密码连接必须强制)
+    ssh -o PreferredAuthentications=publickey user@host
+
+端口转发：
+将本地端口 "local_port" 转发到远程主机 "remote_host" 的端口 "remote_port"
+  ssh -L local_port:remote_host:remote_port user@host
+将远程端口 "remote_port" 转发到本地主机 "local_host" 的端口 "local_port"
+  ssh -R remote_port:local_host:local_port user@host
+其他常用选项
+-v: 显示详细的连接信息
+-q: 静默模式，不显示任何信息
+-C: 压缩数据传输
+-X: 启用 X11 转发

@@ -110,7 +110,8 @@
     nodejs_21
 
     # 与Nix相关的工具，提供更详细的日志输出。
-    nix-output-monitor
+    # nh 内置
+    # nix-output-monitor
 
     btop # 系统和网络监控工具
     intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
@@ -125,8 +126,6 @@
     # 通知程序
     mako
 
-    # SSH 
-    termius
     #wine
     wineWowPackages.waylandFull
     heroic
@@ -141,11 +140,11 @@
     # 矢量图形编辑器
     inkscape
     # 绘画应用程序
-    krita
+    # krita
     # GNU 图像处理程序
-    gimp
+    # gimp
     # Blender-HIP 的目的是使Blender能够更有效地利用不同类型的GPU
-    #暂时无法构建 blender-hip
+    blender-hip
     # 挖矿程序
     # xmrig
     epiphany
