@@ -76,7 +76,11 @@
     #   x11Support = false;
     # })
     nixpkgs-wayland.packages.${pkgs.system}.imv
-    jellyfin-ffmpeg
+    (ffmpeg-full.override {
+      withVpl = true;
+      withMfx = false;
+    })
+    android-studio
     # Doc view
     evince
     # EPUB and other
@@ -153,6 +157,12 @@
     gnome.gnome-font-viewer
     gnome.dconf-editor
     d-spy
+    # Matrix群组消息应用程序
+    # fractal
+    # 浏览联邦网络(Mastodon)
+    # tuba
+    # Markdown编辑器
+    apostrophe
   ];
 
   home.pointerCursor = {

@@ -86,7 +86,7 @@
     mutableUsers = false;
     users.Sittymin = {
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "wheel" "video" "audio" "libvirtd" ];
+      extraGroups = [ "networkmanager" "wheel" "video" "audio" "libvirtd" "docker" ];
       # NOTE:家目录
       home = "/home/Sittymin";
       # NOTE:默认shell
@@ -173,6 +173,10 @@
       driSupport32Bit = true;
       extraPackages = with pkgs; [
         intel-media-driver
+        # ffmpeg硬件编解码仍然需要上面的
+        # 上面的应该被onevpl代替
+        # ffmpeg -init_hw_device qsv=hw -filter_hw_device hw -v verbose -i input.mp4 -c:v av1_qsv output.mkv
+        onevpl-intel-gpu
         intel-compute-runtime
         # NOTE:用于X11与Wayland硬件加速互通 
         libvdpau-va-gl
@@ -254,6 +258,8 @@
     # PERF: nh
     # NOTE: https://github.com/viperML/nh
     inputs.nh.packages.${ pkgs.system }.default
+    # Other Linux
+    distrobox
   ];
 
   # NOTE:虚拟环境 
