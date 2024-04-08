@@ -22,11 +22,11 @@ umount <挂载点>
 常用选项：
 
     -t <文件系统类型>：指定要挂载的文件系统类型。
-fdisk 中显示的与-t指定的文件系统类型的对应关系：
+lsblk -f 中显示的与-t指定的文件系统类型的对应关系：
   Windows:
       NTFS: ntfs3
       FAT32: vfat
-      FAT16: msdos
+      exfat: exfat
   Mac:
       HFS+: hfsplus
       APFS: apfs

@@ -104,7 +104,12 @@
     gnome.nautilus
     # adb_and_other
     android-tools
+    # MTP
+    android-file-transfer
     scrcpy
+
+    # 格式化ntfs需要，挂载请使用ntfs3
+    ntfs3g
 
     python3
     # JDK
@@ -118,6 +123,10 @@
     # nix-output-monitor
 
     btop # 系统和网络监控工具
+
+    # 缺少memory, power, fan and temperature
+    # 参见https://github.com/Syllo/nvtop/issues/197
+    nvtop-intel
     intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
 
     lsof # 列出打开文件的工具
@@ -163,6 +172,8 @@
     # tuba
     # Markdown编辑器
     apostrophe
+    # GTK编写的远程桌面客户端
+    remmina
   ];
 
   home.pointerCursor = {
