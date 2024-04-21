@@ -1,15 +1,30 @@
 {
   description = "Sittymin's NixOS Flake";
 
+  # NOTE: 添加二进制缓存服务器 
+  # nixConfig = {
+  #   substituters = [
+  #     # cache mirror located in China
+  #     # status: https://mirror.sjtu.edu.cn/
+  #     "https://mirror.sjtu.edu.cn/nix-channels/store"
+  #     # status: https://mirrors.ustc.edu.cn/status/
+  #     # "https://mirrors.ustc.edu.cn/nix-channels/store"
+  #
+  #     "https://cache.nixos.org"
+  #
+  #     # nix community's cache server
+  #     "https://nix-community.cachix.org"
+  #   ];
+  #   trusted-public-keys = [
+  #     # nix community's cache server public key
+  #     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  #   ];
+  # };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur = {
       url = "github:nix-community/NUR";
-    };
-
-    nh = {
-      url = "github:viperML/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
@@ -46,15 +61,6 @@
           ./configuration.nix
           ./overlay
           nur.nixosModules.nur
-          # PERF: nh NixOS 模块提供了一种垃圾回收方式，可替代默认的垃圾回收方式
-          inputs.nh.nixosModules.default
-          {
-            nh = {
-              enable = true;
-              clean.enable = true;
-              clean.extraArgs = "--keep-since 4d --keep 3";
-            };
-          }
           ({ config, ... }: {
             environment.systemPackages = [
               # NOTE:主要用于给waydroid提供转译层

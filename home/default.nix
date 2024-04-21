@@ -81,6 +81,7 @@
       withMfx = false;
     })
     android-studio
+    jetbrains.idea-ultimate
     # Doc view
     evince
     # EPUB and other
@@ -104,14 +105,13 @@
     gnome.nautilus
     # adb_and_other
     android-tools
-    # MTP
-    android-file-transfer
     scrcpy
 
     # 格式化ntfs需要，挂载请使用ntfs3
     ntfs3g
 
-    python3
+    python39
+    conda
     # JDK
     graalvm-ce
     # nodejs
@@ -156,12 +156,11 @@
     # krita
     # GNU 图像处理程序
     # gimp
-    # Blender-HIP 的目的是使Blender能够更有效地利用不同类型的GPU
-    blender-hip
+    # Blender的目的是使Blender能够更有效地利用不同类型的GPU
+    blender
     # 挖矿程序
     # xmrig
     epiphany
-    sing-box
     # gnome
     gnome.gnome-font-viewer
     gnome.dconf-editor

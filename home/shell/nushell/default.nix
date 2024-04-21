@@ -10,7 +10,6 @@
       "SDL_VIDEODRIVER": "wayland",
       "CLUTTER_BACKEND": "wayland",
       "GDK_SCALE": "2",
-      "FLAKE": "/home/Sittymin/nixos_config"
       }'';
   };
   # PERF: FLAKE为nh配置 FLAKE 环境变量

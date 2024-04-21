@@ -12,3 +12,5 @@ RSS 阅读器
 io.gitlab.news_flash.NewsFlash
 播放音乐
 io.bassi.Amberol
+检查文件夹大小和可用磁盘空间
+org.gnome.baobab

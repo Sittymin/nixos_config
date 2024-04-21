@@ -32,3 +32,5 @@
 - dconf-editor        一个用于编辑dconf数据库的图形界面。
 - d-spy               一个用于查看和调试D-Bus应用程序的工具。
 - obs                 开源广播软件，用于录制和直播流。
+- apostrophe          Markdown编辑器
+- remmina             GTK编写的远程桌面客户端

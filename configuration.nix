@@ -9,6 +9,8 @@
   boot = {
     # NOTE:对于Arc显卡的特殊设置
     initrd.kernelModules = [ "i915" ];
+    # initrd.kernelModules = [ "xe" ];
+    kernelModules = [ "xe" "kvm-intel" ];
     kernelPackages = pkgs.linuxPackages_latest;
     # NOTE:设置内核参数
     # NOTE:启用IOMMU
@@ -126,30 +128,6 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      # TODO:可能对于蓝牙连接有作用
-      # # Bluetooth support, selective.
-      # media-session.config.bluez-monitor.rules = [
-      #   {
-      #     # Matches all cards
-      #     matches = [{ "device.name" = "~bluez_card.*"; }];
-      #     actions = {
-      #       "update-props" = {
-      #         "bluez5.auto-connect" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
-      #       };
-      #     };
-      #   }
-      #   {
-      #     matches = [
-      #       # Matches all sources
-      #       { "node.name" = "~bluez_input.*"; }
-      #       # Matches all outputs
-      #       { "node.name" = "~bluez_output.*"; }
-      #     ];
-      #     actions = {
-      #       "node.pause-on-idle" = false;
-      #     };
-      #   }
-      # ];
     };
     # NOTE:蓝牙配对的一个GUI
     blueman.enable = true;
@@ -205,15 +183,26 @@
             xorg.libXi
             xorg.libXinerama
             xorg.libXScrnSaver
+            lxgw-neoxihei
           ];
       };
     };
+    gamemode.enable = true;
+
     hyprland = {
       enable = true;
       # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     };
     # NOTE:KVM
     virt-manager.enable = true;
+
+    # PERF: nh NixOS 模块提供了一种垃圾回收方式，可替代默认的垃圾回收方式
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 3";
+      flake = "/home/Sittymin/nixos_config";
+    };
   };
   xdg.portal = {
     enable = true;
@@ -255,9 +244,6 @@
     alsa-oss
     # 显示文件类型的程序
     file
-    # PERF: nh
-    # NOTE: https://github.com/viperML/nh
-    inputs.nh.packages.${ pkgs.system }.default
     # Other Linux
     distrobox
   ];
@@ -290,8 +276,6 @@
       lxgw-neoxihei
       lxgw-wenkai
       noto-fonts-color-emoji
-      # HACK:Steam maybe
-      wqy_zenhei
     ];
     fontDir.enable = true;
     fontconfig = {
