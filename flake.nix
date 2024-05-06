@@ -1,26 +1,6 @@
 {
   description = "Sittymin's NixOS Flake";
 
-  # NOTE: 添加二进制缓存服务器 
-  # nixConfig = {
-  #   substituters = [
-  #     # cache mirror located in China
-  #     # status: https://mirror.sjtu.edu.cn/
-  #     "https://mirror.sjtu.edu.cn/nix-channels/store"
-  #     # status: https://mirrors.ustc.edu.cn/status/
-  #     # "https://mirrors.ustc.edu.cn/nix-channels/store"
-  #
-  #     "https://cache.nixos.org"
-  #
-  #     # nix community's cache server
-  #     "https://nix-community.cachix.org"
-  #   ];
-  #   trusted-public-keys = [
-  #     # nix community's cache server public key
-  #     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-  #   ];
-  # };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nur = {
@@ -28,6 +8,9 @@
     };
 
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+
+    # TODO: 可滚动的平铺 Wayland 合成器
+    niri.url = "github:sodiboo/niri-flake";
 
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
@@ -66,7 +49,7 @@
               # NOTE:主要用于给waydroid提供转译层
               # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
               config.nur.repos.ataraxiasjel.waydroid-script
-              # config.nur.repos.gricad.intel-oneapi
+              config.nur.repos.sigprof.firefox-langpack-zh-CN
             ];
           })
           home-manager.nixosModules.home-manager

@@ -1,7 +1,6 @@
 { nixpkgs-wayland
 , config
 , pkgs
-, Neve
 , ...
 }:
 
@@ -15,6 +14,7 @@
     ./shell
     ./fontconfig
     ./hypr
+    ./helix
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -61,6 +61,7 @@
     mpv
     # Log
     tailspin
+    lux
     libjxl
     libavif
     # 一个回收站工具
@@ -82,13 +83,11 @@
     })
     android-studio
     jetbrains.idea-ultimate
+    vscode
     # Doc view
     evince
     # EPUB and other
     foliate
-    # 基于 Nixvim 配置的 Neovim 的 Neve
-    Neve.packages."${pkgs.system}".default
-    neovide
     # vim复制到系统剪贴
     wl-clipboard
     # archives
@@ -116,7 +115,6 @@
     graalvm-ce
     # nodejs
     bun
-    nodejs_21
 
     # 与Nix相关的工具，提供更详细的日志输出。
     # nh 内置
@@ -150,6 +148,7 @@
     cheat
     # 种子文件客户端
     transmission_4
+    transmission-remote-gtk
     # 矢量图形编辑器
     inkscape
     # 绘画应用程序
@@ -208,7 +207,7 @@
       # KVM
       "org/virt-manager/virt-manager/connections" = {
         autoconnect = [ "qemu:///system" ];
-        uris = [ "qemu:///system" ];
+        uris = [ "qemuu///system" ];
       };
       # KVM 默认虚拟机使用缩放
       "org/virt-manager/virt-manager/console".scaling = 2;
@@ -241,18 +240,27 @@
         tab_bar_edge = "top";
         background_opacity = "0.5";
         # 模糊需要在Hyprland
-        font_family = "Monaspace Neon Var Medium";
+        font_family = "Monaspace Neon Var Regular";
         bold_font = "Monaspace Neon Var ExtraBold";
         italic_font = "Monaspace Neon Var Medium Italic";
         bold_italic_font = "Monaspace Neon Var ExtraBold Italic";
+        modify_font = "baseline -2";
         font_size = "12.0";
+        disable_ligatures = "cursor";
       };
+      # TODOu 启用连字
       extraConfig = "
+        font_features MonaspaceNeonVar-Regular +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga
+        font_features MonaspaceNeonVar_800wght +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga
         symbol_map U+4E00-U+9FFF LXGW Neo XiHei
         symbol_map U+2300-U+23FF,U+2600-U+26FF,U+2700-U+27BF,U+2B58,U+E000-U+F8FF,U+F0000-U+FFFFD Symbols Nerd Font
       ";
 
     };
+    # https://github.com/zellij-org/zellij/issues/2814
+    # zellij = {
+    #   enable = true;
+    # };
     yazi = {
       enable = true;
       enableNushellIntegration = true;

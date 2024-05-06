@@ -45,7 +45,7 @@
       userContent = ''
         @import "firefox-gnome-theme/userContent.css";
       '';
-      extensions = with pkgs; [
+      extensions = [
       ];
     };
   };

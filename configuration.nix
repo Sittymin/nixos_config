@@ -67,6 +67,7 @@
     supportedLocales = [ "en_US.UTF-8/UTF-8" "zh_CN.UTF-8/UTF-8" ];
     inputMethod = {
       enabled = "fcitx5";
+      fcitx5.waylandFrontend = true;
       fcitx5.addons = with pkgs; [
         fcitx5-rime
       ];
@@ -187,7 +188,7 @@
           ];
       };
     };
-    gamemode.enable = true;
+    gamescope.enable = true;
 
     hyprland = {
       enable = true;
@@ -201,7 +202,6 @@
       enable = true;
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = "/home/Sittymin/nixos_config";
     };
   };
   xdg.portal = {
@@ -211,7 +211,7 @@
     # 设置后端关联
     config = {
       common.default = [ "gtk" ];
-      hyprland.default = [ "hyprland" "gtk" ];
+      # hyprland.default = [ "hyprland" "gtk" ];
     };
 
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
@@ -227,6 +227,7 @@
     #  git
     curl
     wget
+    helix
 
     mesa
     wireplumber

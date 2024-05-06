@@ -25,7 +25,7 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-	{ run = 'neovide "$@"', orphan = true ,  for = "unix" },
+	{ run = 'hx "$@"', block = true, for = "unix" },
 ]
 open = [
 	{ run = 'xdg-open "$@"',                desc = "Open", for = "linux" },
