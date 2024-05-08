@@ -227,7 +227,6 @@
     #  git
     curl
     wget
-    helix
 
     mesa
     wireplumber

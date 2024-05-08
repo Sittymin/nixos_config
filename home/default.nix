@@ -1,8 +1,4 @@
-{ nixpkgs-wayland
-, config
-, pkgs
-, ...
-}:
+{ nixpkgs-wayland, pkgs, ... }:
 
 {
   imports = [
@@ -49,11 +45,10 @@
   #     xxx
   # '';
 
-
   # 通过 home.packages 安装一些常用的软件
   # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     hyfetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
     cpu-x
     #hyprpaper # 一个壁纸软件
@@ -115,6 +110,8 @@
     graalvm-ce
     # nodejs
     bun
+    nodejs_22
+    # nodePackages.vls
 
     # 与Nix相关的工具，提供更详细的日志输出。
     # nh 内置
@@ -214,13 +211,11 @@
     };
   };
 
-
   # 设置字体 DPI（适用于 2K 显示器）
   # xresources.properties = {
   #
   #   "Xft.dpi" = 120;
   # };
-
 
   programs = {
     git = {
@@ -232,13 +227,14 @@
     carapace.enable = true;
     carapace.enableNushellIntegration = true;
 
-
     kitty = {
       enable = true;
       theme = "Catppuccin-Mocha";
       settings = {
         tab_bar_edge = "top";
         background_opacity = "0.5";
+        # 新建窗口的布局
+        enabled_layouts = "Tall";
         # 模糊需要在Hyprland
         font_family = "Monaspace Neon Var Regular";
         bold_font = "Monaspace Neon Var ExtraBold";
@@ -249,12 +245,8 @@
         disable_ligatures = "cursor";
       };
       # TODOu 启用连字
-      extraConfig = "
-        font_features MonaspaceNeonVar-Regular +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga
-        font_features MonaspaceNeonVar_800wght +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga
-        symbol_map U+4E00-U+9FFF LXGW Neo XiHei
-        symbol_map U+2300-U+23FF,U+2600-U+26FF,U+2700-U+27BF,U+2B58,U+E000-U+F8FF,U+F0000-U+FFFFD Symbols Nerd Font
-      ";
+      extraConfig =
+        "\n        font_features MonaspaceNeonVar-Regular +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga\n        font_features MonaspaceNeonVar_800wght +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga\n        symbol_map U+4E00-U+9FFF LXGW Neo XiHei\n        symbol_map U+2300-U+23FF,U+2600-U+26FF,U+2B58,U+E000-U+F8FF,U+F0000-U+FFFFD Symbols Nerd Font\n      ";
 
     };
     # https://github.com/zellij-org/zellij/issues/2814
@@ -267,9 +259,7 @@
     };
     obs-studio = {
       enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-      ];
+      plugins = with pkgs.obs-studio-plugins; [ wlrobs ];
     };
   };
 

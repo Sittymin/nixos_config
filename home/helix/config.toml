@@ -8,6 +8,7 @@ cursorcolumn = true
 bufferline = "multiple"
 # 用于控制弹出窗口（如自动完成、提示等）周围是否显示边框
 popup-border = "all"
+auto-completion = true
 
 [editor.statusline]
 left = ["mode", "spinner"]
@@ -56,3 +57,8 @@ max-wrap = 25
 max-indent-retain = 40
 # 在软换行的行之前插入的文本
 wrap-indicator = "↪"
+
+[keys.normal]
+# Ctrl + s 保存
+# WARN: 有问题会导致LSP提前退出
+C-s = ":w"
