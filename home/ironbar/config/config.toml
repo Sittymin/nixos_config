@@ -1,0 +1,67 @@
+anchor_to_edges = true
+position = "top"
+
+[[start]]
+type = "clock"
+format = "%H:%M"
+format_popup = "%m-%d %T"
+
+[[start]]
+type = "workspaces"
+all_monitors = true
+
+[[start]]
+type = "sys_info"
+format = [
+    " {cpu_percent}% | {temp_c:coretemp-Package-id-0}°C",
+    " {memory_percent}%",
+]
+
+[[center]]
+type = "focused"
+
+# 超长截断的位置
+[center.truncate]
+mode = "middle"
+max_length = 30
+
+# [[end]]
+# type = "sys_info"
+# format = [
+#     "󰋊 {disk_used:/}/{disk_total:/} GB | {disk_used:/mnt/CT1000MX500SSD1}/{disk_total:/mnt/CT1000MX500SSD1} GB",
+# ]
+
+# [end.interval]
+# memory = 30
+# cpu = 1
+# temps = 5
+# disks = 300
+# networks = 3
+
+[[end]]
+type = "music"
+player_type = "mpris"
+format = "{title}"
+truncate.mode = "end"
+truncate.length = 20
+music_dir = "/home/Sittymin/Music"
+
+[[end]]
+type = "volume"
+format = "{icon} {percentage}%"
+max_volume = 100
+
+[end.icons]
+volume_high = "󰕾"
+volume_medium = "󰖀"
+volume_low = "󰕿"
+muted = "󰝟"
+
+# [[end]]
+# type = "clipboard"
+# max_items = 3
+
+[[end]]
+type = "tray"
+direction = "right_to_left"
+icon_size = 32

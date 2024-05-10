@@ -3,7 +3,7 @@
 {
   imports = [
     ./fcitx5
-    ./waybar
+    ./ironbar
     ./firefox
     ./anyrun
     ./minecraft
@@ -20,7 +20,6 @@
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
   home.file = {
     ".config/mako/config".source = ./mako/config;
-    ".config/hyfetch.json".source = ./hyfetch.json;
     ".config/cheat".source = ./cheat;
     ".config/yazi" = {
       source = ./yazi;
@@ -49,13 +48,15 @@
   # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
   home.packages = with pkgs; [
-    hyfetch # 显示系统信息的工具，如操作系统、内核版本、CPU、内存等。
+    fastfetch
     cpu-x
     #hyprpaper # 一个壁纸软件
     mpvpaper
     mpv
     # Log
     tailspin
+    # BLAKE3 加密哈希函数
+    b3sum
     lux
     libjxl
     libavif
@@ -174,8 +175,8 @@
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
+    package = pkgs.google-cursor;
+    name = "GoogleDot-Black";
     size = 24; # 1080P下16，2K下24
   };
   gtk = {

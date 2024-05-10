@@ -1,8 +1,7 @@
-{ inputs, config, lib, pkgs, AtaraxiaSjel-NUR, ... }:
-
-
-{
-
+{ pkgs
+, inputs
+, ...
+}: {
   imports = [
     ./hardware-configuration.nix
   ];
