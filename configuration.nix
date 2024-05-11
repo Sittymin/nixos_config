@@ -5,6 +5,9 @@
   imports = [
     ./hardware-configuration.nix
   ];
+
+  system.stateVersion = "23.11";
+
   boot = {
     # NOTE:对于Arc显卡的特殊设置
     initrd.kernelModules = [ "i915" ];
@@ -31,12 +34,6 @@
       options kvm ignore_msrs=1
     '';
   };
-  # NOTE: Btrfs自动清理
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "weekly";
-    fileSystems = [ "/" ];
-  };
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
@@ -57,8 +54,6 @@
     # HACK:oneapi目前需要
     extraOptions = ''sandbox = relaxed'';
   };
-
-  system.stateVersion = "23.11";
 
   # NOTE:设置系统语言为中文
   i18n = {
@@ -104,10 +99,21 @@
 
   # NOTE:设置系统服务
   services = {
-    xserver = {
+    # NOTE: Btrfs自动清理
+    btrfs.autoScrub = {
       enable = true;
-      displayManager.gdm.enable = true;
-      videoDrivers = [ "modesetting" ];
+      interval = "weekly";
+      fileSystems = [ "/" ];
+    };
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet -s -g NixOS-unstable --asterisks --user-menu -c Hyprland";
+          # 以 greeter 用户的身份来执行
+          user = "greeter";
+        };
+      };
     };
     openssh = {
       enable = true;
