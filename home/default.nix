@@ -1,4 +1,8 @@
-{ nixpkgs-wayland, pkgs, ... }:
+{ nixpkgs-wayland
+, pkgs
+, hyprland-contrib
+, ...
+}:
 
 {
   imports = [
@@ -77,8 +81,6 @@
       withVpl = true;
       withMfx = false;
     })
-    android-studio
-    jetbrains.idea-ultimate
     vscode
     # Doc view
     evince
@@ -101,9 +103,6 @@
     # adb_and_other
     android-tools
     scrcpy
-
-    # 格式化ntfs需要，挂载请使用ntfs3
-    ntfs3g
 
     python39
     conda
@@ -141,7 +140,7 @@
     qq
     telegram-desktop
     # 适用于Hyprland 的截图软件
-    hyprshot
+    hyprland-contrib.packages.${pkgs.system}.grimblast
     # 命令行备忘录
     cheat
     # 种子文件客户端
@@ -152,11 +151,8 @@
     # 绘画应用程序
     # krita
     # GNU 图像处理程序
-    # gimp
-    # Blender的目的是使Blender能够更有效地利用不同类型的GPU
+    gimp
     blender
-    # 挖矿程序
-    # xmrig
     epiphany
     # gnome
     gnome.gnome-font-viewer

@@ -2,14 +2,14 @@
   description = "Sittymin's NixOS Flake";
 
   # 添加额外缓存
-  # nixConfig = {
-  #   extra-substituters = [
-  #     "https://hyprland.cachix.org"
-  #   ];
-  #   extra-trusted-public-keys = [
-  #     "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-  #   ];
-  # };
+  nixConfig = {
+    extra-substituters = [
+      "https://hyprland.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -21,6 +21,13 @@
 
     # TODO: 可滚动的平铺 Wayland 合成器
     niri.url = "github:sodiboo/niri-flake";
+
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";

@@ -10,6 +10,7 @@
       "SDL_VIDEODRIVER": "wayland",
       "CLUTTER_BACKEND": "wayland",
       "GDK_SCALE": "2",
+      "GTK_THEME": "Adwaita:dark",
       "FLAKE": "/home/Sittymin/nixos_config"
       }'';
   };
