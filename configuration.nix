@@ -41,6 +41,15 @@
       # NOTE: 在每次构建过程中对存储进行优化
       # PERF: 由nh的垃圾回收方式替代
       # auto-optimise-store = true;
+      # 添加额外缓存
+      substituters = [
+        "https://hyprland.cachix.org"
+        "https://cache.lix.systems"
+      ];
+      trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+      ];
     };
     # NOTE:每周进行垃圾回收
     # PERF: 由nh的垃圾回收方式替代

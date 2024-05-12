@@ -1,7 +1,7 @@
 theme = "catppuccin_macchiato"
 
 [editor]
-# 行号显示: absolute 简单地显示每行的行号，而 relative 显示当前行的距离。当失去焦点或处于插入模式时， relative 仍将显示绝对行号
+# 行号显示: absolute 简单地显示每行的行号，而 relative 显示当前行的距离。当失去焦点或处于插入模式时， relative 仍显示绝对将行号
 line-number = "relative"
 cursorline = true
 cursorcolumn = true
@@ -56,9 +56,26 @@ max-wrap = 25
 # 在软折行时，可以保留的最大缩进量
 max-indent-retain = 40
 # 在软换行的行之前插入的文本
-wrap-indicator = "↪"
-
+wrap-indicator = "󱞩"
 [keys.normal]
 # Ctrl + s 保存
-# WARN: 有问题会导致LSP提前退出
 C-s = ":w"
+# 下一个缓冲区
+tab = ":bn"
+# 上一个缓冲区
+S-tab = ":bp"
+# 将当前行向上移动
+S-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+# 将当前行向下移动
+S-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+# 将当前选择向左移(会换行)
+S-h = ["delete_selection", "move_char_left", "paste_before"]
+# 将当前选择向右移(会换行)
+S-l = ["delete_selection", "paste_after"]
+[keys.insert]
+j = { k = "normal_mode" }
+[keys.select]
+# 将当前选择向左移(会换行)
+S-h = ["delete_selection", "move_char_left", "paste_before", "select_mode"]
+# 将当前选择向右移(会换行)
+S-l = ["delete_selection", "paste_after", "select_mode"]

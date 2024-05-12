@@ -1,6 +1,4 @@
-{ config
-, pkgs
-, rime_dicts
+{ rime-dicts
 , ...
 }: {
   home.file = {
@@ -13,7 +11,7 @@
       recursive = true;
     };
     ".local/share/fcitx5/rime/cn_dicts" = {
-      source = "${rime_dicts}/cn_dicts";
+      source = "${rime-dicts}/cn_dicts";
     };
   };
 }

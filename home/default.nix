@@ -15,6 +15,7 @@
     ./fontconfig
     ./hypr
     ./helix
+    ./mpv
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -29,10 +30,6 @@
       source = ./yazi;
       recursive = true;
       executable = true;
-    };
-    ".config/mpv" = {
-      source = ./mpv;
-      recursive = true;
     };
   };
 
@@ -56,7 +53,6 @@
     cpu-x
     #hyprpaper # 一个壁纸软件
     mpvpaper
-    mpv
     # Log
     tailspin
     # BLAKE3 加密哈希函数

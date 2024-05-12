@@ -2,17 +2,30 @@
   description = "Sittymin's NixOS Flake";
 
   # 添加额外缓存
-  nixConfig = {
-    extra-substituters = [
-      "https://hyprland.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    ];
-  };
+  # nixConfig = {
+  #   substituters = [
+  #     "https://hyprland.cachix.org"
+  #     "https://cache.lix.systems"
+  #   ];
+  #   trusted-public-keys = [
+  #     "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+  #     "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+  #   ];
+  # };
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    lix = {
+      url = "git+https://git@git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";
+      flake = false;
+    };
+    lix-module = {
+      url = "git+https://git.lix.systems/lix-project/nixos-module";
+      inputs.lix.follows = "lix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
     };
@@ -36,10 +49,20 @@
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
-    rime_dicts = {
+    rime-dicts = {
       url = "github:iDvel/rime-ice";
       flake = false;
     };
+
+    mpv-lua = {
+      url = "github:mpv-player/mpv";
+      flake = false;
+    };
+    thumbfast = {
+      url = "github:po5/thumbfast";
+      flake = false;
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,7 +70,7 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nur, lix-module, ... }@inputs: {
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -58,6 +81,7 @@
         modules = [
           ./configuration.nix
           ./overlay
+          lix-module.nixosModules.default
           nur.nixosModules.nur
           ({ config, ... }: {
             environment.systemPackages = [
