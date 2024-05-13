@@ -14,39 +14,41 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/983f72ef-632d-478d-a109-aae02bb7cf0d";
+    { device = "/dev/disk/by-uuid/093219c0-4dbe-409a-bdbb-23fe788e84b0";
       fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd" ];
+      options = [ "subvol=root" "compress=zstd"];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/983f72ef-632d-478d-a109-aae02bb7cf0d";
+    { device = "/dev/disk/by-uuid/093219c0-4dbe-409a-bdbb-23fe788e84b0";
       fsType = "btrfs";
-      options = [ "subvol=home" "compress=zstd" ];
+      options = [ "subvol=home" "compress=zstd"];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/983f72ef-632d-478d-a109-aae02bb7cf0d";
+    { device = "/dev/disk/by-uuid/093219c0-4dbe-409a-bdbb-23fe788e84b0";
       fsType = "btrfs";
-      options = [ "subvol=nix" "noatime" "compress=zstd" ];
+      options = [ "subvol=nix" "compress=zstd" "noatime"];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/A906-3B65";
+    { device = "/dev/disk/by-uuid/688E-BCFC";
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/eb3f5b14-bb84-4d14-8bfb-61dcff77e95b"; }
+    ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s20f0u7.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp7s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

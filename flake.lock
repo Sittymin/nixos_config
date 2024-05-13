@@ -607,22 +607,6 @@
         "url": "https://git.lix.systems/lix-project/nixos-module"
       }
     },
-    "mpv-lua": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1715456064,
-        "narHash": "sha256-/T6+dGtielKSqwer0ZBpwuSFyrqMivy9Z0+0qy9gugU=",
-        "owner": "mpv-player",
-        "repo": "mpv",
-        "rev": "38741452480aeb402d9d02fe906fa7a7a3d6f5d7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mpv-player",
-        "repo": "mpv",
-        "type": "github"
-      }
-    },
     "niri": {
       "inputs": {
         "crate2nix": "crate2nix",
@@ -986,7 +970,6 @@
         "hyprland-contrib": "hyprland-contrib",
         "lix": "lix",
         "lix-module": "lix-module",
-        "mpv-lua": "mpv-lua",
         "niri": "niri",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-wayland": "nixpkgs-wayland",

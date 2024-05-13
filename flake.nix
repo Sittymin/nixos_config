@@ -54,10 +54,7 @@
       flake = false;
     };
 
-    mpv-lua = {
-      url = "github:mpv-player/mpv";
-      flake = false;
-    };
+    # mpv 的缩略图生成
     thumbfast = {
       url = "github:po5/thumbfast";
       flake = false;
