@@ -14,30 +14,31 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/093219c0-4dbe-409a-bdbb-23fe788e84b0";
+    { device = "/dev/disk/by-uuid/8f748c20-e60d-48c2-9eea-dd8d8fc97441";
       fsType = "btrfs";
-      options = [ "subvol=root" "compress=zstd"];
+      options = [ "subvol=root" "compress=zstd" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/093219c0-4dbe-409a-bdbb-23fe788e84b0";
+    { device = "/dev/disk/by-uuid/8f748c20-e60d-48c2-9eea-dd8d8fc97441";
       fsType = "btrfs";
       options = [ "subvol=home" "compress=zstd"];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/093219c0-4dbe-409a-bdbb-23fe788e84b0";
+    { device = "/dev/disk/by-uuid/8f748c20-e60d-48c2-9eea-dd8d8fc97441";
       fsType = "btrfs";
-      options = [ "subvol=nix" "compress=zstd" "noatime"];
+      options = [ "subvol=nix" "noatime" "compress=zstd"];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/688E-BCFC";
+    { device = "/dev/disk/by-uuid/BA34-D593";
       fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/eb3f5b14-bb84-4d14-8bfb-61dcff77e95b"; }
+    [ { device = "/dev/disk/by-uuid/ee5c400e-29f1-463b-8306-97b8955dd980"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -49,6 +50,5 @@
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

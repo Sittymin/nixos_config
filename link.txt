@@ -1,0 +1,1 @@
+sudo ln -s /home/Sittymin/nixos_config /etc/nixos
