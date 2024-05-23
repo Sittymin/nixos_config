@@ -1,6 +1,5 @@
 { nixpkgs-wayland
 , pkgs
-, hyprland-contrib
 , ...
 }:
 
@@ -136,8 +135,6 @@
     heroic
     qq
     telegram-desktop
-    # 适用于Hyprland 的截图软件
-    hyprland-contrib.packages.${pkgs.system}.grimblast
     # 命令行备忘录
     cheat
     # 种子文件客户端

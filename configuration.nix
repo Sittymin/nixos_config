@@ -216,11 +216,12 @@
     };
     gamescope.enable = true;
 
-    # Fessze screen maybe
-    hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    };
+    # https://github.com/hyprwm/Hyprland/issues/6123
+    # 可能与上面的issues有关（Hyprland冻结无法做任何行动,包括tty）
+    # hyprland = {
+    #   enable = true;
+    #   package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    # };
 
 
     niri = {

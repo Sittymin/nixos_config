@@ -25,12 +25,7 @@
 
     stylix.url = "github:danth/stylix";
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
