@@ -13,7 +13,8 @@
     ./minecraft
     ./shell
     ./fontconfig
-    ./hypr
+    # ./hypr
+    ./niri
     ./helix
     ./mpv
   ];
@@ -117,7 +118,7 @@
 
     # 缺少memory, power, fan and temperature
     # 参见https://github.com/Syllo/nvtop/issues/197
-    nvtop-intel
+    nvtopPackages.intel
     intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
 
     lsof # 列出打开文件的工具
@@ -167,20 +168,22 @@
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
-    package = pkgs.google-cursor;
-    name = "GoogleDot-Black";
-    size = 24; # 1080P下16，2K下24
+    # stylix 来定义
+    # package = pkgs.google-cursor;
+    # name = "GoogleDot-Black";
+    # size = 24; # 1080P下16，2K下24
   };
   gtk = {
     enable = true;
-    theme = {
-      name = "Catppuccin-Mocha-Pink";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "pink" ];
-        tweaks = [ "rimless" "black" ];
-        variant = "mocha";
-      };
-    };
+    # stylix 自动生成
+    # theme = {
+    #   name = "Catppuccin-Mocha-Pink";
+    #   package = pkgs.catppuccin-gtk.override {
+    #     accents = [ "pink" ];
+    #     tweaks = [ "rimless" "black" ];
+    #     variant = "mocha";
+    #   };
+    # };
     # GTK3/4偏好暗色主题
     gtk3.extraConfig = { gtk-application-prefer-dark-theme = 1; };
     gtk4.extraConfig = { gtk-application-prefer-dark-theme = true; };
@@ -193,7 +196,8 @@
   dconf = {
     enable = true;
     settings = {
-      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      # stylix 中的stylix.polarity 指定
+      # "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       # KVM
       "org/virt-manager/virt-manager/connections" = {
         autoconnect = [ "qemu:///system" ];
@@ -225,7 +229,8 @@
       theme = "Catppuccin-Mocha";
       settings = {
         tab_bar_edge = "top";
-        background_opacity = "0.5";
+        # WARN: 可能stylix设置不对
+        # background_opacity = "0.5";
         # 新建窗口的布局
         enabled_layouts = "Tall";
         # 模糊需要在Hyprland

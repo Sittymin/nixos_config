@@ -1,0 +1,422 @@
+// 输入设备的配置https://github.com/YaLTeR/niri/wiki/Configuration:-Input
+input {
+    keyboard {
+        xkb {
+        }
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+    mouse {
+    }
+}
+
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
+// Remember to uncomment the node by removing "/-"!
+output "HDMI-A-3" {
+    mode "2560x1440"
+
+    // 实际输出的缩放
+    scale 2.0
+
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "normal"
+
+    // 输出在全局坐标空间中的位置。
+    // 这会影响方向性监视器操作，如 "focus-monitor-left"，以及光标移动。
+    // 光标只能在直接相邻的输出之间移动。
+    // 位置设置需要考虑输出的缩放和旋转：
+    // 输出的大小以逻辑或缩放后的像素为单位。
+    // 例如，一个缩放为2.0的3840×2160输出将具有1920×1080的逻辑大小，
+    // 因此要将另一个输出直接放置在其右侧，需将其x设置为1920。
+    // 如果位置未设置或导致重叠，则输出将自动放置。
+    position x=1280 y=0
+}
+
+// 布局
+layout {
+    // 在逻辑像素周围（内部和外部）设置窗口的间隙
+    gaps 16
+
+    // - "never", 没有特殊居中，将焦点放在屏幕外的列上会将其滚动到屏幕的左侧或右侧边缘, 这是默认设置
+    // - "always", 焦点列将始终居中显示
+    // - "on-overflow", 如果一个列无法与之前聚焦的列一起显示在屏幕上，那么将使其居中显示
+    center-focused-column "never"
+
+    // switch-preset-column-width 切换的宽度
+    // proportion 是占全屏的百分比
+    // fixed 是精确的像素值
+
+    // preset-column-widths {
+    //     proportion 0.33333
+    //     proportion 0.5
+    //     proportion 0.66667
+    // }
+
+
+    // 新窗口的默认宽度
+    // 内部选项和上面一样
+    // 留空则由应用程序自行设置
+    // 建议留空，不然 mpv 使用 dmabuf-wayland 视频驱动会出现 0 宽度报错
+    default-column-width { 
+        // proportion 0.5;
+    }
+
+    // 活动窗口边框和非活动窗口边框
+    focus-ring {
+        // 填入 off 禁用
+
+        // 宽度(px)
+        width 4
+
+        // 可以使用 CSS 当中的颜色 例如 "red" "#FFF"
+        //  "rgb(255, 127, 0)", rgba(), hsl()
+
+        // 活动窗口
+        active-color "#7fc8ff"
+
+        // 非活动窗口
+        inactive-color "#505050"
+
+    // 您也可以使用渐变色。它们优先于纯色。
+    // 渐变色的渲染方式与 CSS 的 linear-gradient(angle, from, to) 相同。
+    // 角度与 linear-gradient 中的角度相同，并且是可选的，
+    // 默认为 180（从上到下的渐变）。
+    // 您可以使用网络上的任何 CSS linear-gradient 工具来设置这些渐变色。
+    //
+    // active-gradient from="#80c8ff" to="#bbddff" angle=45
+
+    // 您还可以将整个工作区视图统一简便，而不是每个窗口独立渐变。
+    // 要做到这一点，请设置 relative-to="workspace-view"。
+    // 
+    // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"    }
+    }
+
+    // border 与上文相同
+    border {
+        // 使用 off 禁用
+        off
+
+        width 4
+        active-color "#ffc87f"
+        inactive-color "#505050"
+
+    }
+
+    // 让周围留出空间放其他窗口或留白
+    // TODO: 等有大显示器的时候使用
+    // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout#struts
+    struts {
+        // left 64
+        // right 64
+        // top 64
+        // bottom 64
+    }
+}
+
+// 随niri一起启动的程序。
+// xdg-desktop-autostart 中配置的软件会自动启动不用手动配置
+// 例子：
+// spawn-at-startup "alacritty" "-e" "fish"
+spawn-at-startup "ironbar"
+spawn-at-startup "mpvpaper" "-o" "no-audio --loop" "*" "/home/Sittymin/WallPaper/月色背637.mp4"
+
+// 这个标志将使 niri 要求应用程序省略它们的客户端装饰
+// 除非应用程序明确要求需要
+prefer-no-csd
+
+// 截图保存的路径
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// 可以设置为null禁用保存到磁盘
+// screenshot-path null
+
+hotkey-overlay {
+    // 关闭启动时弹出的快捷键提示
+    skip-at-startup
+}
+
+// Animation settings.
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
+animations {
+    // Uncomment to turn off all animations.
+    // off
+
+    // 将所有动画的速度减慢这个倍数。低于1的值会加快动画速度。
+    slowdown 1.0
+
+    // 使用的配置https://github.com/YaLTeR/niri/discussions/325#discussioncomment-9492497
+    window-open {
+        // 动画持续时间，单位为毫秒
+        duration-ms 350
+        curve "linear"
+        custom-shader r"
+            vec4 expanding_circle(vec3 coords_geo, vec3 size_geo) {
+            vec3 coords_tex = niri_geo_to_tex * coords_geo;
+            vec4 color = texture2D(niri_tex, coords_tex.st);
+            vec2 coords = (coords_geo.xy - vec2(0.5, 0.5)) * size_geo.xy * 2.0;
+            coords = coords / length(size_geo.xy);
+            float p = niri_clamped_progress;
+            if (p * p <= dot(coords, coords))
+            color = vec4(0.0);
+            return color;
+        }
+
+        vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+            return expanding_circle(coords_geo, size_geo);
+        }
+        "
+     }
+
+   window-close {
+      duration-ms 500
+      curve "linear"
+      custom-shader r"
+        vec4 fall_and_rotate(vec3 coords_geo, vec3 size_geo) {
+            float progress = niri_clamped_progress * niri_clamped_progress;
+            vec2 coords = (coords_geo.xy - vec2(0.5, 1.0)) * size_geo.xy;
+            coords.y -= progress * 1440.0;
+            float random = (niri_random_seed - 0.5) / 2.0;
+            random = sign(random) - random;
+            float max_angle = 0.5 * random;
+            float angle = progress * max_angle;
+            mat2 rotate = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+            coords = rotate * coords;
+            coords_geo = vec3(coords / size_geo.xy + vec2(0.5, 1.0), 1.0);
+            vec3 coords_tex = niri_geo_to_tex * coords_geo;
+            vec4 color = texture2D(niri_tex, coords_tex.st);
+
+            return color;
+        }
+
+        vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+            return fall_and_rotate(coords_geo, size_geo);
+        }
+      "
+   }
+}
+
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+/-window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+window-rule {
+    // 边框圆角内半径
+    geometry-corner-radius 12
+    // 裁剪窗口到圆角
+    clip-to-geometry true
+}
+
+binds {
+    // Keys consist of modifiers separated by + signs, followed by an XKB key name
+    // in the end. To find an XKB name for a particular key, you may use a program
+    // like wev.
+    //
+    // "Mod" is a special modifier equal to Super when running on a TTY, and to Alt
+    // when running as a winit window.
+    //
+    // Most actions that you can bind here can also be invoked programmatically with
+    // `niri msg action do-something`.
+
+    // Mod-Shift-/, which is usually the same as Mod-?,
+    // shows a list of important hotkeys.
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // Suggested binds for running programs: terminal, app launcher, screen locker.
+    Mod+Q { spawn "kitty"; }
+    Mod+B { spawn "firefox"; }
+    Mod+R { spawn "anyrun"; }
+    // Super+Alt+L { spawn "swaylock"; }
+
+    // You can also use a shell. Do this if you need pipes, multiple commands, etc.
+    // Note: the entire command goes as a single argument in the end.
+    // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
+
+    // Example volume keys mappings for PipeWire & WirePlumber.
+    // The allow-when-locked=true property makes them work even when the session is locked.
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+    Mod+C { close-window; }
+
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Down  { move-window-down; }
+    Mod+Shift+Up    { move-window-up; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+H     { move-column-left; }
+    Mod+Shift+J     { move-window-down; }
+    Mod+Shift+K     { move-window-up; }
+    Mod+Shift+L     { move-column-right; }
+
+    // Alternative commands that move across workspaces when reaching
+    // the first or last window in a column.
+    // Mod+J     { focus-window-or-workspace-down; }
+    // Mod+K     { focus-window-or-workspace-up; }
+    // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
+    // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
+
+    Mod+Insert { focus-column-first; }
+    Mod+End  { focus-column-last; }
+    Mod+Ctrl+Insert { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
+
+    Mod+Ctrl+Left  { focus-monitor-left; }
+    Mod+Ctrl+Down  { focus-monitor-down; }
+    Mod+Ctrl+Up    { focus-monitor-up; }
+    Mod+Ctrl+Right { focus-monitor-right; }
+    Mod+Ctrl+H     { focus-monitor-left; }
+    Mod+Ctrl+J     { focus-monitor-down; }
+    Mod+Ctrl+K     { focus-monitor-up; }
+    Mod+Ctrl+L     { focus-monitor-right; }
+
+    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+
+    // Alternatively, there are commands to move just a single window:
+    // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
+    // ...
+
+    // And you can also move a whole workspace to another monitor:
+    // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
+    // ...
+
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+U              { focus-workspace-down; }
+    Mod+I              { focus-workspace-up; }
+    Mod+Shift+Page_Down { move-column-to-workspace-down; }
+    Mod+Shift+Page_Up   { move-column-to-workspace-up; }
+    Mod+Shift+U         { move-column-to-workspace-down; }
+    Mod+Shift+I         { move-column-to-workspace-up; }
+
+    // Alternatively, there are commands to move just a single window:
+    Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
+    Mod+Ctrl+Page_Up { move-window-to-workspace-up; }
+    Mod+Ctrl+U { move-window-to-workspace-down; }
+    Mod+Ctrl+I { move-window-to-workspace-up; }
+    // ...
+
+    // Mod+Shift+Page_Down { move-workspace-down; }
+    // Mod+Shift+Page_Up   { move-workspace-up; }
+    // Mod+Shift+U         { move-workspace-down; }
+    // Mod+Shift+I         { move-workspace-up; }
+
+    // 滚轮相关
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+    // 实际上一般鼠标不可以左右滚动滚轮
+    Mod+WheelScrollRight      { focus-column-right; }
+    Mod+WheelScrollLeft       { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+
+    // 通常在应用程序中按住Shift进行上下滚动会导致水平滚动；这些绑定复制了这种行为
+    Mod+Shift+WheelScrollDown      { focus-column-right; }
+    Mod+Shift+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    // niri 是动态工作区，使用时中间不会跨越空工作区
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+
+    // 以下可以移动单个窗口，而不是单列
+    Mod+Ctrl+1 { move-window-to-workspace 1; }
+    Mod+Ctrl+2 { move-window-to-workspace 2; }
+    Mod+Ctrl+3 { move-window-to-workspace 3; }
+    Mod+Ctrl+4 { move-window-to-workspace 4; }
+    Mod+Ctrl+5 { move-window-to-workspace 5; }
+    Mod+Ctrl+6 { move-window-to-workspace 6; }
+    Mod+Ctrl+7 { move-window-to-workspace 7; }
+    Mod+Ctrl+8 { move-window-to-workspace 8; }
+    Mod+Ctrl+9 { move-window-to-workspace 9; }
+
+    // 与之前的工作区切换焦点
+    Mod+Tab { focus-workspace-previous; }
+
+    // Comma = 逗号; Period = 句号
+    // 合并到单列
+    // Mod+Comma  { consume-window-into-column; }
+    // 分割到不同列
+    // Mod+Period { expel-window-from-column; }
+
+    // 向左和向右合并或分割窗口到列
+    // 比上面好用 (Mod + 左右方括号)
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    // 在预设的宽度切换
+    // Mod+R { switch-preset-column-width; }
+    // 重置高(当手动改变过高时有用)
+    Mod+Shift+R { reset-window-height; }
+    // 最大化
+    Mod+F { maximize-column; }
+    // 全屏
+    Mod+Shift+F { fullscreen-window; }
+    // 居中列
+    // Mod+C { center-column; }
+
+    // Finer width adjustments.
+    // This command can also:
+    // * set width in pixels: "1000"
+    // * adjust width in pixels: "-5" or "+5"
+    // * set width as a percentage of screen width: "25%"
+    // * adjust width as a percentage of screen width: "-10%" or "+10%"
+    // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
+    // // set-column-width "100" will make the column occupy 200 physical screen pixels.
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    // // Finer height adjustments when in column with other windows.
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+
+    Mod+P { screenshot; }
+    Mod+Ctrl+P { screenshot-screen; }
+    Mod+Alt+P { screenshot-window; }
+
+    // 关闭niri
+    Mod+Shift+M { quit; }
+
+    // 关闭显示器
+    Mod+M { power-off-monitors; }
+}

@@ -6,9 +6,10 @@ type = "clock"
 format = "%H:%M"
 format_popup = "%m-%d %T"
 
-[[start]]
-type = "workspaces"
-all_monitors = true
+# niri not support
+# [[start]]
+# type = "workspaces"
+# all_monitors = true
 
 [[start]]
 type = "sys_info"
