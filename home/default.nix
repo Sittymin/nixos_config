@@ -144,8 +144,8 @@
     inkscape
     # 绘画应用程序
     # krita
-    # GNU 图像处理程序
-    gimp
+    # GTK 图像处理程序
+    pinta
     blender
     epiphany
     # gnome
@@ -165,14 +165,12 @@
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
-    # stylix 来定义
     # package = pkgs.google-cursor;
     # name = "GoogleDot-Black";
     # size = 24; # 1080P下16，2K下24
   };
   gtk = {
     enable = true;
-    # stylix 自动生成
     # theme = {
     #   name = "Catppuccin-Mocha-Pink";
     #   package = pkgs.catppuccin-gtk.override {
@@ -193,7 +191,6 @@
   dconf = {
     enable = true;
     settings = {
-      # stylix 中的stylix.polarity 指定
       # "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       # KVM
       "org/virt-manager/virt-manager/connections" = {
@@ -207,7 +204,6 @@
 
   # 设置字体 DPI（适用于 2K 显示器）
   # xresources.properties = {
-  #
   #   "Xft.dpi" = 120;
   # };
 

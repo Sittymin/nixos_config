@@ -181,9 +181,13 @@
     config.allowUnfree = true;
     overlays = [ inputs.niri.overlays.niri ];
   };
-  stylix.cursor = {
-    package = pkgs.google-cursor;
-    name = "GoogleDot-Black";
+  stylix = {
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    cursor = {
+      package = pkgs.google-cursor;
+      name = "GoogleDot-Black";
+    };
+    opacity.terminal = 0.8;
   };
   programs = {
     # NOTE:Steam参考于
