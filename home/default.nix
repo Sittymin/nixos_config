@@ -132,7 +132,6 @@
 
     #wine
     wineWowPackages.waylandFull
-    heroic
     qq
     telegram-desktop
     # 命令行备忘录
@@ -147,6 +146,7 @@
     # GTK 图像处理程序
     pinta
     blender
+    godot_4
     epiphany
     # gnome
     gnome.gnome-font-viewer

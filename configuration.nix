@@ -190,27 +190,27 @@
     opacity.terminal = 0.8;
   };
   programs = {
-    # NOTE:Steam参考于
-    # https://github.com/fufexan/dotfiles/blob/main/system/programs/steam.nix
+    # WARN: 注意可能触发冻结问题
+    # 可能是家庭测试版的问题
+    # 触发冻结之后会越来越频繁
     steam = {
-      enable = false;
-      # # fix gamescope inside steam
-      # package = pkgs.steam.override {
-      #   extraPkgs = pkgs:
-      #     with pkgs; [
-      #       keyutils
-      #       libkrb5
-      #       libpng
-      #       libpulseaudio
-      #       libvorbis
-      #       stdenv.cc.cc.lib
-      #       xorg.libXcursor
-      #       xorg.libXi
-      #       xorg.libXinerama
-      #       xorg.libXScrnSaver
-      #       lxgw-neoxihei
-      #     ];
-      # };
+      enable = true;
+      package = pkgs.steam.override {
+        extraPkgs = pkgs:
+          with pkgs; [
+            lxgw-neoxihei
+            #       keyutils
+            #       libkrb5
+            #       libpng
+            #       libpulseaudio
+            #       libvorbis
+            #       stdenv.cc.cc.lib
+            #       xorg.libXcursor
+            #       xorg.libXi
+            #       xorg.libXinerama
+            #       xorg.libXScrnSaver
+          ];
+      };
     };
 
     # https://github.com/hyprwm/Hyprland/issues/6123
@@ -278,6 +278,7 @@
     # Other Linux
     distrobox
     # 运行X11
+    gamescope
     xwayland
     i3
   ];
