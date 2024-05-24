@@ -193,32 +193,25 @@
     # NOTE:Steam参考于
     # https://github.com/fufexan/dotfiles/blob/main/system/programs/steam.nix
     steam = {
-      enable = true;
-
-      gamescopeSession = {
-        enable = true;
-        args = [ "-W 1280" "-H 720" "-w 2560" "-h 1440" "-f" ];
-      };
-
-      # fix gamescope inside steam
-      package = pkgs.steam.override {
-        extraPkgs = pkgs:
-          with pkgs; [
-            keyutils
-            libkrb5
-            libpng
-            libpulseaudio
-            libvorbis
-            stdenv.cc.cc.lib
-            xorg.libXcursor
-            xorg.libXi
-            xorg.libXinerama
-            xorg.libXScrnSaver
-            lxgw-neoxihei
-          ];
-      };
+      enable = false;
+      # # fix gamescope inside steam
+      # package = pkgs.steam.override {
+      #   extraPkgs = pkgs:
+      #     with pkgs; [
+      #       keyutils
+      #       libkrb5
+      #       libpng
+      #       libpulseaudio
+      #       libvorbis
+      #       stdenv.cc.cc.lib
+      #       xorg.libXcursor
+      #       xorg.libXi
+      #       xorg.libXinerama
+      #       xorg.libXScrnSaver
+      #       lxgw-neoxihei
+      #     ];
+      # };
     };
-    gamescope.enable = true;
 
     # https://github.com/hyprwm/Hyprland/issues/6123
     # 可能与上面的issues有关（Hyprland冻结无法做任何行动,包括tty）
@@ -284,6 +277,9 @@
     file
     # Other Linux
     distrobox
+    # 运行X11
+    xwayland
+    i3
   ];
 
   # NOTE:虚拟环境 
