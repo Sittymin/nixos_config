@@ -101,7 +101,6 @@
     scrcpy
 
     python39
-    conda
     # JDK
     graalvm-ce
     # nodejs
@@ -123,7 +122,7 @@
     lsof # 列出打开文件的工具
 
     # 用于调节音频设备的软件
-    helvum
+    # helvum
 
     # 桌面环境相关
     waybar # 一个漂亮的状态栏
@@ -155,7 +154,6 @@
     # Matrix群组消息应用程序
     # fractal
     # 浏览联邦网络(Mastodon)
-    # tuba
     # Markdown编辑器
     apostrophe
     # GTK编写的远程桌面客户端
