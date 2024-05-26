@@ -1,96 +1,13 @@
 { pkgs
 , ...
 }: {
-  # home.file = { ".config/helix/config.toml".source = ./config.toml; };
+  home.file = {
+    ".config/helix/config.toml".source = ./config.toml;
+    # NOTE: 配置 cargo 镜像(https://rsproxy.cn/)
+    ".cargo/config".source = ./cargo_config;
+  };
   programs.helix = {
     enable = true;
-    settings = {
-      editor = {
-        line-number = "relative";
-        cursorline = true;
-        cursorcolumn = true;
-        bufferline = "multiple";
-        # 用于控制弹出窗口（如自动完成、提示等）周围是否显示边框
-        popup-border = "all";
-        auto-completion = true;
-      };
-      editor.statusline = {
-        left = [ "mode" "spinner" ];
-        center = [ "file-name" "read-only-indicator" "file-modification-indicator" ];
-        right = [ "diagnostics" "selections" "position" "file-encoding" "file-type" ];
-        # 用于在状态栏中分隔元素的字符
-        separator = "│";
-        mode.normal = "普通模式";
-        mode.insert = "插入模式";
-        mode.select = "选择模式";
-      };
-      editor.lsp = {
-        # 在状态行显示 LSP 进度消息
-        display-messages = true;
-        # 显示嵌入提示
-        display-inlay-hints = true;
-      };
-      editor.cursor-shape = {
-        insert = "bar";
-        normal = "block";
-        select = "underline";
-      };
-
-      editor.file-picker = {
-        # 启用忽略隐藏文件
-        hidden = false;
-      };
-      # 使用可见字符渲染空格的选项
-      editor.whitespace.render = {
-        space = "all";
-        tab = "all";
-        nbsp = "none";
-        nnbsp = "none";
-        newline = "none";
-      };
-      editor.whitespace.characters = {
-        space = "·";
-        tab = "→";
-        newline = "";
-        tabpad = "·"; # Tabs will look like "→···" (depending on tab width)
-      };
-      # 使用软换行
-      editor.soft-wrap = {
-        enable = true;
-        # 软折行时，行尾可以留下的最大空闲空间;
-        max-wrap = 25;
-        # 在软折行时，可以保留的最大缩进量;
-        max-indent-retain = 40;
-        # 在软换行的行之前插入的文本;
-        wrap-indicator = "󱞩";
-      };
-      keys.normal = {
-        # Ctrl + s 保存;
-        C-s = ":w";
-        # 下一个缓冲区;
-        tab = ":bn";
-        # 上一个缓冲区;
-        S-tab = ":bp";
-        # 将当前行向上移动;
-        S-k = [ "extend_to_line_bounds" "delete_selection" "move_line_up" "paste_before" ];
-        # 将当前行向下移动;
-        S-j = [ "extend_to_line_bounds" "delete_selection" "paste_after" ];
-        # 将当前选择向左移(会换行);
-        S-h = [ "delete_selection" "move_char_left" "paste_before" ];
-        # 将当前选择向右移(会换行);
-        S-l = [ "delete_selection" "paste_after" ];
-      };
-      keys.insert = {
-        j = { k = "normal_mode"; };
-      };
-      keys.select = {
-        # 将当前选择向左移(会换行)
-        S-h = [ "delete_selection" "move_char_left" "paste_before" "select_mode" ];
-        # 将当前选择向右移(会换行)
-        S-l = [ "delete_selection" "paste_after" "select_mode" ];
-      };
-    };
-
 
     extraPackages = with pkgs; [
       # 太老了
@@ -98,6 +15,12 @@
       # 使用bun -g i @vue/language-server
       # 且bun/bin目录包含在path
       nodePackages.vscode-langservers-extracted
+      # 语言服务器
+      rust-analyzer
+      # 调试器
+      lldb
+      # Rust 格式化
+      clippy
     ];
     languages = with pkgs; {
       language-server = {
@@ -161,6 +84,17 @@
             };
           };
         };
+        # https://discourse.nixos.org/t/helix-lsp-servers/34833/4
+        rust-analyzer = {
+          config.rust-analyzer = {
+            cargo.loadOutDirsFromCheck = true;
+            checkOnSave.command = "clippy";
+            procMacro.enable = true;
+            lens = { references = true; methodReferences = true; };
+            completion.autoimport.enable = true;
+            experimental.procAttrMacros = true;
+          };
+        };
       };
       language = [
         { name = "xml"; language-servers = [ "vscode-html-language-server" ]; }
@@ -174,6 +108,12 @@
           formatter = {
             command = "${nixpkgs-fmt}/bin/nixpkgs-fmt";
           };
+        }
+        {
+          name = "rust";
+          auto-format = true;
+          file-types = [ "lalrpop" "rs" ];
+          language-servers = [ "rust-analyzer" ];
         }
       ];
     };

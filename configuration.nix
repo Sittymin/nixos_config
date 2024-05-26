@@ -181,14 +181,6 @@
     config.allowUnfree = true;
     overlays = [ inputs.niri.overlays.niri ];
   };
-  stylix = {
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    cursor = {
-      package = pkgs.google-cursor;
-      name = "GoogleDot-Black";
-    };
-    opacity.terminal = 0.8;
-  };
   programs = {
     # WARN: 注意可能触发冻结问题
     # 可能是家庭测试版的问题
@@ -281,6 +273,8 @@
     gamescope
     xwayland
     i3
+    # 编译器
+    gcc
   ];
 
   # NOTE:虚拟环境 

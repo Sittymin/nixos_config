@@ -107,6 +107,7 @@
     bun
     nodejs_22
     # nodePackages.vls
+    rustup
 
     # 与Nix相关的工具，提供更详细的日志输出。
     # nh 内置
@@ -163,20 +164,20 @@
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
-    # package = pkgs.google-cursor;
-    # name = "GoogleDot-Black";
-    # size = 24; # 1080P下16，2K下24
+    package = pkgs.google-cursor;
+    name = "GoogleDot-Black";
+    size = 24; # 1080P下16，2K下24
   };
   gtk = {
     enable = true;
-    # theme = {
-    #   name = "Catppuccin-Mocha-Pink";
-    #   package = pkgs.catppuccin-gtk.override {
-    #     accents = [ "pink" ];
-    #     tweaks = [ "rimless" "black" ];
-    #     variant = "mocha";
-    #   };
-    # };
+    theme = {
+      name = "Catppuccin-Mocha-Pink";
+      package = pkgs.catppuccin-gtk.override {
+        accents = [ "pink" ];
+        tweaks = [ "rimless" "black" ];
+        variant = "mocha";
+      };
+    };
     # GTK3/4偏好暗色主题
     gtk3.extraConfig = { gtk-application-prefer-dark-theme = 1; };
     gtk4.extraConfig = { gtk-application-prefer-dark-theme = true; };
@@ -189,7 +190,7 @@
   dconf = {
     enable = true;
     settings = {
-      # "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       # KVM
       "org/virt-manager/virt-manager/connections" = {
         autoconnect = [ "qemu:///system" ];
@@ -220,11 +221,10 @@
       theme = "Catppuccin-Mocha";
       settings = {
         tab_bar_edge = "top";
-        # WARN: 可能stylix设置不对
-        # background_opacity = "0.5";
+        background_opacity = "0.5";
         # 新建窗口的布局
         enabled_layouts = "Tall";
-        # 模糊需要在Hyprland
+        # 模糊需要在窗口管理器
         font_family = "Monaspace Neon Var Regular";
         bold_font = "Monaspace Neon Var ExtraBold";
         italic_font = "Monaspace Neon Var Medium Italic";

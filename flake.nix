@@ -65,12 +65,10 @@
           ./overlay
           lix-module.nixosModules.default
           nur.nixosModules.nur
-          stylix.nixosModules.stylix
 
           niri.nixosModules.niri
           ({ config, pkgs, ... }:
             {
-              stylix.image = ./wallpaper.png;
               environment.systemPackages = [
                 # NOTE:主要用于给waydroid提供转译层
                 # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
