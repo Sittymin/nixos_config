@@ -4,7 +4,7 @@
   home.file = {
     ".config/helix/config.toml".source = ./config.toml;
     # NOTE: 配置 cargo 镜像(https://rsproxy.cn/)
-    ".cargo/config".source = ./cargo_config;
+    ".cargo/config.toml".source = ./cargo_config.toml;
   };
   programs.helix = {
     enable = true;

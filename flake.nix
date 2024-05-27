@@ -23,8 +23,6 @@
     # TODO: 可滚动的平铺 Wayland 合成器
     niri.url = "github:sodiboo/niri-flake";
 
-    stylix.url = "github:danth/stylix";
-
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     anyrun.url = "github:Kirottu/anyrun";
@@ -52,7 +50,7 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, lix-module, niri, stylix, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nur, lix-module, niri, ... }@inputs: {
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

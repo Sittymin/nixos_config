@@ -301,7 +301,8 @@
       # mono fonts
       # kitty用的是Var版本
       monaspace
-      noto-fonts
+      # 补全nom需要的字体
+      symbola
       lxgw-neoxihei
       lxgw-wenkai
       noto-fonts-color-emoji

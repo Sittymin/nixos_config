@@ -148,8 +148,8 @@
     blender
     godot_4
     epiphany
+    font-manager
     # gnome
-    gnome.gnome-font-viewer
     gnome.dconf-editor
     d-spy
     # Matrix群组消息应用程序
@@ -235,7 +235,7 @@
       };
       # TODOu 启用连字
       extraConfig =
-        "\n        font_features MonaspaceNeonVar-Regular +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga\n        font_features MonaspaceNeonVar_800wght +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga\n        symbol_map U+4E00-U+9FFF LXGW Neo XiHei\n        symbol_map U+2300-U+23FF,U+2600-U+26FF,U+2B58,U+E000-U+F8FF,U+F0000-U+FFFFD Symbols Nerd Font\n      ";
+        "\n        font_features MonaspaceNeonVar-Regular +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga\n        font_features MonaspaceNeonVar_800wght +calt +ss01 +ss02 +ss03 +ss04 +ss05 +ss06 +ss07 +ss08 +liga\n        symbol_map U+4E00-U+9FFF LXGW Neo XiHei\n        symbol_map U+2B58,U+E000-U+F8FF,U+F0000-U+FFFFD Symbols Nerd Font\n      symbol_map U+2300-U+23FF,U+2714,U+26A0,U+2193,U+2191,U+2205,U+2211 Symbola\n";
 
     };
     # https://github.com/zellij-org/zellij/issues/2814
