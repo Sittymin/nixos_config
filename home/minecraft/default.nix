@@ -14,7 +14,7 @@
     # NOTE: -d: 以守护程序运行zerotier
     # sudo zerotier-one -d
     # NOTE: 查看运行状态
-    # zerotier-cli status
+    # sudo zerotier-cli status
     # NOTE: 加入网络
     # zerotier-cli join <Network ID>
     # 离开网络

@@ -52,6 +52,7 @@
     fastfetch
     cpu-x
     #hyprpaper # 一个壁纸软件
+    hyprpicker
     mpvpaper
     # Log
     tailspin

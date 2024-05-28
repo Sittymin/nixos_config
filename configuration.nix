@@ -179,7 +179,9 @@
   # NOTE:允许非自由软件
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [ inputs.niri.overlays.niri ];
+    overlays = [
+      inputs.niri.overlays.niri
+    ];
   };
   programs = {
     # WARN: 注意可能触发冻结问题
