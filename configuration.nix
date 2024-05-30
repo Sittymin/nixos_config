@@ -184,27 +184,15 @@
     ];
   };
   programs = {
-    # WARN: 注意可能触发冻结问题
-    # 可能是家庭测试版的问题
-    # 触发冻结之后会越来越频繁
     steam = {
       enable = true;
-      package = pkgs.steam.override {
-        extraPkgs = pkgs:
-          with pkgs; [
-            lxgw-neoxihei
-            #       keyutils
-            #       libkrb5
-            #       libpng
-            #       libpulseaudio
-            #       libvorbis
-            #       stdenv.cc.cc.lib
-            #       xorg.libXcursor
-            #       xorg.libXi
-            #       xorg.libXinerama
-            #       xorg.libXScrnSaver
-          ];
-      };
+      extraPackages = with pkgs; [
+        # 也许只是让内部可以调用，外部必须再安装一个
+        gamescope
+      ];
+      # fontPackages = with pkgs; [
+      #   lxgw-neoxihei
+      # ];
     };
 
     # https://github.com/hyprwm/Hyprland/issues/6123
@@ -275,6 +263,7 @@
     gamescope
     xwayland
     i3
+    myRepo.xwayland-satellite
     # 编译器
     gcc
   ];

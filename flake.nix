@@ -43,6 +43,11 @@
       flake = false;
     };
 
+    myRepo = {
+      url = "github:Sittymin/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,6 +72,13 @@
           niri.nixosModules.niri
           ({ config, pkgs, ... }:
             {
+              # 使用我的NUR
+              # 使用方法pkgs.myRepo.example-package
+              nixpkgs.overlays = [
+                (final: prev: {
+                  myRepo = inputs.myRepo.packages."${prev.system}";
+                })
+              ];
               environment.systemPackages = [
                 # NOTE:主要用于给waydroid提供转译层
                 # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
