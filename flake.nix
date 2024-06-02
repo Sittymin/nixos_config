@@ -23,7 +23,7 @@
     # TODO: 可滚动的平铺 Wayland 合成器
     niri.url = "github:sodiboo/niri-flake";
 
-    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     anyrun.url = "github:Kirottu/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";

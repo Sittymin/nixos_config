@@ -14,6 +14,26 @@ input {
 
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
+output "DP-2" {
+    mode "3840x2160@144.000"
+
+    // 实际输出的缩放
+    scale 2.0
+
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "normal"
+
+    // 输出在全局坐标空间中的位置。
+    // 这会影响方向性监视器操作，如 "focus-monitor-left"，以及光标移动。
+    // 光标只能在直接相邻的输出之间移动。
+    // 位置设置需要考虑输出的缩放和旋转：
+    // 输出的大小以逻辑或缩放后的像素为单位。
+    // 例如，一个缩放为2.0的3840×2160输出将具有1920×1080的逻辑大小，
+    // 因此要将另一个输出直接放置在其右侧，需将其x设置为1920。
+    // 如果位置未设置或导致重叠，则输出将自动放置。
+    position x=1920 y=0
+}
 output "HDMI-A-3" {
     mode "2560x1440"
 
@@ -121,7 +141,7 @@ layout {
 // 例子：
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "ironbar"
-spawn-at-startup "mpvpaper" "-o" "no-audio --loop" "*" "/home/Sittymin/WallPaper/月色背637.mp4"
+spawn-at-startup "mpvpaper" "-o" "no-audio --loop" "*" "/home/Sittymin/WallPaper/碧蓝档案 | Blue Archive | Miyu (Swimsuit) | 4k 60.mp4"
 
 // 这个标志将使 niri 要求应用程序省略它们的客户端装饰
 // 除非应用程序明确要求需要

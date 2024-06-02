@@ -6,7 +6,7 @@
     ./hardware-configuration.nix
   ];
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 
   boot = {
     # NOTE:对于Arc显卡的特殊设置
@@ -197,10 +197,10 @@
 
     # https://github.com/hyprwm/Hyprland/issues/6123
     # 可能与上面的issues有关（Hyprland冻结无法做任何行动,包括tty）
-    # hyprland = {
-    #   enable = true;
-    #   package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    # };
+    hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    };
 
 
     niri = {
@@ -260,9 +260,9 @@
     # Other Linux
     distrobox
     # 运行X11
+    # 也许用Hyprland比较好
+    # 除非xwayland-satellite搞好了
     gamescope
-    xwayland
-    i3
     myRepo.xwayland-satellite
     # 编译器
     gcc
