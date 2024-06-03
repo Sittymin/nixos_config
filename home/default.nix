@@ -51,15 +51,15 @@
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
   home.packages = with pkgs; [
     fastfetch
+    lux
     cpu-x
     #hyprpaper # 一个壁纸软件
-    hyprpicker
+    # hyprpicker
     mpvpaper
     # Log
     tailspin
     # BLAKE3 加密哈希函数
     b3sum
-    lux
     libjxl
     libavif
     # 一个回收站工具
@@ -80,6 +80,8 @@
       withMfx = false;
     })
     vscode
+    # 还是等到支持Wayland吧
+    # jetbrains.idea-ultimate
     # Doc view
     evince
     # EPUB and other
@@ -127,8 +129,6 @@
     # 用于调节音频设备的软件
     # helvum
 
-    # 桌面环境相关
-    waybar # 一个漂亮的状态栏
     # 通知程序
     mako
 
@@ -156,7 +156,6 @@
     d-spy
     # Matrix群组消息应用程序
     # fractal
-    # 浏览联邦网络(Mastodon)
     # Markdown编辑器
     apostrophe
     # GTK编写的远程桌面客户端
@@ -193,6 +192,8 @@
     enable = true;
     settings = {
       "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      # https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Settings.html
+      "org/freedesktop/appearance".color-scheme = 1;
       # KVM
       "org/virt-manager/virt-manager/connections" = {
         autoconnect = [ "qemu:///system" ];
