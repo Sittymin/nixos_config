@@ -17,6 +17,9 @@ input {
 output "DP-2" {
     mode "3840x2160@144.000"
 
+    // 支持FreeSync/GSync的显示器可以用VRR
+    variable-refresh-rate
+
     // 实际输出的缩放
     scale 2.0
 

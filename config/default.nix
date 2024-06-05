@@ -67,6 +67,7 @@
     ## 默认应用 参考: https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-latest.html
     # desktop 文件也许可以通过以下路径找到
     # ~/.local/state/nix/profiles/home-manager/home-path/share/applications
+    # mime 可以通过 `file --mime-type 文件名` 查看
     # Example:
     # "application/pdf" = "firefox.desktop";
     # "image/png" = [
@@ -79,6 +80,7 @@
       "x-scheme-handler/https" = "firefox.desktop";
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
+      "application/zip" = "org.gnome.FileRoller.desktop";
     };
   };
 }
