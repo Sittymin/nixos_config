@@ -72,6 +72,8 @@ S-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 S-h = ["delete_selection", "move_char_left", "paste_before"]
 # 将当前选择向右移(会换行)
 S-l = ["delete_selection", "paste_after"]
+# 利用 zellij 让 yazi 成为 Helix 的文件选择器
+C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/.config/helix/yazi-picker.sh"
 [keys.insert]
 j = { k = "normal_mode" }
 [keys.select]

@@ -5,6 +5,8 @@
     ".config/helix/config.toml".source = ./config.toml;
     # NOTE: 配置 cargo 镜像(https://rsproxy.cn/)
     ".cargo/config.toml".source = ./cargo_config.toml;
+    # 利用 Zellij 让 yazi 成为 Helix 的文件选择器
+    ".config/helix/yazi-picker.sh".source = ./yazi-picker.sh;
   };
   programs.helix = {
     enable = true;
