@@ -59,6 +59,9 @@
       myRepo.xwayland-satellite
       # 编译器
       gcc
+      # 虚拟机共享文件夹
+      virtiofsd
+
     ];
   };
 

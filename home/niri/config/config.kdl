@@ -15,9 +15,10 @@ input {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
 output "DP-2" {
-    mode "3840x2160@144.000"
+    mode "3840x2160@160.000"
 
     // 支持FreeSync/GSync的显示器可以用VRR
+    // NOTE: 使用160刷新率需要VRR
     variable-refresh-rate
 
     // 实际输出的缩放
@@ -38,7 +39,8 @@ output "DP-2" {
     position x=1920 y=0
 }
 output "HDMI-A-3" {
-    mode "2560x1440"
+    // 上面使用VRR加160刷新率之后无法输出副屏
+    mode "2560x1440@119.998"
 
     // 实际输出的缩放
     scale 2.0

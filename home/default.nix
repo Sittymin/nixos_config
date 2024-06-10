@@ -16,6 +16,7 @@
     ./niri
     ./helix
     ./mpv
+    ./cheat
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -26,13 +27,17 @@
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
   home.file = {
     ".config/mako/config".source = ./mako/config;
-    ".config/cheat".source = ./cheat;
     ".config/yazi" = {
       source = ./yazi;
       recursive = true;
       executable = true;
     };
   };
+
+  # PATH 变量(可能没用？)
+  home.sessionPath = [
+    "$HOME/.bun/bin"
+  ];
 
   # 递归将某个文件夹中的文件，链接到 Home 目录下的指定位置
   # home.file.".config/i3/scripts" = {

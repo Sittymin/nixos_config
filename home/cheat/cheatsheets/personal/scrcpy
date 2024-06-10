@@ -1,1 +1,0 @@
-scrcpy --video-codec=h265 --audio-codec=flac -Sw -K -t --power-off-on-close --window-borderless

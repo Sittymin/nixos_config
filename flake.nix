@@ -25,7 +25,7 @@
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
-    anyrun.url = "github:Kirottu/anyrun";
+    anyrun.url = "github:anyrun-org/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
 
     firefox-gnome-theme = {
@@ -55,7 +55,7 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, lix-module, niri, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations = {
       "nixos" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -66,10 +66,10 @@
         modules = [
           ./configuration.nix
           ./overlay
-          lix-module.nixosModules.default
-          nur.nixosModules.nur
+          inputs.lix-module.nixosModules.default
+          inputs.nur.nixosModules.nur
 
-          niri.nixosModules.niri
+          inputs.niri.nixosModules.niri
           ({ config, pkgs, ... }:
             {
               # 使用我的NUR
@@ -92,6 +92,8 @@
             home-manager.useUserPackages = true;
 
             home-manager.users.Sittymin = import ./home;
+            # 如果遇到重复文件为原始文件添加backup，而不是发生错误
+            home-manager.backupFileExtension = "backup";
 
             # NOTE:使用 home-manager.extraSpecialArgs 自定义传递给 ./home.nix 的参数
             # 取消注释下面这一行，就可以在 home.nix 中使用 flake 的所有 inputs 参数了
