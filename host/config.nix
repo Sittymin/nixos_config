@@ -8,13 +8,14 @@
       driSupport32Bit = true;
       extraPackages = with pkgs; [
         intel-compute-runtime
+        # Intel VAAPI 驱动程序
         intel-media-driver
-        # ffmpeg硬件编解码仍然需要上面的
-        # 上面的应该被onevpl代替
-        # ffmpeg -init_hw_device qsv=hw -filter_hw_device hw -v verbose -i input.mp4 -c:v av1_qsv output.mkv
+        # 参考: https://trac.ffmpeg.org/wiki/Hardware/QuickSync
+        # ffmpeg -hwaccel qsv -c:v h264_qsv -i input.mp4 -c:v h264_qsv -global_quality 25 output.mp4
+        #        使用qsv硬件加速 使用h264_qsv解码        使用h264_qsv编码 指定ICQ质量
+        # ICQ值（例如0到23）会产生高质量的视频，适合需要高保真输出的应用，如专业视频编辑或存档。中等范围的ICQ值（例如24到35）
+        # 如果画面变化快速可以使用-look_ahead <几帧>来让qsv可以预测然后再编码
         onevpl-intel-gpu
-        # https://github.com/MordragT/nixos/blob/master/hosts/desktop/config.nix#L21
-        intel-vaapi-driver
       ];
     };
   };
