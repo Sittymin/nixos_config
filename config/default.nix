@@ -84,6 +84,8 @@
       "x-scheme-handler/about" = "firefox.desktop";
       "x-scheme-handler/unknown" = "firefox.desktop";
       "application/zip" = "org.gnome.FileRoller.desktop";
+      # 文件夹打开方式
+      "inode/directory" = "org.gnome.Nautilus.desktop";
     };
   };
 }

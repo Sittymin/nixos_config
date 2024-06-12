@@ -2,6 +2,9 @@
 , thumbfast
 , ...
 }: {
+  home.packages = with pkgs; [
+    svp
+  ];
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [
