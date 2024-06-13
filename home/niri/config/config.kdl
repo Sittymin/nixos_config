@@ -15,7 +15,9 @@ input {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
 output "DP-2" {
-    mode "3840x2160@160.000"
+    // 160 不是 24 的倍数
+    // mode "3840x2160@160.000"
+    mode "3840x2160@144.000"
 
     // 支持FreeSync/GSync的显示器可以用VRR
     // NOTE: 使用160刷新率需要VRR
@@ -146,7 +148,8 @@ layout {
 // 例子：
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "ironbar"
-spawn-at-startup "mpvpaper" "-o" "no-audio --loop" "*" "/home/Sittymin/WallPaper/碧蓝档案 | Blue Archive | Miyu (Swimsuit) | 4k 60.mp4"
+// 4K 视频还是太吃性能了
+// spawn-at-startup "mpvpaper" "-o" "no-audio --loop" "*" "/home/Sittymin/WallPaper/碧蓝档案 | Blue Archive | Miyu (Swimsuit) | 4k 60.mp4"
 
 // 这个标志将使 niri 要求应用程序省略它们的客户端装饰
 // 除非应用程序明确要求需要

@@ -46,6 +46,8 @@
       mkl
       # Intel OneAPI深度神经网络库
       oneDNN
+      # 也许这个加载没啥用
+      vulkan-loader
       # 音频兼容层(当前对于我的世界有用)
       alsa-oss
       # 显示文件类型的程序
