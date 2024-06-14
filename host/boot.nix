@@ -4,13 +4,13 @@
 
   boot = {
     # NOTE:对于Arc显卡的特殊设置
-    initrd.kernelModules = [ "i915" ];
+    # initrd.kernelModules = [ "i915" ];
     # initrd.kernelModules = [ "xe" ];
     # kernelModules = [ "xe" "kvm-intel" ];
     kernelPackages = pkgs.linuxPackages_latest;
     # NOTE:设置内核参数
-    # 可能对于显卡驱动有帮助？
-    kernelParams = [ "i915.force_probe=56a0" ];
+    # 强制i915不要探测显卡设备ID,xe驱动程序探测显卡设备ID
+    kernelParams = [ "i915.force_probe=!56a0" "xe.force_probe=56a0" ];
     loader = {
       # NOTE:引导最多为10个配置文件
       systemd-boot.configurationLimit = 10;
