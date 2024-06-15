@@ -43,6 +43,9 @@
       flake = false;
     };
 
+    # 桌面壁纸
+    swww.url = "github:LGFae/swww";
+
     myRepo = {
       url = "github:Sittymin/nur-packages";
       inputs.nixpkgs.follows = "nixpkgs";

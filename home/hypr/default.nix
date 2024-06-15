@@ -9,4 +9,12 @@
       source = "/etc/nixos/home/hypr/hyprland.conf";
     };
   };
+  # home = {
+  #   packages = with pkgs; [
+  #     hyprpaper # 一个壁纸软件
+  #   ];
+  #   file = {
+  #     ".config/hypr/hyprpaper.conf".source = ./hyprpaper.conf;
+  #   };
+  # };
 }

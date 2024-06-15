@@ -148,6 +148,10 @@ layout {
 // 例子：
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "ironbar"
+// 显示壁纸
+spawn-at-startup "swww-daemon"
+// 加载壁纸图片
+spawn-at-startup "swww img /etc/nixos/wallpaper/nixos-wallpaper-catppuccin-mocha.png"
 // 4K 视频还是太吃性能了
 // spawn-at-startup "mpvpaper" "-o" "no-audio --loop" "*" "/home/Sittymin/WallPaper/碧蓝档案 | Blue Archive | Miyu (Swimsuit) | 4k 60.mp4"
 

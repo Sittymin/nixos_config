@@ -5,6 +5,7 @@
     ./host
     ./config
     ./modules
+    ./wallpaper
   ];
 
   system.stateVersion = "24.05";

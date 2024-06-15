@@ -12,7 +12,7 @@
     ./minecraft
     ./shell
     ./fontconfig
-    # ./hypr
+    ./hypr
     ./niri
     ./helix
     ./mpv
@@ -61,7 +61,6 @@
     fastfetch
     lux
     cpu-x
-    #hyprpaper # 一个壁纸软件
     # hyprpicker
     mpvpaper
     # Log
