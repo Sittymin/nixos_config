@@ -259,7 +259,12 @@
     };
     obs-studio = {
       enable = true;
-      plugins = with pkgs.obs-studio-plugins; [ wlrobs ];
+      plugins = with pkgs.obs-studio-plugins; [
+        # wayland 录屏
+        wlrobs
+        # pipewire 录音
+        obs-pipewire-audio-capture
+      ];
     };
   };
 

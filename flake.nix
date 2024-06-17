@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # git 版本的软件
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     lix = {
       url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";
@@ -71,6 +73,7 @@
           ./overlay
           inputs.lix-module.nixosModules.default
           inputs.nur.nixosModules.nur
+          inputs.chaotic.nixosModules.default
 
           inputs.niri.nixosModules.niri
           ({ config, pkgs, ... }:

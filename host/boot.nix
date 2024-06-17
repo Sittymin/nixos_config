@@ -11,6 +11,7 @@
     # NOTE:设置内核参数
     # 强制i915不要探测显卡设备ID,xe驱动程序探测显卡设备ID
     kernelParams = [ "i915.force_probe=!56a0" "xe.force_probe=56a0" ];
+    # kernelParams = [ "i915.force_probe=56a0" "xe.force_probe=!56a0" ];
     loader = {
       # NOTE:引导最多为10个配置文件
       systemd-boot.configurationLimit = 10;
