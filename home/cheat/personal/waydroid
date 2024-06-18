@@ -13,3 +13,6 @@ waydroid show-full-ui
 # 修改 UI 宽度和高度
 waydroid prop set persist.waydroid.width 宽度值
 waydroid prop set persist.waydroid.height 高度值
+
+# 可能会导致 waydroid 中光标移动速度和桌面不一样
+waydroid prop set persist.waydroid.cursor_on_subsurface false

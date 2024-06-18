@@ -33,5 +33,9 @@
     flatpak = {
       enable = true;
     };
+    # 自动挂载与管理U盘
+    udisks2.enable = true;
+    # 是一个Gnome提供的文件系统抽象层（支持的软件可以看到U盘）
+    gvfs.enable = true;
   };
 }

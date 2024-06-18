@@ -1,1 +1,3 @@
 sudo ln -s /home/Sittymin/nixos_config /etc/nixos
+# USB 自动挂载软链接到/mnt/USB/
+sudo ln -s /run/media/Sittymin/ /mnt/USB/
