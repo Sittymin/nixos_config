@@ -33,10 +33,14 @@ else
 
   # -f 表示强制
   cp -f /tmp/disk-config.nix ./nixos_config/disk-config.nix
+  mv -f /mnt/etc/nixos/hardware-configuration.nix ./nixos_config/hardware-configuration.nix
   # -a 表示保留时间戳
   cp -a ./nixos_config/* /mnt/etc/nixos/
 
   nixos-install
+
+  # 可能默认不会创建, 导致无法登录用户
+  mkdir /mnt/home/Sittymin
 
   echo "Done"
 fi

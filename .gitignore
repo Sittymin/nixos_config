@@ -1,1 +1,2 @@
-hardware-configuration.nix
+# 构建时需要 git 跟踪它
+# hardware-configuration.nix
