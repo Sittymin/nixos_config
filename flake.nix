@@ -71,6 +71,11 @@
         modules = [
           ./configuration.nix
           ./overlay
+          ./system/host
+          ./system/config
+          ./system/modules
+          ./wallpaper
+
           inputs.lix-module.nixosModules.default
           inputs.nur.nixosModules.nur
           inputs.chaotic.nixosModules.default
