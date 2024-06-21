@@ -44,6 +44,21 @@
       url = "github:po5/thumbfast";
       flake = false;
     };
+    # mpv 底部进度条
+    mpv-progressbar = {
+      url = "github:torque/mpv-progressbar/build";
+      flake = false;
+    };
+    # mpv 自动加载 Fonts 文件夹中的字体
+    fbriere-mpv-scripts = {
+      url = "github:fbriere/mpv-scripts";
+      flake = false;
+    };
+    # Anime4K 为 mpv 动漫实时高清放大
+    Anime4K = {
+      url = "github:bloc97/Anime4K";
+      flake = false;
+    };
 
     # 桌面壁纸
     swww.url = "github:LGFae/swww";

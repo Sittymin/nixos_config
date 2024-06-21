@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "Anime4K": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714087812,
+        "narHash": "sha256-F5/n/KmJ7iOiI0qcpwX6q8zvF4ACv6zcJTOxcAv6HSE=",
+        "owner": "bloc97",
+        "repo": "Anime4K",
+        "rev": "7684e9586f8dcc738af08a1cdceb024cc184f426",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bloc97",
+        "repo": "Anime4K",
+        "type": "github"
+      }
+    },
     "anyrun": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -156,6 +172,22 @@
       "original": {
         "owner": "numtide",
         "repo": "devshell",
+        "type": "github"
+      }
+    },
+    "fbriere-mpv-scripts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1645034856,
+        "narHash": "sha256-iNrnGXeaHE7CT4VBrV1IkvGe6KHNlHnrcw0zfFbobrc=",
+        "owner": "fbriere",
+        "repo": "mpv-scripts",
+        "rev": "29c25d1295c51e211a437d8556699c50307817bf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fbriere",
+        "repo": "mpv-scripts",
         "type": "github"
       }
     },
@@ -730,6 +762,23 @@
         "url": "https://git.lix.systems/lix-project/nixos-module"
       }
     },
+    "mpv-progressbar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1718840143,
+        "narHash": "sha256-IMQqTXraLzc8elu4MhNSQ8/08dEQSZRXZaPX0nq3IOs=",
+        "owner": "torque",
+        "repo": "mpv-progressbar",
+        "rev": "00759cb33cd85155a514bb69637c33d77c38bd66",
+        "type": "github"
+      },
+      "original": {
+        "owner": "torque",
+        "ref": "build",
+        "repo": "mpv-progressbar",
+        "type": "github"
+      }
+    },
     "myRepo": {
       "inputs": {
         "nixpkgs": [
@@ -1161,13 +1210,16 @@
     },
     "root": {
       "inputs": {
+        "Anime4K": "Anime4K",
         "anyrun": "anyrun",
         "chaotic": "chaotic",
+        "fbriere-mpv-scripts": "fbriere-mpv-scripts",
         "firefox-gnome-theme": "firefox-gnome-theme",
         "home-manager": "home-manager_2",
         "hyprland": "hyprland",
         "lix": "lix",
         "lix-module": "lix-module",
+        "mpv-progressbar": "mpv-progressbar",
         "myRepo": "myRepo",
         "niri": "niri",
         "nixpkgs": "nixpkgs_6",

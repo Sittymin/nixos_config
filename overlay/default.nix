@@ -16,7 +16,7 @@
         '';
       });
       lxgw-neoxihei = prev.lxgw-neoxihei.overrideAttrs (finalAttrs: previousAttrs: {
-        version = "1.123";
+        version = "1.123.2";
       });
     })
   ];
