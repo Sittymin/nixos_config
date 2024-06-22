@@ -94,7 +94,7 @@
 
           inputs.lix-module.nixosModules.default
           inputs.nur.nixosModules.nur
-          # inputs.chaotic.nixosModules.default
+          inputs.chaotic.nixosModules.default
 
           inputs.niri.nixosModules.niri
           ({ config, pkgs, ... }:
