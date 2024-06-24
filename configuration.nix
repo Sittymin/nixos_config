@@ -4,11 +4,6 @@
   imports = [
     ./boot.nix
     ./hardware-configuration.nix
-    "${builtins.fetchTarball {
-      url = "https://github.com/nix-community/disko/archive/master.tar.gz";
-      sha256 = "09fw63p5asnaw55pll6dyzil7ri4gkvr50w44yrnqwk3mlkfp5pi";
-    }}/module.nix"
-    ./disk-config.nix
   ];
 
   system.stateVersion = "24.05";

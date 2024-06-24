@@ -74,6 +74,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -91,6 +94,10 @@
           ./system/config
           ./system/modules
           ./wallpaper
+
+          inputs.disko.nixosModules.disko
+          ./disk-config.nix
+
 
           inputs.lix-module.nixosModules.default
           inputs.nur.nixosModules.nur

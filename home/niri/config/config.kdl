@@ -23,13 +23,12 @@ output "DP-2" {
     // NOTE: 使用160刷新率需要VRR
     variable-refresh-rate
 
-    // 实际输出的缩放
-    scale 2.0
-
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
     transform "normal"
 
+    // 实际输出的缩放
+    scale 2.0
     // 输出在全局坐标空间中的位置。
     // 这会影响方向性监视器操作，如 "focus-monitor-left"，以及光标移动。
     // 光标只能在直接相邻的输出之间移动。
@@ -44,13 +43,12 @@ output "HDMI-A-3" {
     // 上面使用VRR加160刷新率之后无法输出副屏
     mode "2560x1440@119.998"
 
-    // 实际输出的缩放
-    scale 2.0
-
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
     transform "normal"
 
+    // 实际输出的缩放
+    scale 2.0
     // 输出在全局坐标空间中的位置。
     // 这会影响方向性监视器操作，如 "focus-monitor-left"，以及光标移动。
     // 光标只能在直接相邻的输出之间移动。
