@@ -34,10 +34,6 @@
     };
   };
 
-  # PATH 变量(可能没用？)
-  home.sessionPath = [
-    "$HOME/.bun/bin"
-  ];
 
   # 递归将某个文件夹中的文件，链接到 Home 目录下的指定位置
   # home.file.".config/i3/scripts" = {
@@ -168,7 +164,7 @@
     # Markdown编辑器
     apostrophe
     # GTK编写的远程桌面客户端
-    remmina
+    # remmina
   ];
 
   home.pointerCursor = {

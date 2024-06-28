@@ -7,7 +7,7 @@
     mutableUsers = false;
     users.Sittymin = {
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "wheel" "video" "audio" "kvm" "libvirt" "docker" ];
+      extraGroups = [ "networkmanager" "wheel" "video" "audio" "kvm" "libvirtd" "docker" ];
       # NOTE:家目录
       home = "/home/Sittymin";
       # NOTE:默认shell

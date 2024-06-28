@@ -58,7 +58,6 @@
       # 也许用Hyprland比较好
       # 除非xwayland-satellite搞好了
       gamescope
-      myRepo.xwayland-satellite
       # 编译器
       gcc
 
