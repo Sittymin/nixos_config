@@ -11,98 +11,75 @@
   programs.helix = {
     enable = true;
 
-    extraPackages = with pkgs; [
-      # 太老了
-      nodePackages.volar
-      # 使用bun -g i @vue/language-server
-      # 且bun/bin目录包含在path
-      nodePackages.vscode-langservers-extracted
-      # 语言服务器
-      rust-analyzer
-      # 调试器
-      lldb
-      # Rust 格式化
-      clippy
-    ];
     languages = with pkgs; {
       language-server = {
         nil = {
           command = "${nil}/bin/nil";
-          # config.nil = {
-          #   formatting.command = [ "${nixpkgs-fmt}/bin/nixpkgs-fmt" ];
-          #   # nix.flake.autoEvalInputs = true;
-          # };
         };
         vuels = {
-          command = "vue-language-server";
-          args = [ "--stdio" ];
+          command = "${vue-language-server}/bin/vue-language-server";
           config = {
             typescript = {
-              # 为了让 vue 拥有自动补全
-              # https://www.reddit.com/r/HelixEditor/comments/18o438c/comment/kek0aqm/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+              # 似乎默认找不到
               tsdk = "${nodePackages.typescript-language-server}/lib/node_modules/typescript/lib/";
             };
           };
         };
-        # Format JS[X] TS[X] VUE JSON 
-        # efm-lsp-prettier = {
-        #   command = "${efm-langserver}/bin/efm-langserver";
-        #   config = {
-        #     documentFormatting = true;
-        #     languages = lib.genAttrs [ "typescript" "javascript" "typescriptreact" "javascriptreact" "vue" "json" "markdown" ] (_: [{
-        #       formatCommand = "${nodePackages.prettier}/bin/prettier --stdin-filepath \${INPUT}";
-        #       formatStdin = true;
-        #     }]);
-        #   };
-        # };
-        eslint = {
-          command = "vscode-eslint-language-server";
+        # 以下链接为生效的最小配置
+        # https://github.com/helix-editor/helix/discussions/10171#discussioncomment-9027190
+        # 依赖于项目 Eslint 设置 (需要使用较新的 eslint.config.js 配置，而不是.eslintrc.*)
+        vscode-eslint-language-server = {
+          command = "${vscode-langservers-extracted}/bin/vscode-eslint-language-server";
           args = [ "--stdio" ];
           config = {
+            # 启用验证
             validate = "on";
-            packageManager = "bun";
-            useESLintClass = false;
-            codeActionOnSave.mode = "all";
-            # codeActionsOnSave = { mode = "all"; };
-            format = true;
-            quiet = false;
-            onIgnoredFiles = "off";
-            rulesCustomizations = [ ];
+            # 较新的 Eslint 似乎是默认启用的
+            experimental = { useFlatConfig = true; };
+            rulesCustomizations = [
+              # 自定义规则(只可以修改警告等级, 详细配置只可以在项目 eslint.config.js 配置)
+              {
+                # 自闭合规则
+                # https://eslint.vuejs.org/rules/html-self-closing
+                # 需要在项目中修改以适配 prettier
+                "rule" = "vue/html-self-closing";
+                "severity" = "error";
+              }
+            ];
+            # 输入时运行
             run = "onType";
-            # nodePath configures the directory in which the eslint server should start its node_modules resolution.
-            # This path is relative to the workspace folder (root dir) of the server instance.
+            # 不缩短问题描述为单行
+            problems = { shortenToSingleLine = false; };
             nodePath = "";
-            # use the workspace folder location or the file location (if no workspace folder is open) as the working directory
-
-            workingDirectory.mode = "auto";
-            experimental = { };
-            problems.shortenToSingleLine = false;
-            codeAction = {
-              disableRuleComment = {
-                enable = true;
-                location = "separateLine";
-              };
-              showDocumentation.enable = true;
-            };
+            # 自动格式化
+            # 在合并 https://github.com/helix-editor/helix/pull/6486 之前不起作用
+            # format = { enable = true; };
+            # codeActionsOnSave = { mode = "all"; "source.fixAll.eslint" = true; };
           };
         };
-        # https://discourse.nixos.org/t/helix-lsp-servers/34833/4
         rust-analyzer = {
-          config.rust-analyzer = {
-            cargo.loadOutDirsFromCheck = true;
-            checkOnSave.command = "clippy";
-            procMacro.enable = true;
-            lens = { references = true; methodReferences = true; };
-            completion.autoimport.enable = true;
-            experimental.procAttrMacros = true;
-          };
+          command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
+          # 未测试用途
+          check.command = "${clippy}/bin/cargo-clippy";
         };
       };
       language = [
-        { name = "xml"; language-servers = [ "vscode-html-language-server" ]; }
-        { name = "json"; language-servers = [{ name = "vscode-json-language-server"; except-features = [ "format" ]; }]; }
-        { name = "html"; auto-format = false; }
-        { name = "vue"; language-servers = [{ name = "vuels"; except-features = [ "format" ]; } "eslint"]; }
+        {
+          name = "vue";
+          # 注释相关
+          # https://github.com/helix-editor/helix/issues/7364
+          # 自动格式化
+          auto-format = true;
+          formatter =
+            {
+              command = "${nodePackages_latest.prettier}/bin/prettier";
+              args = [ "--parser" "vue" ];
+            };
+          language-servers = [
+            "vuels"
+            "vscode-eslint-language-server"
+          ];
+        }
         {
           name = "nix";
           language-servers = [ "nil" ];
@@ -114,7 +91,6 @@
         {
           name = "rust";
           auto-format = true;
-          file-types = [ "lalrpop" "rs" ];
           language-servers = [ "rust-analyzer" ];
         }
       ];

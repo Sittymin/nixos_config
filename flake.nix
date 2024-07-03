@@ -115,17 +115,20 @@
                   myRepo = inputs.myRepo.packages."${prev.system}";
                 })
               ];
-              environment.systemPackages = with config.nur.repos; [
+              environment.systemPackages = (with config.nur.repos; [
                 # NOTE:主要用于给waydroid提供转译层
                 # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
                 ataraxiasjel.waydroid-script
-                # Waydroid 蔚蓝档案脚本修复需要
-                # pkgs.unixtools.xxd
 
                 sigprof.firefox-langpack-zh-CN
 
                 linyinfeng.wemeet
-              ];
+              ]) ++
+              (with pkgs; [
+                # Waydroid 蔚蓝档案脚本修复需要
+                unixtools.xxd
+                myRepo.xwayland-satellite
+              ]);
             })
           home-manager.nixosModules.home-manager
           {
