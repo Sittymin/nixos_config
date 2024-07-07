@@ -57,6 +57,22 @@
             # codeActionsOnSave = { mode = "all"; "source.fixAll.eslint" = true; };
           };
         };
+        # JS, TS 需要
+        typescript-language-server = {
+          command = "${nodePackages.typescript-language-server}/bin/typescript-language-server";
+        };
+        # JSON
+        vscode-json-language-server = {
+          command = "${vscode-langservers-extracted}/bin/vscode-json-language-server";
+        };
+        # CSS
+        vscode-css-language-server = {
+          command = "${vscode-langservers-extracted}/bin/vscode-css-language-server";
+        };
+        # CSS
+        vscode-html-language-server = {
+          command = "${vscode-langservers-extracted}/bin/vscode-html-language-server";
+        };
         rust-analyzer = {
           command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
           # 未测试用途
@@ -70,15 +86,32 @@
           # https://github.com/helix-editor/helix/issues/7364
           # 自动格式化
           auto-format = true;
-          formatter =
-            {
-              command = "${nodePackages_latest.prettier}/bin/prettier";
-              args = [ "--parser" "vue" ];
-            };
+          formatter = {
+            command = "${nodePackages_latest.prettier}/bin/prettier";
+            args = [ "--parser" "vue" ];
+          };
           language-servers = [
             "vuels"
             "vscode-eslint-language-server"
           ];
+        }
+        {
+          name = "javascript";
+          # 自动格式化
+          auto-format = true;
+          formatter = {
+            command = "${nodePackages_latest.prettier}/bin/prettier";
+            args = [ "--parser" "babel-flow" ];
+          };
+        }
+        {
+          name = "typescript";
+          # 自动格式化
+          auto-format = true;
+          formatter = {
+            command = "${nodePackages_latest.prettier}/bin/prettier";
+            args = [ "--parser" "babel-ts" ];
+          };
         }
         {
           name = "nix";
@@ -92,6 +125,16 @@
           name = "rust";
           auto-format = true;
           language-servers = [ "rust-analyzer" ];
+        }
+      ];
+      # 也许需要允许 hx --grammar fetch 和 hx --grammar build
+      grammar = [
+        {
+          name = "kdl";
+          source = {
+            git = "https://github.com/tree-sitter-grammars/tree-sitter-kdl";
+            rev = "b37e3d58e5c5cf8d739b315d6114e02d42e66664";
+          };
         }
       ];
     };

@@ -257,6 +257,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Q { spawn "kitty"; }
+    Mod+Z { spawn "kitty" "zellij"; }
     Mod+B { spawn "firefox"; }
     Mod+R { spawn "anyrun"; }
     // Super+Alt+L { spawn "swaylock"; }
