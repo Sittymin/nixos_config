@@ -128,6 +128,10 @@
                 # Waydroid 蔚蓝档案脚本修复需要
                 unixtools.xxd
                 myRepo.xwayland-satellite
+                # markdown 编辑器
+                myRepo.apostrophe-2-6-3
+                # chromiun 内核浏览器
+                myRepo.thorium
               ]);
             })
           home-manager.nixosModules.home-manager

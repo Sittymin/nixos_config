@@ -21,7 +21,8 @@
     # 用户登录时初始化的环境变量
     sessionVariables = {
       # https://nixos.wiki/wiki/Wayland
-      NIXOS_OZONE_WL = "1";
+      # 实际上不能输入的依旧不能输入, 但是可以让实验Wayland启用
+      # NIXOS_OZONE_WL = "1";
       # nh 的 flake 的查找路径
       FLAKE = "$HOME/nixos_config";
       # BUN 默认不添加安装的Path
@@ -54,10 +55,6 @@
       file
       # Other Linux
       distrobox
-      # 运行X11
-      # 也许用Hyprland比较好
-      # 除非xwayland-satellite搞好了
-      gamescope
       # 编译器
       gcc
 

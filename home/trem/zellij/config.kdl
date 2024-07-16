@@ -1,6 +1,6 @@
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
 keybinds clear-defaults=true {
-    // unbind "Ctrl h" "Ctrl s"
+    unbind "Alt o" "Alt i"
     normal {
         // uncomment this and adjust key if using copy_on_select=false
         // bind "Alt c" { Copy; }
@@ -278,7 +278,7 @@ theme "catppuccin-mocha"
 // 启用或禁用释放鼠标时自动复制（和清除）选中内容的功能
 // Default: true
 //
-copy_on_select false
+// copy_on_select false
 
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL

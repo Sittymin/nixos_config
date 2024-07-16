@@ -27,6 +27,8 @@
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
   home.file = {
     ".config/mako/config".source = ./mako/config;
+    # 似乎是设置默认下载、音乐、文档等目录的配置文件
+    ".config/user-dirs.dirs".source = ./user-dirs.dirs;
     ".config/yazi" = {
       source = ./yazi;
       recursive = true;
@@ -51,6 +53,9 @@
   # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
   home.packages = with pkgs; [
+    # 一种现代图表脚本语言，能将文本转化为图表
+    d2
+    zed-editor
     libreoffice
     # 测试显示器的VRR
     vrrtest
@@ -144,6 +149,7 @@
     # 命令行备忘录
     cheat
     # 种子文件客户端
+    # 等待 326402 合并传递到unstable
     transmission_4
     transmission-remote-gtk
     # 矢量图形编辑器
@@ -151,8 +157,8 @@
     # 绘画应用程序
     # krita
     # GTK 图像处理程序
-    pinta
-    blender
+    # pinta
+    # blender
     godot_4
     epiphany
     font-manager
@@ -161,8 +167,6 @@
     d-spy
     # Matrix群组消息应用程序
     # fractal
-    # Markdown编辑器
-    apostrophe
     # GTK编写的远程桌面客户端
     # remmina
   ];
