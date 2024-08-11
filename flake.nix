@@ -26,7 +26,7 @@
     # TODO: 可滚动的平铺 Wayland 合成器
     niri.url = "github:sodiboo/niri-flake";
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     anyrun.url = "github:anyrun-org/anyrun";
     anyrun.inputs.nixpkgs.follows = "nixpkgs";
@@ -77,6 +77,9 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    daeuniverse.url = "github:daeuniverse/flake.nix/unstable";
+
+
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -105,6 +108,8 @@
 
           inputs.chaotic.nixosModules.default
 
+          inputs.daeuniverse.nixosModules.dae
+
           inputs.niri.nixosModules.niri
           ({ config, pkgs, ... }:
             {
@@ -127,11 +132,11 @@
               (with pkgs; [
                 # Waydroid 蔚蓝档案脚本修复需要
                 unixtools.xxd
-                myRepo.xwayland-satellite
+                # myRepo.xwayland-satellite
                 # markdown 编辑器
                 myRepo.apostrophe-2-6-3
                 # chromiun 内核浏览器
-                myRepo.thorium
+                # myRepo.thorium
               ]);
             })
           home-manager.nixosModules.home-manager

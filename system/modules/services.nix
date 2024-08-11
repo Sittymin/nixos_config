@@ -27,6 +27,8 @@
         PermitRootLogin = "no";
         # NOTE:禁止使用密码登录
         PasswordAuthentication = false;
+        # 允许使用密钥
+        PubkeyAuthentication = true;
       };
       openFirewall = true;
     };

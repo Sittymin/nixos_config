@@ -107,9 +107,9 @@
     zpaqfranz
 
     # GUI文件管理器
-    gnome.nautilus
+    nautilus
     # 归档文件查看器
-    gnome.file-roller
+    file-roller
     # adb_and_other
     android-tools
     scrcpy
@@ -163,12 +163,13 @@
     epiphany
     font-manager
     # gnome
-    gnome.dconf-editor
+    dconf-editor
     d-spy
     # Matrix群组消息应用程序
     # fractal
     # GTK编写的远程桌面客户端
     # remmina
+    sing-box
   ];
 
   home.pointerCursor = {

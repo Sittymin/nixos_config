@@ -1,4 +1,5 @@
 { pkgs
+, inputs
 , ...
 }: {
   imports = [
@@ -30,7 +31,7 @@
     };
     # 用户帐户的可允许登录 shell 列表。/bin/sh会自动添加
     shells = [ pkgs.nushell ];
-    systemPackages = with pkgs; [
+    systemPackages = (with pkgs; [
       #  git
       curl
       wget
@@ -58,8 +59,11 @@
       # 编译器
       gcc
 
-      localsend
-    ];
+    ]) ++ (
+      with inputs.daeuniverse.packages.x86_64-linux; [
+        dae
+      ]
+    );
   };
 
   xdg.mime = {
