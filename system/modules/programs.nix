@@ -7,6 +7,7 @@
       extraPackages = with pkgs; [
         # 也许只是让内部可以调用，外部必须再安装一个
         gamescope
+        gamemode
       ];
       # fontPackages = with pkgs; [
       #   lxgw-neoxihei

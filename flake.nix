@@ -39,6 +39,10 @@
       url = "github:iDvel/rime-ice";
       flake = false;
     };
+    rime-double-pinyin = {
+      url = "github:rime/rime-double-pinyin";
+      flake = false;
+    };
 
     # mpv 的缩略图生成
     thumbfast = {
@@ -79,6 +83,10 @@
 
     daeuniverse.url = "github:daeuniverse/flake.nix/unstable";
 
+    # 查找包含库的软件包
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
 
   };
 
@@ -110,6 +118,8 @@
 
           inputs.daeuniverse.nixosModules.dae
 
+          inputs.nix-index-database.nixosModules.nix-index
+
           inputs.niri.nixosModules.niri
           ({ config, pkgs, ... }:
             {
@@ -132,7 +142,9 @@
               (with pkgs; [
                 # Waydroid 蔚蓝档案脚本修复需要
                 unixtools.xxd
-                # myRepo.xwayland-satellite
+                myRepo.xwayland-satellite
+                myRepo.godot4_bin
+                myRepo.reqable
                 # markdown 编辑器
                 myRepo.apostrophe-2-6-3
                 # chromiun 内核浏览器

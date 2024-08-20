@@ -39,5 +39,9 @@
     udisks2.enable = true;
     # 是一个Gnome提供的文件系统抽象层（支持的软件可以看到U盘）
     gvfs.enable = true;
+    # 为了可以直连 fastboot, 下面是指定手机制造商
+    udev.extraRules = ''
+      SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="users"
+    '';
   };
 }

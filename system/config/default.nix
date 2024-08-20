@@ -23,11 +23,21 @@
     sessionVariables = {
       # https://nixos.wiki/wiki/Wayland
       # 实际上不能输入的依旧不能输入, 但是可以让实验Wayland启用
-      # NIXOS_OZONE_WL = "1";
+      NIXOS_OZONE_WL = "1";
+      # GTK 优先使用 Wayland
+      GDK_BACKEND = "wayland,x11,*";
+      # QT 优先使用 Wayland
+      QT_QPA_PLATFORM = "wayland;xcb";
+      # SDL 游戏优先使用 Wayland
+      SDL_VIDEODRIVER = "wayland";
+      # Clutter 好像是一个图形界面的库
+      CLUTTER_BACKEND = "wayland";
       # nh 的 flake 的查找路径
       FLAKE = "$HOME/nixos_config";
       # BUN 默认不添加安装的Path
       BUN_INSTALL = "$HOME/.bun";
+      # 暗色偏好
+      GTK_THEME = "Adwaita:dark";
     };
     # 用户帐户的可允许登录 shell 列表。/bin/sh会自动添加
     shells = [ pkgs.nushell ];
@@ -35,9 +45,9 @@
       #  git
       curl
       wget
-
-      # mesa
       wireplumber
+
+      mesa_git
       # VA-API（视频加速API）的实现
       libva
       # VA-API的一组实用工具和示例
@@ -48,8 +58,11 @@
       mkl
       # Intel OneAPI深度神经网络库
       oneDNN
-      # 也许这个加载没啥用
+      # vulkan
+      vulkan-loader
       vulkan-tools
+      # intel 给 VAAPI 的媒体驱动
+      intel-media-driver
       # 音频兼容层(当前对于我的世界有用)
       alsa-oss
       # 显示文件类型的程序
@@ -58,6 +71,8 @@
       distrobox
       # 编译器
       gcc
+      # TPM
+      swtpm
 
     ]) ++ (
       with inputs.daeuniverse.packages.x86_64-linux; [

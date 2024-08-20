@@ -4,6 +4,7 @@
   hardware = {
     graphics = {
       enable = true;
+      enable32Bit = true;
       extraPackages = with pkgs; [
         intel-compute-runtime
         # 还不知道与上面的有什么区别
@@ -28,7 +29,7 @@
   #     intel-compute-runtime
   #     # 还不知道与上面的有什么区别
   #     # 查看 https://github.com/MordragT/nixos/blob/master/hosts/desktop/config.nix#L20 是否改变
-  #     intel-compute-runtime.drivers
+  #     # intel-compute-runtime.drivers
   #     # Intel VAAPI 驱动程序
   #     intel-media-driver
   #     # 参考: https://trac.ffmpeg.org/wiki/Hardware/QuickSync

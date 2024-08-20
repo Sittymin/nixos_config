@@ -23,6 +23,6 @@
     # zerotier-cli listnetworks
     # NOTE: 加入网络后到 https://my.zerotier.com/network 对成员授权
     # NOTE: 最后使用成员后面的 Managed IPs + Port 就可以连接那个成员的服务器了
-    zerotierone
+    # zerotierone
   ];
 }

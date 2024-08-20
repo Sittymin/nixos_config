@@ -149,9 +149,11 @@
     # 命令行备忘录
     cheat
     # 种子文件客户端
-    # 等待 326402 合并传递到unstable
-    transmission_4
-    transmission-remote-gtk
+    qbittorrent-qt5
+    # cli 的版本
+    qbittorrent-nox
+    # 向路由器请求UPnP
+    miniupnpc
     # 矢量图形编辑器
     inkscape
     # 绘画应用程序
@@ -159,7 +161,6 @@
     # GTK 图像处理程序
     # pinta
     # blender
-    godot_4
     epiphany
     font-manager
     # gnome
@@ -170,6 +171,13 @@
     # GTK编写的远程桌面客户端
     # remmina
     sing-box
+    (
+      heroic.override {
+        extraPkgs = pkgs: [
+          gamemode
+        ];
+      }
+    )
   ];
 
   home.pointerCursor = {

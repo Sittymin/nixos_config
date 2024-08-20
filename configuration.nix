@@ -50,7 +50,15 @@
     waydroid.enable = true;
     docker.enable = true;
     # KVM
-    libvirtd.enable = true;
+    libvirtd = {
+      enable = true;
+      qemu = {
+        # TPM
+        swtpm.enable = true;
+        # UEFI | 好像是默认启用的
+        ovmf.enable = true;
+      };
+    };
     # 启用USB重定向, 会将U盘重定向到虚拟机（主机会检测不到）
     spiceUSBRedirection.enable = true;
   };

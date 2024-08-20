@@ -152,6 +152,9 @@ spawn-at-startup "swww-daemon"
 spawn-at-startup "swww img /etc/nixos/wallpaper/nixos-wallpaper-catppuccin-mocha.png"
 // 4K 视频还是太吃性能了
 // spawn-at-startup "mpvpaper" "-o" "no-audio --loop" "*" "/home/Sittymin/WallPaper/碧蓝档案 | Blue Archive | Miyu (Swimsuit) | 4k 60.mp4"
+// 开启PBH
+spawn-at-startup "/home/Sittymin/PBH/start_pbh.sh"
+spawn-at-startup "qbittorrent-nox" "-d"
 
 // 这个标志将使 niri 要求应用程序省略它们的客户端装饰
 // 除非应用程序明确要求需要
