@@ -155,6 +155,8 @@ spawn-at-startup "swww img /etc/nixos/wallpaper/nixos-wallpaper-catppuccin-mocha
 // 开启PBH
 spawn-at-startup "/home/Sittymin/PBH/start_pbh.sh"
 spawn-at-startup "qbittorrent-nox" "-d"
+// 同步文件 目前是Rime
+spawn-at-startup "syncthing"
 
 // 这个标志将使 niri 要求应用程序省略它们的客户端装饰
 // 除非应用程序明确要求需要

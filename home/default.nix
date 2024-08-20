@@ -178,6 +178,8 @@
         ];
       }
     )
+    # 同步文件
+    syncthing
   ];
 
   home.pointerCursor = {
