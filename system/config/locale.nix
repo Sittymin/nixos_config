@@ -12,6 +12,8 @@
       fcitx5.waylandFrontend = false;
       fcitx5.addons = with pkgs; [
         fcitx5-rime
+        # 日语支持
+        fcitx5-anthy
       ];
     };
   };

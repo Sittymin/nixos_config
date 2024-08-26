@@ -11,8 +11,6 @@ EnumerateForwardKeys=
 EnumerateSkipFirst=False
 # 向前切换输入分组
 EnumerateGroupForwardKeys=
-# 向后切换输入法分组
-EnumerateGroupBackwardKeys=
 # 激活输入法
 ActivateKeys=
 # 取消激活输入法
@@ -31,9 +29,14 @@ TogglePreedit=
 [Hotkey/EnumerateBackwardKeys]
 0=Super+space
 
+[Hotkey/EnumerateGroupBackwardKeys]
+0=Super+G
+
 [Behavior]
 # 默认状态为激活
 ActiveByDefault=False
+# 重新聚焦时重置状态
+resetStateWhenFocusIn=No
 # 共享输入状态
 ShareInputState=No
 # 在程序中显示预编辑文本
