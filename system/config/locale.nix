@@ -8,8 +8,8 @@
     inputMethod = {
       enable = true;
       type = "fcitx5";
-      # 应该用 NIXOS_OZONE_WL = "1"; 替代
-      fcitx5.waylandFrontend = false;
+      # 修复环境变量的警告
+      fcitx5.waylandFrontend = true;
       fcitx5.addons = with pkgs; [
         fcitx5-rime
         # 日语支持
