@@ -73,12 +73,15 @@
       gcc
       # TPM
       swtpm
+      # 可以使用 eglinfo 查看 mesa 版本
+      mesa-demos
 
-    ]) ++ (
-      with inputs.daeuniverse.packages.x86_64-linux; [
-        dae
-      ]
-    );
+    ]);
+    # ]) ++ (
+    # with inputs.daeuniverse.packages.x86_64-linux; [
+    #   dae
+    # ]
+    # );
   };
 
   xdg.mime = {

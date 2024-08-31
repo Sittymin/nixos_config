@@ -81,7 +81,7 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    daeuniverse.url = "github:daeuniverse/flake.nix/unstable";
+    # daeuniverse.url = "github:daeuniverse/flake.nix/unstable";
 
     # 查找包含库的软件包
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -116,7 +116,7 @@
 
           inputs.chaotic.nixosModules.default
 
-          inputs.daeuniverse.nixosModules.dae
+          # inputs.daeuniverse.nixosModules.dae
 
           inputs.nix-index-database.nixosModules.nix-index
 

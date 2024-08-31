@@ -7,15 +7,15 @@
     # NOTE:对于Arc显卡的特殊设置
     # initrd.kernelModules = [ "i915" ];
     initrd.kernelModules = [
-      "xe"
+      # "xe"
       "vfio-pci"
     ];
     # NOTE:设置内核参数
     # 强制i915不要探测显卡设备ID,xe驱动程序探测显卡设备ID
     # kernelParams = [ "i915.force_probe=56a0" "xe.force_probe=!56a0" ];
     kernelParams = [
-      "i915.force_probe=!56a0"
-      "xe.force_probe=56a0"
+      # "i915.force_probe=!56a0"
+      # "xe.force_probe=56a0"
       "intel_iommu=on"
       "iommu=pt"
     ];
