@@ -130,6 +130,11 @@
                   myRepo = inputs.myRepo.packages."${prev.system}";
                 })
               ];
+              # 允许的过时软件
+              nixpkgs.config.permittedInsecurePackages = [
+                # xddxdd.baidunetdisk
+                "electron-11.5.0"
+              ];
               environment.systemPackages = (with config.nur.repos; [
                 # NOTE:主要用于给waydroid提供转译层
                 # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
@@ -137,7 +142,7 @@
 
                 sigprof.firefox-langpack-zh-CN
 
-                linyinfeng.wemeet
+                xddxdd.baidunetdisk
               ]) ++
               (with pkgs; [
                 # Waydroid 蔚蓝档案脚本修复需要
