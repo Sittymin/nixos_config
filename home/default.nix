@@ -170,7 +170,6 @@
     # fractal
     # GTK编写的远程桌面客户端
     # remmina
-    sing-box
     (
       heroic.override {
         extraPkgs = pkgs: [
@@ -180,6 +179,17 @@
     )
     # 同步文件
     syncthing
+    # 局域网传输文件
+    localsend
+    # 投屏 Miracast 协议
+    gnome-network-displays
+
+    (jetbrains.plugins.addPlugins
+      jetbrains.idea-ultimate
+      [
+        "17718"
+      ]
+    )
   ];
 
   home.pointerCursor = {

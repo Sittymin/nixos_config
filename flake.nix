@@ -145,6 +145,8 @@
                 xddxdd.baidunetdisk
               ]) ++
               (with pkgs; [
+                # 临时用于小爱课程表
+                microsoft-edge
                 # Waydroid 蔚蓝档案脚本修复需要
                 unixtools.xxd
                 myRepo.xwayland-satellite

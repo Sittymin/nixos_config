@@ -7,7 +7,7 @@
     # NOTE:对于Arc显卡的特殊设置
     # initrd.kernelModules = [ "i915" ];
     initrd.kernelModules = [
-      # "xe"
+      "xe"
       "vfio-pci"
     ];
     # NOTE:设置内核参数

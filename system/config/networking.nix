@@ -1,4 +1,5 @@
-{ ...
+{ pkgs
+, ...
 }:
 # let
 # GitHub520HostFile = builtins.fetchurl {
@@ -44,5 +45,20 @@
     # geo 文件位置
     assetsPath = "/etc/dae";
   };
+
+
+  # sing-box 服务
+  systemd.services.sing-box = {
+    enable = true;
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.sing-box}/bin/sing-box run -c /home/Sittymin/sever_and_client_config/singbox-config-tun.json";
+      User = "root";
+      Restart = "on-failure";
+    };
+    description = "Sing-box Service";
+  };
+
 
 }

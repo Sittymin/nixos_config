@@ -1,5 +1,4 @@
 { pkgs
-, inputs
 , ...
 }: {
   imports = [
@@ -67,8 +66,6 @@
       alsa-oss
       # 显示文件类型的程序
       file
-      # Other Linux
-      distrobox
       # 编译器
       gcc
       # TPM

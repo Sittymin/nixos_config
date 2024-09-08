@@ -19,5 +19,5 @@
   };
 
   # NOTE:设置时区
-  time.timeZone = "Asia/Taipei";
+  time.timeZone = "Asia/Hong_Kong";
 }
