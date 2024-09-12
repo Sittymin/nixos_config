@@ -190,6 +190,7 @@
         "17718"
       ]
     )
+    androidStudioPackages.beta
   ];
 
   home.pointerCursor = {

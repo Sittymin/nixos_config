@@ -145,12 +145,9 @@
                 xddxdd.baidunetdisk
               ]) ++
               (with pkgs; [
-                # 临时用于小爱课程表
-                microsoft-edge
                 # Waydroid 蔚蓝档案脚本修复需要
                 unixtools.xxd
                 myRepo.xwayland-satellite
-                myRepo.godot4_bin
                 myRepo.reqable
                 # markdown 编辑器
                 myRepo.apostrophe-2-6-3
