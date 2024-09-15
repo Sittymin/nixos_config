@@ -55,10 +55,10 @@
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
-        ExecStartPre = "/bin/sleep 60"; # 添加60秒的延迟
         ExecStart = "${pkgs.sing-box}/bin/sing-box run -c /home/Sittymin/sever_and_client_config/singbox-config-tun.json";
         User = "root";
         Restart = "on-failure";
+        RestartSec = 10;
       };
       description = "Sing-box Service";
     };

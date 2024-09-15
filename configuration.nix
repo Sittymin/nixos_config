@@ -1,5 +1,4 @@
-{ inputs
-, ...
+{ ...
 }: {
   imports = [
     ./boot.nix
@@ -21,12 +20,14 @@
         "https://cache.lix.systems"
         "https://anyrun.cachix.org"
         "https://daeuniverse.cachix.org"
+        "https://sittymin.cachix.org"
       ];
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
         "daeuniverse.cachix.org-1:8hRIzkQmAKxeuYY3c/W1I7QbZimYphiPX/E7epYNTeM="
+        "sittymin.cachix.org-1:GbIZbTYujtCGkvaoFL6cE6lvNvOpWNJgdcBNHXSDomw="
       ];
     };
     # NOTE:每周进行垃圾回收

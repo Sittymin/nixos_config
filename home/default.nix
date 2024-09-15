@@ -60,7 +60,7 @@
     # 测试显示器的VRR
     vrrtest
     fastfetch
-    lux
+    yt-dlp
     cpu-x
     # hyprpicker
     mpvpaper

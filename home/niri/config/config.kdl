@@ -41,7 +41,7 @@ output "DP-2" {
 }
 output "HDMI-A-3" {
     // 上面使用VRR加160刷新率之后无法输出副屏
-    mode "2560x1440@119.998"
+    mode "2560x1440@59.951"
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
