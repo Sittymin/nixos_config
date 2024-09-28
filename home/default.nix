@@ -55,6 +55,7 @@
   home.packages = with pkgs; [
     # 一种现代图表脚本语言，能将文本转化为图表
     d2
+    sing-box
     zed-editor
     libreoffice
     # 测试显示器的VRR
@@ -190,7 +191,6 @@
         "17718"
       ]
     )
-    androidStudioPackages.beta
   ];
 
   home.pointerCursor = {

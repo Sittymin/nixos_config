@@ -85,7 +85,7 @@ in
         vscode-css-language-server = {
           command = "${vscode-langservers-extracted}/bin/vscode-css-language-server";
         };
-        # CSS
+        # HTML
         vscode-html-language-server = {
           command = "${vscode-langservers-extracted}/bin/vscode-html-language-server";
         };

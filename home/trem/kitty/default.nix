@@ -2,7 +2,7 @@
 }: {
   programs.kitty = {
     enable = true;
-    theme = "Catppuccin-Mocha";
+    themeFile = "Catppuccin-Mocha";
     settings = {
       tab_bar_edge = "top";
       background_opacity = "0.5";

@@ -6,6 +6,13 @@
     # git 版本的软件
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
+    # 安全启动
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      # 可选，但是注意限制系统软件数量
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lix = {
       url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
       flake = false;
@@ -106,20 +113,36 @@
           ./system/modules
           ./wallpaper
 
+          # 配置分区
           inputs.disko.nixosModules.disko
           ./disk-config.nix
 
+          # 安全启动部分
+          inputs.lanzaboote.nixosModules.lanzaboote
+          ({ pkgs, lib, ... }: {
+
+            environment.systemPackages = [
+              # For debugging and troubleshooting Secure Boot.
+              pkgs.sbctl
+            ];
+
+            # Lanzaboote currently replaces the systemd-boot module.
+            # This setting is usually set to true in configuration.nix
+            # generated at installation time. So we force it to false
+            # for now.
+            boot.loader.systemd-boot.enable = lib.mkForce false;
+
+            boot.lanzaboote = {
+              enable = true;
+              pkiBundle = "/etc/secureboot";
+            };
+          })
 
           inputs.lix-module.nixosModules.default
-
           inputs.nur.nixosModules.nur
-
           inputs.chaotic.nixosModules.default
-
           # inputs.daeuniverse.nixosModules.dae
-
           inputs.nix-index-database.nixosModules.nix-index
-
           inputs.niri.nixosModules.niri
           ({ config, pkgs, ... }:
             {
