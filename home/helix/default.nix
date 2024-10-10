@@ -1,13 +1,6 @@
 { pkgs
 , ...
 }:
-let
-  tree-sitter-d2 = fetchGit {
-    url = "https://git.pleshevski.ru/pleshevskiy/tree-sitter-d2.git";
-    # 与下面的 gammar 一样
-    rev = "1e6d8ca3d85c0031ff010759bb60804dd47b95f2";
-  };
-in
 {
   home.file = {
     ".config/helix/config.toml".source = ./config.toml;
@@ -15,12 +8,6 @@ in
     ".cargo/config.toml".source = ./cargo_config.toml;
     # 利用 Zellij 让 yazi 成为 Helix 的文件选择器
     ".config/helix/yazi-picker.sh".source = ./yazi-picker.sh;
-    # 语法高亮和一些别的
-    ".config/helix/runtime/queries/d2" = {
-      source = "${tree-sitter-d2}/queries";
-      recursive = true;
-      executable = true;
-    };
   };
   programs.helix = {
     enable = true;
@@ -86,8 +73,9 @@ in
           command = "${vscode-langservers-extracted}/bin/vscode-css-language-server";
         };
         # HTML
-        vscode-html-language-server = {
-          command = "${vscode-langservers-extracted}/bin/vscode-html-language-server";
+        superhtml = {
+          command = "${superhtml}/bin/superhtml";
+          args = [ "lsp" ];
         };
         rust-analyzer = {
           command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
@@ -130,6 +118,11 @@ in
           };
         }
         {
+          name = "html";
+          language-servers = [ "superhtml" ];
+          auto-format = true;
+        }
+        {
           name = "nix";
           language-servers = [ "nil" ];
           auto-format = true;
@@ -142,23 +135,6 @@ in
           auto-format = true;
           language-servers = [ "rust-analyzer" ];
         }
-        {
-          name = "d2";
-          scope = "source.d2";
-          injection-regex = "d2|D2";
-          file-types = [ "d2" ];
-          comment-tokens = [ "#" ];
-          block-comment-tokens = { start = "\"\"\""; end = "\"\"\""; };
-          indent = { tab-width = 2; unit = "  "; };
-          grammar = "d2";
-          # 等待 https://github.com/terrastruct/d2/issues/1577
-          # auto-format = true;
-          # "-" 是表示需要格式化的文件
-          # formatter = {
-          #   command = "${d2}/bin/d2";
-          #   args = [ "fmt" "-" ];
-          # };
-        }
       ];
       # 也许需要允许 hx --grammar fetch 和 hx --grammar build
       grammar = [
@@ -167,13 +143,6 @@ in
           source = {
             git = "https://github.com/tree-sitter-grammars/tree-sitter-kdl";
             rev = "b37e3d58e5c5cf8d739b315d6114e02d42e66664";
-          };
-        }
-        {
-          name = "d2";
-          source = {
-            git = "https://git.pleshevski.ru/pleshevskiy/tree-sitter-d2";
-            rev = "1e6d8ca3d85c0031ff010759bb60804dd47b95f2";
           };
         }
       ];

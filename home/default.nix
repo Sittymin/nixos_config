@@ -53,8 +53,6 @@
   # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
   home.packages = with pkgs; [
-    # 一种现代图表脚本语言，能将文本转化为图表
-    d2
     sing-box
     zed-editor
     libreoffice
@@ -150,7 +148,7 @@
     # 命令行备忘录
     cheat
     # 种子文件客户端
-    qbittorrent-qt5
+    qbittorrent
     # cli 的版本
     qbittorrent-nox
     # 向路由器请求UPnP

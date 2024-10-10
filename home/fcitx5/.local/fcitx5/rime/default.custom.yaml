@@ -8,5 +8,10 @@ patch:
     hotkeys:
       - F4
 
-  menu:
-    page_size: 5
+  ascii_composer:
+    good_old_caps_lock: true
+    # 将几个按键无效化
+    switch_key:
+      Caps_Lock: noop
+      Shift_L: noop
+      Shift_R: noop

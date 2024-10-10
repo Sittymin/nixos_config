@@ -19,6 +19,23 @@
       "intel_iommu=on"
       "iommu=pt"
     ];
+    kernel.sysctl = {
+      # 提升网络质量
+      # 公平地调度网络流量，减少延迟并提高整体网络性能
+      "net.core.default_qdisc" = "fq";
+      # 提高高延迟网络的传输效率
+      "net.ipv4.tcp_window_scaling" = "1";
+      # 降低延迟
+      "net.ipv4.tcp_low_latency" = "1";
+      # 有助于 RTT（往返时间）估算，提高网络性能
+      "net.ipv4.tcp_timestamps" = "1";
+      # 提高数据传输效率
+      "net.ipv4.tcp_sack" = "1";
+      # 减少连接建立时间
+      "net.ipv4.tcp_fastopen" = "3";
+      # 更有效地利用带宽和减少延迟
+      "net.ipv4.tcp_congestion_control" = "bbr";
+    };
     kernelPackages = pkgs.linuxPackages_latest;
     # OBS 虚拟摄像头
     extraModulePackages = with config.boot.kernelPackages; [
