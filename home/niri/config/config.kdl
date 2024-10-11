@@ -14,14 +14,18 @@ input {
 
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
-output "DP-2" {
-    // 160 不是 24 的倍数
-    mode "3840x2160@160.000"
-    // mode "3840x2160@144.000"
+output "Shenzhen KTC Technology Group H27P22S 0000000000001" {
+    // 160 可能会导致其他输出不可用
+    // 并且必须一直启用VRR
+    // 反正也跑不到直接用 144 吧
+    // mode "3840x2160"
+    // mode "3840x2160@160.000"
+    mode "3840x2160@144.000"
 
     // 支持FreeSync/GSync的显示器可以用VRR
     // NOTE: 使用160刷新率需要VRR
-    variable-refresh-rate
+    // 窗口规则符合时启用 VRR
+    variable-refresh-rate on-demand=true
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -39,10 +43,10 @@ output "DP-2" {
     // 如果位置未设置或导致重叠，则输出将自动放置。
     position x=0 y=0
 }
-output "HDMI-A-3" {
+output "Invalid Vendor Codename - RTK Monitor 0000000000001" {
     // 上面使用VRR加160刷新率之后可能无法输出副屏或主屏
     // mode "2560x1440@59.951"
-    mode "2560x1440@119.998"
+    mode "2560x1440"
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -60,6 +64,20 @@ output "HDMI-A-3" {
     // 如果位置未设置或导致重叠，则输出将自动放置。
     position x=1920 y=0
 }
+
+window-rule {
+    match app-id="^mpv$"
+
+    variable-refresh-rate true
+    open-on-output "Shenzhen KTC Technology Group H27P22S 0000000000001"
+}
+window-rule {
+    // 边框圆角内半径
+    geometry-corner-radius 12
+    // 裁剪窗口到圆角
+    clip-to-geometry true
+}
+
 
 // 布局
 layout {
@@ -232,18 +250,6 @@ animations {
         }
       "
    }
-}
-
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-/-window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
-}
-window-rule {
-    // 边框圆角内半径
-    geometry-corner-radius 12
-    // 裁剪窗口到圆角
-    clip-to-geometry true
 }
 
 binds {

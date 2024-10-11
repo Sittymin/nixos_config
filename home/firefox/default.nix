@@ -1,4 +1,7 @@
-{ pkgs, config, lib, firefox-gnome-theme, ... }:
+{ pkgs
+, inputs
+, ...
+}:
 {
   home = {
     #   配置BROWSER环境变量为firefox
@@ -8,7 +11,7 @@
     file."firefox-gnome-theme" = {
       target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
       #     需要flake导入
-      source = firefox-gnome-theme;
+      source = inputs.firefox-gnome-theme;
     };
   };
 

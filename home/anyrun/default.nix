@@ -1,12 +1,12 @@
 { pkgs
-, anyrun
+, inputs
 , ...
 }: {
-  imports = [ anyrun.homeManagerModules.default ];
+  imports = [ inputs.anyrun.homeManagerModules.default ];
   programs.anyrun = {
     enable = true;
     config = {
-      plugins = with anyrun.packages.${pkgs.system}; [
+      plugins = with inputs.anyrun.packages.${pkgs.system}; [
         # 安装的软件
         applications
         # 翻译（:en>zh 翻译原文，或者简写:zh 翻译原文）

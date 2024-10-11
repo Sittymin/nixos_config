@@ -1,5 +1,6 @@
-{ nixpkgs-wayland
-, pkgs
+{ pkgs
+, inputs
+, pkgs-e0464e4
 , ...
 }:
 
@@ -52,7 +53,7 @@
   # 通过 home.packages 安装一些常用的软件
   # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
   # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
-  home.packages = with pkgs; [
+  home.packages = with pkgs; ([
     sing-box
     zed-editor
     libreoffice
@@ -81,7 +82,7 @@
     # (qview.override {
     #   x11Support = false;
     # })
-    nixpkgs-wayland.packages.${pkgs.system}.imv
+    inputs.nixpkgs-wayland.packages.${pkgs.system}.imv
     (ffmpeg-full.override {
       withVpl = true;
       withMfx = false;
@@ -178,8 +179,6 @@
     )
     # 同步文件
     syncthing
-    # 局域网传输文件
-    localsend
     # 投屏 Miracast 协议
     gnome-network-displays
 
@@ -189,7 +188,9 @@
         "17718"
       ]
     )
-  ];
+  ]) ++ (with pkgs-e0464e4; [
+    localsend
+  ]);
 
   home.pointerCursor = {
     gtk.enable = true;

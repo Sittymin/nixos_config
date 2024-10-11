@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-e0464e4.url = "github:NixOS/nixpkgs/e0464e47880a69896f0fb1810f00e0de469f770a";
     # git 版本的软件
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
@@ -99,12 +100,16 @@
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations = {
-      "nixos" = nixpkgs.lib.nixosSystem {
+      "nixos" = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
 
-        specialArgs = { inherit inputs; };
-
-
+        specialArgs = {
+          inherit inputs;
+          pkgs-e0464e4 = import inputs.nixpkgs-e0464e4 {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        };
         modules = [
           ./configuration.nix
           ./overlay
@@ -189,7 +194,7 @@
 
             # NOTE:使用 home-manager.extraSpecialArgs 自定义传递给 ./home.nix 的参数
             # 取消注释下面这一行，就可以在 home.nix 中使用 flake 的所有 inputs 参数了
-            home-manager.extraSpecialArgs = inputs;
+            home-manager.extraSpecialArgs = specialArgs;
           }
         ];
       };

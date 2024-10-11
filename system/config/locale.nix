@@ -19,5 +19,5 @@
   };
 
   # NOTE:设置时区
-  time.timeZone = "Asia/Hong_Kong";
+  time.timeZone = "Asia/Shanghai";
 }

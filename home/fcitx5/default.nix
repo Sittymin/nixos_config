@@ -1,5 +1,4 @@
-{ rime-dicts
-, rime-double-pinyin
+{ inputs
 , ...
 }: {
   home.file = {
@@ -14,13 +13,13 @@
       force = true;
     };
     ".local/share/fcitx5/rime/cn_dicts" = {
-      source = "${rime-dicts}/cn_dicts";
+      source = "${inputs.rime-dicts}/cn_dicts";
     };
     ".local/share/fcitx5/rime/opencc" = {
-      source = "${rime-dicts}/opencc";
+      source = "${inputs.rime-dicts}/opencc";
     };
     ".local/share/fcitx5/rime/double_pinyin_flypy.schema.yaml" = {
-      source = "${rime-double-pinyin}/double_pinyin_flypy.schema.yaml";
+      source = "${inputs.rime-double-pinyin}/double_pinyin_flypy.schema.yaml";
     };
   };
 }
