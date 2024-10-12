@@ -6,18 +6,9 @@
 
 {
   imports = [
-    ./fcitx5
-    ./ironbar
-    ./firefox
-    ./anyrun
-    ./minecraft
-    ./trem
-    ./fontconfig
-    ./hypr
-    ./niri
-    ./helix
-    ./mpv
-    ./cheat
+    ./terminal
+    ./desktop
+    ./other
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -27,14 +18,8 @@
 
   # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
   home.file = {
-    ".config/mako/config".source = ./mako/config;
     # 似乎是设置默认下载、音乐、文档等目录的配置文件
     ".config/user-dirs.dirs".source = ./user-dirs.dirs;
-    ".config/yazi" = {
-      source = ./yazi;
-      recursive = true;
-      executable = true;
-    };
   };
 
 
@@ -139,9 +124,6 @@
     # 用于调节音频设备的软件
     # helvum
 
-    # 通知程序
-    mako
-
     #wine
     wineWowPackages.waylandFull
     qq
@@ -244,11 +226,6 @@
       enable = true;
       userName = "Sittymin";
       userEmail = "wu2890108976@gmail.com";
-    };
-
-    yazi = {
-      enable = true;
-      enableNushellIntegration = true;
     };
     obs-studio = {
       enable = true;
