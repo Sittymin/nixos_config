@@ -41,37 +41,44 @@
     # 用户帐户的可允许登录 shell 列表。/bin/sh会自动添加
     shells = [ pkgs.nushell ];
     systemPackages = (with pkgs; [
+      sing-box
       #  git
       curl
       wget
       wireplumber
+      btop # 系统和网络监控工具
+      intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
+      # archives
+      zip # 压缩为zip
+      xz # xz
+      p7zip # 7z
+      zstd # zstd
+      # unrar 解压 rar 压缩
+      rar
+      # zpaqfranz
 
-      mesa_git
-      # VA-API（视频加速API）的实现
-      libva
-      # VA-API的一组实用工具和示例
-      libva-utils
-      # Intel 视频处理库
-      libvpl
-      # Intel OneAPI 数学核心库
-      mkl
-      # Intel OneAPI深度神经网络库
-      oneDNN
-      # vulkan
-      vulkan-loader
-      vulkan-tools
-      # intel 给 VAAPI 的媒体驱动
-      intel-media-driver
-      # 音频兼容层(当前对于我的世界有用)
-      alsa-oss
+      android-tools
       # 显示文件类型的程序
       file
+      # 可以使用 eglinfo 查看 mesa 版本
+      mesa-demos
+      # Qt 图片加载库（JXL）
+      libsForQt5.kimageformats
+      # GTK 图片加载库
+      gdk-pixbuf
+
+
+
+      # 音频兼容层(当前对于我的世界有用)
+      alsa-oss
       # 编译器
       gcc
       # TPM
       swtpm
-      # 可以使用 eglinfo 查看 mesa 版本
-      mesa-demos
+      # 向路由器请求UPnP
+      miniupnpc
+      # 复制到系统剪贴板
+      wl-clipboard
 
     ]);
     # ]) ++ (

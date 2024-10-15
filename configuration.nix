@@ -47,7 +47,13 @@
   # NOTE:虚拟环境 
   virtualisation = {
     waydroid.enable = true;
-    docker.enable = true;
+    docker = {
+      enable = true;
+      daemon.settings = {
+        # Docker 占用的地址, 注意不要与通信的地址冲突
+        bip = "192.168.3.1/24";
+      };
+    };
     # KVM
     libvirtd = {
       enable = true;

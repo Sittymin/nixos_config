@@ -35,22 +35,18 @@
   #     xxx
   # '';
 
-  # 通过 home.packages 安装一些常用的软件
-  # 这些软件将仅在当前用户下可用，不会影响系统级别的配置
-  # 建议将所有 GUI 软件，以及与 OS 关系不大的 CLI 软件，都通过 home.packages 安装
   home.packages = with pkgs; ([
-    sing-box
-    zed-editor
+    # 数据库
+    postgresql
     libreoffice
     # 测试显示器的VRR
-    vrrtest
+    # vrrtest
     fastfetch
     yt-dlp
-    cpu-x
     # hyprpicker
     mpvpaper
     # Log
-    tailspin
+    lnav
     # BLAKE3 加密哈希函数
     b3sum
     libjxl
@@ -59,10 +55,6 @@
     trashy
     # 基于libvips的图片浏览器
     # vipsdisp
-    # Qt图片加载库（JXL）
-    libsForQt5.kimageformats
-    # GTK_image_lib
-    gdk-pixbuf
     # 基于Qt的图片浏览器
     # (qview.override {
     #   x11Support = false;
@@ -79,45 +71,23 @@
     evince
     # EPUB and other
     foliate
-    # vim复制到系统剪贴
-    wl-clipboard
-    # archives
-    zip # 压缩为zip
-    unzip # 解压zip
-    xz # xz
-    p7zip # 7z
-    zstd # zstd
-    # unrar # rar
-    rar
-    zpaqfranz
-
     # GUI文件管理器
     nautilus
     # 归档文件查看器
     file-roller
-    # adb_and_other
-    android-tools
     scrcpy
 
-    python39
+    python311
     # JDK
     graalvm-ce
     # nodejs
     bun
-    nodejs_22
-    # nodePackages.vls
+    nodePackages_latest.nodejs
     rustup
 
     # 与Nix相关的工具，提供更详细的日志输出。
     # nh 内置
     # nix-output-monitor
-
-    btop # 系统和网络监控工具
-
-    # 缺少memory, power, fan and temperature
-    # 参见https://github.com/Syllo/nvtop/issues/197
-    nvtopPackages.intel
-    intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
 
     lsof # 列出打开文件的工具
 
@@ -134,8 +104,6 @@
     qbittorrent
     # cli 的版本
     qbittorrent-nox
-    # 向路由器请求UPnP
-    miniupnpc
     # 矢量图形编辑器
     inkscape
     # 绘画应用程序

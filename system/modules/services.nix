@@ -48,5 +48,13 @@
       enable = true;
       nssmdns4 = true;
     };
+    # 数据库
+    postgresql = {
+      enable = true;
+      # dataDir = "";
+      # 默认位置是
+      # /var/lib/postgresql/${config.services.postgresql.package.psqlSchema}
+    };
+
   };
 }

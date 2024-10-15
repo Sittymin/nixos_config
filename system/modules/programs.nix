@@ -2,6 +2,13 @@
 , ...
 }: {
   programs = {
+    # DRM 通过 Gamescope 启动
+    # https://github.com/ValveSoftware/steam-for-linux/issues/9495#issuecomment-2356994370
+    # 在控制台中输入 quit 退出
+    # https://github.com/ValveSoftware/gamescope/issues/645#issuecomment-1366906908
+    # -O 选择输出显示器
+    # 大小为 4K 指定DP-2输出 嵌入Steam 全屏 大屏幕模式 开启控制台
+    # gamescope -W 3820 -H 2160 -O DP-2 -e -f -- steam -tenfoot -console
     steam = {
       enable = true;
       extraPackages = with pkgs; [

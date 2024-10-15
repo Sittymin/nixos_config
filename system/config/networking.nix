@@ -71,31 +71,33 @@
 
   # 自定义的服务
   systemd.services = {
-    # sing-box 服务
-    sing-box = {
-      enable = true;
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.sing-box}/bin/sing-box run -c /home/Sittymin/sever_and_client_config/singbox-config-tun.json";
-        User = "root";
-        Restart = "on-failure";
-        RestartSec = 10;
-      };
-      description = "Sing-box Service";
-    };
-    # 自动断网与连接
+    # 自动登录、断网与连接
     school = {
       enable = true;
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
-        ExecStart = "/etc/nixos/other_script/school_network_control.sh";
+        Type = "simple"; # 确保服务启动后立即返回
+        ExecStart = "/home/Sittymin/StaticDoNotUpload/SchoolLogin/school_network_control.sh";
         User = "root";
         Restart = "on-failure";
-        Environment = "PATH=/run/current-system/sw/bin:/run/wrappers/bin";
+        Environment = "PATH=/run/current-system/sw/bin:/run/wrappers/bin:${pkgs.bun}/bin";
       };
       description = "School Network Control Service";
+    };
+    # sing-box 代理服务
+    sing-box = {
+      enable = true;
+      wantedBy = [ "multi-user.target" ];
+      after = [ "school.service" ];
+      serviceConfig = {
+        WorkingDirectory = "/home/Sittymin";
+        ExecStart = "${pkgs.sing-box}/bin/sing-box run -c /home/Sittymin/StaticDoNotUpload/ForGFW/singbox-config-tun.json";
+        User = "root";
+        Restart = "on-failure";
+        RestartSec = 10;
+      };
+      description = "Sing-box Service";
     };
   };
 
