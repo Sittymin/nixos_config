@@ -65,8 +65,6 @@
       withMfx = false;
     })
     vscode
-    # 还是等到支持Wayland吧
-    # jetbrains.idea-ultimate
     # Doc view
     evince
     # EPUB and other
@@ -96,7 +94,6 @@
 
     #wine
     wineWowPackages.waylandFull
-    qq
     telegram-desktop
     # 命令行备忘录
     cheat
@@ -129,14 +126,24 @@
     )
     # 同步文件
     syncthing
-    # 投屏 Miracast 协议
-    gnome-network-displays
 
+    jetbrains.clion
+    (android-studio.override {
+      forceWayland = true;
+    }
+    )
     (jetbrains.plugins.addPlugins
       jetbrains.idea-ultimate
       [
         "17718"
       ]
+    )
+    (
+      godot_4.override {
+        withWayland = true;
+        # Wayland only 需要 https://github.com/godotengine/godot/pull/97771
+        # withX11 = false;
+      }
     )
   ]) ++ (with pkgs-e0464e4; [
     localsend
@@ -193,7 +200,7 @@
     git = {
       enable = true;
       userName = "Sittymin";
-      userEmail = "wu2890108976@gmail.com";
+      userEmail = "mail@sittymin.top";
     };
     obs-studio = {
       enable = true;

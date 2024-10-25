@@ -28,7 +28,8 @@
       # QT 优先使用 Wayland
       QT_QPA_PLATFORM = "wayland;xcb";
       # SDL 游戏优先使用 Wayland
-      SDL_VIDEODRIVER = "wayland";
+      # Steam 在Xwayland环境下也会尝试使用，导致无法启动
+      # SDL_VIDEODRIVER = "wayland";
       # Clutter 好像是一个图形界面的库
       CLUTTER_BACKEND = "wayland";
       # nh 的 flake 的查找路径

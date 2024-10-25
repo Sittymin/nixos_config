@@ -6,7 +6,7 @@
     systemd.enable = true;
     xwayland.enable = true;
     settings = {
-      source = "/etc/nixos/home/hypr/hyprland.conf";
+      source = "/etc/nixos/home/desktop/hypr/hyprland.conf";
     };
   };
   # home = {

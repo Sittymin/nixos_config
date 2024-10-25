@@ -49,12 +49,31 @@
       nssmdns4 = true;
     };
     # 数据库
-    postgresql = {
+    # postgresql = {
+    # enable = true;
+    # dataDir = "";
+    # 默认位置是
+    # /var/lib/postgresql/${config.services.postgresql.package.psqlSchema}
+    # };
+    nginx = {
       enable = true;
-      # dataDir = "";
-      # 默认位置是
-      # /var/lib/postgresql/${config.services.postgresql.package.psqlSchema}
-    };
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
 
+      # 注意修改为自己IP
+      virtualHosts."172.18.80.102" = {
+        enableACME = false; # 不使用ACME，因为我们使用自签名证书
+        forceSSL = true;
+        # 似乎home目录对它不可访问
+        sslCertificate = "/etc/ssl/fullchain.pem";
+        sslCertificateKey = "/etc/ssl/privkey.pem";
+
+        locations."/" = {
+          # 代理的地址
+          proxyPass = "http://127.0.0.1:5050";
+          proxyWebsockets = true; # 如果需要使用WebSocket
+        };
+      };
+    };
   };
 }

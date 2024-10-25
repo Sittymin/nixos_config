@@ -14,6 +14,10 @@
 
     languages = with pkgs; {
       language-server = {
+        # 其实 C 语言环境挺棘手的，并不止需要这个
+        # clangd = {
+        #   commend = "${libclang}/bin/clangd";
+        # };
         nil = {
           command = "${nil}/bin/nil";
         };

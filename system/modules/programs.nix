@@ -11,6 +11,7 @@
     # gamescope -W 3820 -H 2160 -O DP-2 -e -f -- steam -tenfoot -console
     steam = {
       enable = true;
+      # 在一些 Xwayland 实现中 Steam 使用 GPU 渲染网页应该关掉
       extraPackages = with pkgs; [
         # 也许只是让内部可以调用，外部必须再安装一个
         gamescope
@@ -19,6 +20,8 @@
       # fontPackages = with pkgs; [
       #   lxgw-neoxihei
       # ];
+      # 是否启用将 extest 库加载到 Steam 中，以将 X11 输入事件转换为 uinput 事件（例如，在 Wayland 上使用 Steam 输入）
+      extest.enable = true;
     };
 
     # NOTE:KVM

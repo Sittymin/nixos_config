@@ -17,9 +17,8 @@
     hostName = "nixos"; # NOTE:主机名
     # 如果不使用路由器 DNS 不知道为啥翻墙变慢(可能是校园网)
     # 额外添加的 DNS
-    # nameservers = [ "223.5.5.5" ];
     # 学校 DNS
-    nameservers = [ "172.30.18.18" "172.30.8.51" ];
+    nameservers = [ "223.5.5.5" "172.30.18.18" "172.30.8.51" ];
     # 使用 resolvconf 管理 DNS
     resolvconf.enable = true;
     # 让 DHCP 不要修改 DNS 服务器
@@ -92,7 +91,7 @@
       after = [ "school.service" ];
       serviceConfig = {
         WorkingDirectory = "/home/Sittymin";
-        ExecStart = "${pkgs.sing-box}/bin/sing-box run -c /home/Sittymin/StaticDoNotUpload/ForGFW/singbox-config-tun.json";
+        ExecStart = "${pkgs.sing-box}/bin/sing-box run -c /home/Sittymin/StaticDoNotUpload/ForGFW/singbox-config-tun.json5";
         User = "root";
         Restart = "on-failure";
         RestartSec = 10;
