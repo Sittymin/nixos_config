@@ -36,7 +36,9 @@
       # 更有效地利用带宽和减少延迟
       "net.ipv4.tcp_congestion_control" = "bbr";
     };
-    kernelPackages = pkgs.linuxKernel.kernels.linux_latest_libre;
+    kernelPackages = pkgs.linuxPackages_latest;
+    # 会花屏
+    # kernelPackages = pkgs.linuxPackages_latest-libre;
     # OBS 虚拟摄像头
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
