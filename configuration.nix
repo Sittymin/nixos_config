@@ -65,7 +65,8 @@
       };
     };
     # 启用USB重定向, 会将U盘重定向到虚拟机（主机会检测不到）
-    spiceUSBRedirection.enable = true;
+    # spiceUSBRedirection.enable = true;
+    # 使用 sftp 吧
   };
 
   fileSystems = {

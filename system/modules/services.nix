@@ -61,7 +61,8 @@
       recommendedTlsSettings = true;
 
       # 注意修改为自己IP
-      virtualHosts."172.18.80.102" = {
+      # 修改为未明确处理的请求就到这
+      virtualHosts."_" = {
         enableACME = false; # 不使用ACME，因为我们使用自签名证书
         forceSSL = true;
         # 似乎home目录对它不可访问

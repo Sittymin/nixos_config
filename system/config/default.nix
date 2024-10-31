@@ -38,6 +38,9 @@
       BUN_INSTALL = "$HOME/.bun";
       # 暗色偏好
       GTK_THEME = "Adwaita:dark";
+      # 启用 Intel 显卡视频解码
+      # https://github.com/mpv-player/mpv/discussions/13909
+      ANV_VIDEO_DECODE = 1;
     };
     # 用户帐户的可允许登录 shell 列表。/bin/sh会自动添加
     shells = [ pkgs.nushell ];
