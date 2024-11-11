@@ -36,9 +36,6 @@
 
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
-    anyrun.url = "github:anyrun-org/anyrun";
-    anyrun.inputs.nixpkgs.follows = "nixpkgs";
-
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
@@ -105,7 +102,11 @@
       flake = false;
     };
 
-
+    # Nushell 官方一些有用的代码（如一些命令的自动补全）
+    nu-scripts = {
+      url = "github:nushell/nu_scripts";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {

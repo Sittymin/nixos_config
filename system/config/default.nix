@@ -20,6 +20,11 @@
     };
     # 用户登录时初始化的环境变量
     sessionVariables = {
+      # 输入法的环境变量（可能闭源软件会读取使用输入法）
+      # https://fcitx-im.org/wiki/Configure_(Other)/zh-hans
+      GTK_IM_MODULE = "fcitx";
+      QT_IM_MODULE = "fcitx";
+      XMODIFIERS = "@im=fcitx";
       # https://nixos.wiki/wiki/Wayland
       # 实际上不能输入的依旧不能输入, 但是可以让实验Wayland启用
       NIXOS_OZONE_WL = "1";

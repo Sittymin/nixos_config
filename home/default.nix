@@ -36,6 +36,10 @@
   # '';
 
   home.packages = with pkgs; ([
+    # Scheme 一个实现
+    racket
+    # Guix 包管理器
+    guix
     # 数据库
     postgresql
     libreoffice
@@ -94,7 +98,6 @@
 
     #wine
     wineWowPackages.waylandFull
-    telegram-desktop
     # 命令行备忘录
     cheat
     # 种子文件客户端

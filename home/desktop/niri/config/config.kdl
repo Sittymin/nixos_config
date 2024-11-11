@@ -271,7 +271,7 @@ binds {
     // Mod+Q { spawn "kitty"; }
     Mod+Q { spawn "kitty"; }
     Mod+B { spawn "firefox"; }
-    Mod+R { spawn "anyrun"; }
+    Mod+R { spawn "tofi-drun" "--drun-launch=true"; }
     // Super+Alt+L { spawn "swaylock"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.

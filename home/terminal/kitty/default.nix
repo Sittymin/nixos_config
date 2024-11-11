@@ -19,6 +19,8 @@
       modify_font = "baseline -2";
       font_size = "12.0";
       disable_ligatures = "cursor";
+      # 允许远程操控kitty
+      allow_remote_control = "yes";
     };
     # TODOu 启用连字
     extraConfig =

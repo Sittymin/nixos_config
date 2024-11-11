@@ -1,6 +1,5 @@
 { ... }: {
   imports = [
-    ./cheat
     ./helix
     ./kitty
     ./nushell
