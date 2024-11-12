@@ -159,6 +159,7 @@
     name = "GoogleDot-Black";
     size = 24; # 1080P下16，2K下24
   };
+  # https://nix-community.github.io/home-manager/options.xhtml
   gtk = {
     enable = true;
     theme = {
@@ -169,9 +170,19 @@
         variant = "mocha";
       };
     };
-    # GTK3/4偏好暗色主题
-    gtk3.extraConfig = { gtk-application-prefer-dark-theme = 1; };
-    gtk4.extraConfig = { gtk-application-prefer-dark-theme = true; };
+    gtk2.extraConfig = ''
+      gtk-im-module="fcitx"
+    '';
+    gtk3.extraConfig = {
+      # GTK3偏好暗色主题
+      gtk-application-prefer-dark-theme = 1;
+      gtk-im-module = "fcitx";
+    };
+    gtk4.extraConfig = {
+      # GTK4偏好暗色主题
+      gtk-application-prefer-dark-theme = true;
+      gtk-im-module = "fcitx";
+    };
     iconTheme = {
       name = "Papirus";
       package = pkgs.papirus-icon-theme;

@@ -99,6 +99,10 @@
           # 未测试用途
           check.command = "${clippy}/bin/cargo-clippy";
         };
+        steel-language-server = {
+          command = "${pkgs.myRepo.steel}/bin/steel-language-server";
+          args = [ ];
+        };
       };
       language = [
         {
@@ -151,6 +155,10 @@
           name = "rust";
           auto-format = true;
           language-servers = [ "rust-analyzer" ];
+        }
+        {
+          name = "scheme";
+          language-servers = [ "steel-language-server" ];
         }
       ];
       # 也许需要允许 hx --grammar fetch 和 hx --grammar build

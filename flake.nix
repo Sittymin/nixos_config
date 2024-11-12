@@ -190,6 +190,7 @@
                 myRepo.reqable
                 # markdown 编辑器
                 myRepo.apostrophe-2-6-3
+                myRepo.steel
                 # chromiun 内核浏览器
                 # myRepo.thorium
               ]);

@@ -524,11 +524,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728307555,
-        "narHash": "sha256-0m4qyFn0jRRH+ibU04Kmdj8RWjacOxaxDTIl+zyTpXw=",
+        "lastModified": 1731407101,
+        "narHash": "sha256-YjeTQh/qAIDqkfKPEylnLtZyaJraktMSvwbmVZNuVvA=",
         "owner": "Sittymin",
         "repo": "NUR",
-        "rev": "77ec520e7af86dd3c03b18d353792bbee3e4ca66",
+        "rev": "a02fce7dda4ac7f1079d182402370dad4cf0a2f6",
         "type": "github"
       },
       "original": {
