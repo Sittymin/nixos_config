@@ -2,13 +2,16 @@ theme = "catppuccin_macchiato"
 
 [editor]
 # 行号显示: absolute 简单地显示每行的行号，而 relative 显示当前行的距离。当失去焦点或处于插入模式时， relative 仍显示绝对将行号
-line-number = "relative"
+line-number = "absolute"
 cursorline = true
 cursorcolumn = true
 bufferline = "multiple"
 # 用于控制弹出窗口（如自动完成、提示等）周围是否显示边框
 popup-border = "all"
 auto-completion = true
+color-modes = true
+# 自动补全替换完整单词，而不是光标前面部分
+completion-replace = true
 
 [editor.statusline]
 left = ["mode", "spinner"]
@@ -28,12 +31,21 @@ display-inlay-hints = true
 
 [editor.cursor-shape]
 insert = "bar"
-normal = "block"
-select = "underline"
+# 可能是因为Terminal不支持多光标的缘故
+# 所以 block 不使用终端光标(不能用kitty的拖尾了)
+# normal = "block"
+normal = "underline"
+select = "block"
 
 [editor.file-picker]
 # 启用忽略隐藏文件
 hidden = false
+
+# 垂直缩进线
+[editor.indent-guides]
+render = true
+character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+skip-levels = 1
 
 # 使用可见字符渲染空格的选项
 [editor.whitespace.render]

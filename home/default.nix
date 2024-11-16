@@ -36,6 +36,8 @@
   # '';
 
   home.packages = with pkgs; ([
+    # Docker 的一个插件
+    docker-compose
     # Scheme 一个实现
     racket
     # Guix 包管理器
@@ -56,7 +58,7 @@
     libjxl
     libavif
     # 一个回收站工具
-    trashy
+    trash-cli
     # 基于libvips的图片浏览器
     # vipsdisp
     # 基于Qt的图片浏览器

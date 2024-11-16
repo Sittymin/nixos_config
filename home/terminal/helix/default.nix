@@ -90,9 +90,14 @@
           command = "${vscode-langservers-extracted}/bin/vscode-css-language-server";
         };
         # HTML
+        # 提供代码检查与格式化（无代码补全）
         superhtml = {
           command = "${superhtml}/bin/superhtml";
           args = [ "lsp" ];
+        };
+        # 提供代码补全
+        vscode-html-language-server = {
+          command = "${vscode-langservers-extracted}/bin/vscode-html-language-server";
         };
         rust-analyzer = {
           command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
@@ -102,6 +107,10 @@
         steel-language-server = {
           command = "${pkgs.myRepo.steel}/bin/steel-language-server";
           args = [ ];
+        };
+        guile-lsp-server = {
+          command = "${pkgs.myRepo.guile-lsp-server}/bin/guile-lsp-server";
+          args = [ "--log-level" "debug" ];
         };
       };
       language = [
@@ -140,8 +149,13 @@
         }
         {
           name = "html";
-          language-servers = [ "superhtml" ];
+          language-servers = [ "superhtml" "vscode-html-language-server" ];
           auto-format = true;
+          formatter = {
+            command = "${superhtml}/bin/superhtml";
+            # "-" 是表示需要格式化的文件
+            args = [ "fmt" "-" ];
+          };
         }
         {
           name = "nix";
@@ -158,7 +172,8 @@
         }
         {
           name = "scheme";
-          language-servers = [ "steel-language-server" ];
+          # language-servers = [ "steel-language-server" ];
+          language-servers = [ "guile-lsp-server" ];
         }
       ];
       # 也许需要允许 hx --grammar fetch 和 hx --grammar build
