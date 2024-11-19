@@ -28,23 +28,26 @@ edit = [
 	{ run = 'hx "$@"', block = true, for = "unix" },
 ]
 open = [
-	{ run = 'xdg-open "$@"',                desc = "Open", for = "linux" },
+	{ run = 'xdg-open "$@"', desc = "Open", for = "linux" },
 ]
 reveal = [
-	{ run = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF", for = "unix" },
+	{ run = 'xdg-open "$(dirname "$1")"',           desc = "Reveal", for = "linux" },
+	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
 extract = [
-	{ run = 'unar "$1"', desc = "Extract here", for = "unix" },
+	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
+	{ run = '7z x "$1"', desc = "Extract here", for = "unix" },
 ]
 play = [
 	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
 ]
 evince_open = [
-  { run = 'evince "$@"', orphan = true},
+	{ run = 'evince "$@"', orphan = true },
 ]
 imv_open = [
-  { run = 'imv -n "$@" ./ -u linear', orphan = true},
+	{ run = 'imv -n "$@" ./ -u linear', orphan = true },
 ]
+
 [open]
 rules = [
 	{ name = "*/", use = [ "edit", "open", "reveal" ] },
@@ -57,38 +60,42 @@ rules = [
 	{ mime = "application/json", use = [ "edit", "reveal" ] },
 	{ mime = "*/javascript",     use = [ "edit", "reveal" ] },
 
-	{ mime = "application/zip",             use = [ "extract", "reveal" ] },
-	{ mime = "application/gzip",            use = [ "extract", "reveal" ] },
-	{ mime = "application/x-tar",           use = [ "extract", "reveal" ] },
-	{ mime = "application/x-bzip",          use = [ "extract", "reveal" ] },
-	{ mime = "application/x-bzip2",         use = [ "extract", "reveal" ] },
-	{ mime = "application/x-7z-compressed", use = [ "extract", "reveal" ] },
-	{ mime = "application/x-rar",           use = [ "extract", "reveal" ] },
-	{ mime = "application/xz",              use = [ "extract", "reveal" ] },
+	{ mime = "application/zip", use = [ "extract", "reveal" ] },
+  { mime = "application/gzip", use = [ "extract", "reveal" ] },
+  { mime = "application/x-7z-compressed", use = [ "extract", "reveal" ] },
+  { mime = "application/x-rar", use = [ "extract", "reveal" ] },
+  { mime = "application/x-tar", use = [ "extract", "reveal" ] },
+  { mime = "application/x-bzip2", use = [ "extract", "reveal" ] },
+  { mime = "application/x-lzma", use = [ "extract", "reveal" ] },
+  { mime = "application/x-lzip", use = [ "extract", "reveal" ] },
+  { mime = "application/x-lzop", use = [ "extract", "reveal" ] },
+  { mime = "application/x-xz", use = [ "extract", "reveal" ] },
+  { mime = "application/x-compress", use = [ "extract", "reveal" ] },
+  { mime = "application/zstd", use = [ "extract", "reveal" ] },
 
-  # Evince view
+	# Evince view
 	{ mime = "application/x-cb7",              use = [ "evince_open"  ] },
-  { mime = "application/x-cbr",              use = [ "evince_open"  ] },
-  { mime = "application/x-cbt",              use = [ "evince_open"  ] },
-  { mime = "application/x-cbz",              use = [ "evince_open"  ] },
-  { mime = "image/vnd.djvu",                 use = [ "evince_open"  ] },
-  { mime = "application/x-dvi",              use = [ "evince_open"  ] },
-  { mime = "application/oxps",               use = [ "evince_open"  ] },
-  { mime = "application/vnd.ms-xpsdocument", use = [ "evince_open"  ] },
-  { mime = "application/pdf",                use = [ "evince_open"  ] },
-  { mime = "application/postscript",         use = [ "evince_open"  ] },
+	{ mime = "application/x-cbr",              use = [ "evince_open"  ] },
+	{ mime = "application/x-cbt",              use = [ "evince_open"  ] },
+	{ mime = "application/x-cbz",              use = [ "evince_open"  ] },
+	{ mime = "image/vnd.djvu",                 use = [ "evince_open"  ] },
+	{ mime = "application/x-dvi",              use = [ "evince_open"  ] },
+	{ mime = "application/oxps",               use = [ "evince_open"  ] },
+	{ mime = "application/vnd.ms-xpsdocument", use = [ "evince_open"  ] },
+	{ mime = "application/pdf",                use = [ "evince_open"  ] },
+	{ mime = "application/postscript",         use = [ "evince_open"  ] },
 
-# imv view
-  { mime = "image/tiff",                     use = [ "imv_open"  ] },
-  { mime = "image/x-tiff",                   use = [ "imv_open"  ] },
-  { mime = "image/png",                      use = [ "imv_open"  ] },
-  { mime = "image/jpeg",                     use = [ "imv_open"  ] },
-  { mime = "image/svg+xml",                  use = [ "imv_open"  ] },
-  { mime = "image/heif",                     use = [ "imv_open"  ] },
-  { mime = "image/heif-sequence",            use = [ "imv_open"  ] },
-  { mime = "image/heic",                     use = [ "imv_open"  ] },
-  { mime = "image/heic-sequence",            use = [ "imv_open"  ] },
-  { mime = "image/jxl",                      use = [ "imv_open"  ] },
+	# imv view
+	{ mime = "image/tiff",                     use = [ "imv_open"  ] },
+	{ mime = "image/x-tiff",                   use = [ "imv_open"  ] },
+	{ mime = "image/png",                      use = [ "imv_open"  ] },
+	{ mime = "image/jpeg",                     use = [ "imv_open"  ] },
+	{ mime = "image/svg+xml",                  use = [ "imv_open"  ] },
+	{ mime = "image/heif",                     use = [ "imv_open"  ] },
+	{ mime = "image/heif-sequence",            use = [ "imv_open"  ] },
+	{ mime = "image/heic",                     use = [ "imv_open"  ] },
+	{ mime = "image/heic-sequence",            use = [ "imv_open"  ] },
+	{ mime = "image/jxl",                      use = [ "imv_open"  ] },
 
 	{ mime = "*", use = [ "open", "reveal" ] },
 ]
@@ -146,6 +153,8 @@ previewers = [
 ]
 
 [input]
+cursor_blink = false
+
 # cd
 cd_title  = "Change directory:"
 cd_origin = "top-center"
@@ -160,16 +169,6 @@ create_offset = [ 0, 2, 50, 3 ]
 rename_title  = "Rename:"
 rename_origin = "hovered"
 rename_offset = [ 0, 1, 50, 3 ]
-
-# trash
-trash_title 	= "Move {n} selected file{s} to trash? (y/N)"
-trash_origin	= "top-center"
-trash_offset	= [ 0, 2, 50, 3 ]
-
-# delete
-delete_title 	= "Delete {n} selected file{s} permanently? (y/N)"
-delete_origin	= "top-center"
-delete_offset	= [ 0, 2, 50, 3 ]
 
 # filter
 filter_title  = "Filter:"
@@ -191,20 +190,39 @@ shell_title  = [ "Shell:", "Shell (block):" ]
 shell_origin = "top-center"
 shell_offset = [ 0, 2, 50, 3 ]
 
+[confirm]
+# trash
+trash_title 	= "Trash {n} selected file{s}?"
+trash_origin	= "center"
+trash_offset	= [ 0, 0, 70, 20 ]
+
+# delete
+delete_title 	= "Permanently delete {n} selected file{s}?"
+delete_origin	= "center"
+delete_offset	= [ 0, 0, 70, 20 ]
+
 # overwrite
-overwrite_title  = "Overwrite an existing file? (y/N)"
-overwrite_origin = "top-center"
-overwrite_offset = [ 0, 2, 50, 3 ]
+overwrite_title   = "Overwrite file?"
+overwrite_content = "Will overwrite the following file:"
+overwrite_origin  = "center"
+overwrite_offset  = [ 0, 0, 50, 15 ]
 
 # quit
-quit_title  = "{n} task{s} running, sure to quit? (y/N)"
-quit_origin = "top-center"
-quit_offset = [ 0, 2, 50, 3 ]
+quit_title   = "Quit?"
+quit_content = "The following task is still running, are you sure you want to quit?"
+quit_origin  = "center"
+quit_offset  = [ 0, 0, 50, 15 ]
 
-[select]
+[pick]
 open_title  = "Open with:"
 open_origin = "hovered"
 open_offset = [ 0, 1, 50, 7 ]
+
+[which]
+sort_by      	 = "none"
+sort_sensitive = false
+sort_reverse 	 = false
+sort_translit  = false
 
 [log]
 enabled = false

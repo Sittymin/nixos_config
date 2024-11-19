@@ -42,6 +42,8 @@
     racket
     # Guix 包管理器
     guix
+    # 语言
+    guile
     # 数据库
     postgresql
     libreoffice
@@ -53,8 +55,6 @@
     mpvpaper
     # Log
     lnav
-    # BLAKE3 加密哈希函数
-    b3sum
     libjxl
     libavif
     # 一个回收站工具
@@ -76,9 +76,14 @@
     # EPUB and other
     foliate
     # GUI文件管理器
-    nautilus
+    xfce.thunar
+    # 缩略图
+    xfce.tumbler
+    # 配置软件（也会配置默认启动软件）
+    # 配置在 ~/.config/xfce4/helpers.rc
+    xfce.xfce4-settings
     # 归档文件查看器
-    file-roller
+    # file-roller
     scrcpy
 
     python311
@@ -100,8 +105,6 @@
 
     #wine
     wineWowPackages.waylandFull
-    # 命令行备忘录
-    cheat
     # 种子文件客户端
     qbittorrent
     # cli 的版本
@@ -132,7 +135,6 @@
     # 同步文件
     syncthing
 
-    jetbrains.clion
     (android-studio.override {
       forceWayland = true;
     }
@@ -153,6 +155,37 @@
   ]) ++ (with pkgs-e0464e4; [
     localsend
   ]);
+
+
+  xdg.mimeApps = {
+    enable = true;
+    ## 默认应用 参考: https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-latest.html
+    # desktop 文件在 $env.XDG_DATA_DIRS 环境变量的各个目录中
+    # 系统级
+    # /etc/profiles/per-user/Sittymin/share
+    # /run/current-system/sw/share
+    # 用户级
+    # ~/.local/state/nix/profiles/home-manager/home-path/share/applications
+    # mime 可以通过 `file --mime-type 文件名` 查看
+    # Example:
+    # "application/pdf" = "firefox.desktop";
+    # "image/png" = [
+    #   "sxiv.desktop"
+    #   "gimp.desktop"
+    # ];
+    defaultApplications = {
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/about" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
+      # 终端
+      "x-scheme-handler/terminal" = "kitty.desktop";
+      # 文件夹打开方式
+      "inode/directory" = "thunar.desktop";
+    };
+  };
+
 
   home.pointerCursor = {
     gtk.enable = true;

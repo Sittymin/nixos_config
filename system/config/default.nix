@@ -51,20 +51,17 @@
     shells = [ pkgs.nushell ];
     systemPackages = (with pkgs; [
       sing-box
-      #  git
+      # git
       curl
       wget
       wireplumber
       btop # 系统和网络监控工具
       intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
-      # archives
-      zip # 压缩为zip
-      xz # xz
+      # 解压缩软件
       p7zip # 7z
-      zstd # zstd
-      # unrar 解压 rar 压缩
-      rar
-      # zpaqfranz
+      zstd
+      # BLAKE3 加密哈希函数
+      b3sum
 
       android-tools
       # 显示文件类型的程序
@@ -76,19 +73,14 @@
       # GTK 图片加载库
       gdk-pixbuf
 
-
-
       # 音频兼容层(当前对于我的世界有用)
       alsa-oss
-      # 编译器
-      gcc
       # TPM
       swtpm
       # 向路由器请求UPnP
       miniupnpc
       # 复制到系统剪贴板
       wl-clipboard
-
     ]);
     # ]) ++ (
     # with inputs.daeuniverse.packages.x86_64-linux; [
@@ -97,27 +89,11 @@
     # );
   };
 
-  xdg.mime = {
-    enable = true;
-    ## 默认应用 参考: https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-latest.html
-    # desktop 文件也许可以通过以下路径找到
-    # ~/.local/state/nix/profiles/home-manager/home-path/share/applications
-    # mime 可以通过 `file --mime-type 文件名` 查看
-    # Example:
-    # "application/pdf" = "firefox.desktop";
-    # "image/png" = [
-    #   "sxiv.desktop"
-    #   "gimp.desktop"
-    # ];
-    defaultApplications = {
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
-      "x-scheme-handler/about" = "firefox.desktop";
-      "x-scheme-handler/unknown" = "firefox.desktop";
-      "application/zip" = "org.gnome.FileRoller.desktop";
-      # 文件夹打开方式
-      "inode/directory" = "org.gnome.Nautilus.desktop";
+  xdg = {
+    mime = {
+      enable = true;
+      # 系统级默认程序
+      defaultApplications = { };
     };
   };
 }
