@@ -16,11 +16,13 @@
   home.homeDirectory = "/home/Sittymin";
   home.stateVersion = "24.05";
 
-  # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
-  home.file = {
-    # 似乎是设置默认下载、音乐、文档等目录的配置文件
-    ".config/user-dirs.dirs".source = ./user-dirs.dirs;
-  };
+  # # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
+  # home.file = {
+  #   ".config/user-dirs.dirs".source = ./user-dirs.dirs;
+  # };
+
+  # 似乎是设置默认下载、音乐、文档等目录的配置文件
+  xdg.configFile."user-dirs.dirs".source = ./user-dirs.dirs;
 
 
   # 递归将某个文件夹中的文件，链接到 Home 目录下的指定位置

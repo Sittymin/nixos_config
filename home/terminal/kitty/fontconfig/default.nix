@@ -1,3 +1,3 @@
 {
-  home.file.".config/fontconfig/fonts.conf".source = ./fonts.conf;
+  xdg.configFile."fontconfig/fonts.conf".source = ./fonts.conf;
 }

@@ -1,10 +1,6 @@
 { pkgs
   # 似乎不可以直接用 inputs
 , inputs
-  # , thumbfast
-  # , mpv-progressbar
-  # , fbriere-mpv-scripts
-  # , Anime4K
 , ...
 }: {
   home.packages = with pkgs; [
@@ -16,22 +12,22 @@
       autoload
     ];
   };
-  home.file = {
-    ".config/mpv" = {
+  xdg.configFile = {
+    "mpv" = {
       source = ./config;
       recursive = true;
     };
-    ".config/mpv/shaders" = {
+    "mpv/shaders" = {
       source = "${inputs.Anime4K}/glsl";
       recursive = true;
     };
-    ".config/mpv/scripts/thumbfast.lua" = {
+    "mpv/scripts/thumbfast.lua" = {
       source = "${inputs.thumbfast}/thumbfast.lua";
     };
-    ".config/mpv/scripts/progressbar.lua" = {
+    "mpv/scripts/progressbar.lua" = {
       source = "${inputs.mpv-progressbar}/progressbar.lua";
     };
-    ".config/mpv/scripts/sub-fonts-dir-auto.lua" = {
+    "mpv/scripts/sub-fonts-dir-auto.lua" = {
       source = "${inputs.fbriere-mpv-scripts}/scripts/sub-fonts-dir-auto.lua";
     };
   };

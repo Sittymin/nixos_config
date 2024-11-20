@@ -1,6 +1,6 @@
 { ...
 }: {
-  home.file.".config/zellij/config.kdl".source = ./config.kdl;
+  xdg.configFile."zellij/config.kdl".source = ./config.kdl;
   # https://github.com/zellij-org/zellij/issues/2814
   programs.zellij = {
     enable = true;

@@ -20,11 +20,6 @@
     };
     # 用户登录时初始化的环境变量
     sessionVariables = {
-      # 输入法的环境变量 https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
-      # 需要QT软件构建使用了 fcitx 模块
-      QT_IM_MODULE = "fcitx";
-      QT_IM_MODULES = "wayland;fcitx;ibus";
-      XMODIFIERS = "@im=fcitx";
       # https://nixos.wiki/wiki/Wayland
       # 实际上不能输入的依旧不能输入, 但是可以让实验Wayland启用
       NIXOS_OZONE_WL = "1";
