@@ -95,6 +95,12 @@
     bun
     nodePackages_latest.nodejs
     rustup
+    # C/C++
+    (clang-tools.override {
+      enableLibcxx = true;
+    })
+    # 编译器
+    llvmPackages.libcxxClang
 
     # 与Nix相关的工具，提供更详细的日志输出。
     # nh 内置

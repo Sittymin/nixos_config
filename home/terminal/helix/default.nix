@@ -112,6 +112,9 @@
           command = "${pkgs.myRepo.guile-lsp-server}/bin/guile-lsp-server";
           args = [ "--log-level" "debug" ];
         };
+        clangd = {
+          command = "${pkgs.clang-tools}/bin/clangd";
+        };
       };
       language = [
         {
@@ -145,6 +148,20 @@
           formatter = {
             command = "${nodePackages_latest.prettier}/bin/prettier";
             args = [ "--parser" "babel-ts" ];
+          };
+        }
+        {
+          name = "tsx";
+          # 自动格式化
+          auto-format = true;
+          formatter = {
+            command = "${nodePackages_latest.prettier}/bin/prettier";
+            args = [
+              "--config-precedence"
+              "prefer-file"
+              "--stdin-filepath"
+              "file.tsx"
+            ];
           };
         }
         {

@@ -1,0 +1,53 @@
+name: Update and Build Nix Flake
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 */3 * *'
+
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+    outputs:
+      flake_lock_changed: ${{ steps.check_flake_lock.outputs.flake_lock_changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v20
+      - name: Update Nix Flake
+        run: |
+          set -Eeu
+          nix flake update
+      - name: Check if flake.lock Changed
+        id: check_flake_lock
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "flake_lock_changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "flake_lock_changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Output Result
+        if: ${{ steps.check_flake_lock.outputs.flake_lock_changed == 'false' }}
+        run: echo "flake.lock not changed"
+
+  build-flake:
+    needs: update-flake
+    if: needs.update-flake.outputs.flake_lock_changed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v20
+      - name: Build Nix Flake
+        id: build_flake
+        run: |
+          set -Eeu
+          nix build -L
+        continue-on-error: true
+      - name: Upload flake.lock if Build Succeeded
+        if: ${{ steps.build_flake.outcome == 'success' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: flake-lock
+          path: flake.lock
+      - name: Build Failed
+        if: ${{ steps.build_flake.outcome == 'failure' }}
+        run: echo "Build failed, not uploading flake.lock"

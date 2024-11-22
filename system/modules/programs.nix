@@ -1,6 +1,20 @@
 { pkgs
 , ...
-}: {
+}:
+let
+  steamFonts = pkgs.symlinkJoin {
+    name = "steam-fonts";
+    paths = with pkgs; [
+      wqy_zenhei
+      wqy_microhei
+      # 微软的一些字体
+      corefonts
+      vistafonts
+      vistafonts-chs
+    ];
+  };
+in
+{
   programs = {
     # DRM 通过 Gamescope 启动
     # https://github.com/ValveSoftware/steam-for-linux/issues/9495#issuecomment-2356994370
@@ -17,9 +31,7 @@
         # 也许只是让内部可以调用，外部必须再安装一个
         gamemode
       ];
-      # fontPackages = with pkgs; [
-      #   lxgw-neoxihei
-      # ];
+      fontPackages = [ steamFonts ];
       # 是否启用将 extest 库加载到 Steam 中，以将 X11 输入事件转换为 uinput 事件（例如，在 Wayland 上使用 Steam 输入）
       extest.enable = true;
       package = pkgs.steam.override {
