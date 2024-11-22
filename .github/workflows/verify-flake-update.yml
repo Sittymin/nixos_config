@@ -1,0 +1,48 @@
+name: Verify Flake Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 */3 * *'
+
+jobs:
+  verify-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v20
+      
+      # 更新 flake
+      - name: Update Flake
+        id: update_flake
+        run: nix flake update
+          
+      # 检查是否有更改
+      - name: Check Changes
+        id: check_changes
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            # 显示变化的依赖
+            git diff flake.lock
+          fi
+          
+      # 验证配置
+      - name: Verify Configuration
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          # 使用 --dry-run 来检查构建可能性
+          nix build .#nixosConfigurations.nixos.config.system.build.toplevel --dry-run
+          
+          # 检查 flake 的输出
+          nix flake check
+          
+      # 如果验证通过，保存更新的 flake.lock
+      - name: Upload flake.lock
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: flake-lock
+          path: flake.lock
