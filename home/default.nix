@@ -258,6 +258,10 @@
       enable = true;
       userName = "Sittymin";
       userEmail = "mail@sittymin.top";
+      signing = {
+        key = "747FDF0404DC5B77";
+        signByDefault = true;
+      };
     };
     obs-studio = {
       enable = true;

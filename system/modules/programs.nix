@@ -68,9 +68,9 @@ in
         # 为 git difftool 添加别名 git dft
         alias.dft = "difftool";
 
-        # 设置Git使用GPG签名
-        user.signingkey = "747FDF0404DC5B77";
-        commit.gpgsign = true;
+        # 设置Git使用GPG签名( HomeManager 代替，毕竟定义用户的不再全局)
+        # user.signingkey = "747FDF0404DC5B77";
+        # commit.gpgsign = true;
       };
     };
     # GPG 密钥对加密与解密

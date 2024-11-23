@@ -49,7 +49,6 @@
       # git
       curl
       wget
-      wireplumber
       btop # 系统和网络监控工具
       intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
       # 解压缩软件

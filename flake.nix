@@ -186,7 +186,6 @@
               (with pkgs; [
                 # Waydroid 蔚蓝档案脚本修复需要
                 unixtools.xxd
-                myRepo.xwayland-satellite
                 myRepo.reqable
                 # markdown 编辑器
                 myRepo.apostrophe-2-6-3
