@@ -1,7 +1,8 @@
-{ pkgs
-, inputs
-, pkgs-e0464e4
-, ...
+{
+  pkgs,
+  inputs,
+  pkgs-e0464e4,
+  ...
 }:
 
 {
@@ -24,7 +25,6 @@
   # 似乎是设置默认下载、音乐、文档等目录的配置文件
   xdg.configFile."user-dirs.dirs".source = ./user-dirs.dirs;
 
-
   # 递归将某个文件夹中的文件，链接到 Home 目录下的指定位置
   # home.file.".config/i3/scripts" = {
   #   source = ./scripts;
@@ -37,133 +37,127 @@
   #     xxx
   # '';
 
-  home.packages = with pkgs; ([
-    # Docker 的一个插件
-    docker-compose
-    # Scheme 一个实现
-    racket
-    # Guix 包管理器
-    guix
-    # 语言
-    guile
-    # 数据库
-    postgresql
-    libreoffice
-    # 测试显示器的VRR
-    # vrrtest
-    fastfetch
-    yt-dlp
-    # hyprpicker
-    mpvpaper
-    # Log
-    lnav
-    libjxl
-    libavif
-    # 一个回收站工具
-    trash-cli
-    # 基于libvips的图片浏览器
-    # vipsdisp
-    # 基于Qt的图片浏览器
-    # (qview.override {
-    #   x11Support = false;
-    # })
-    inputs.nixpkgs-wayland.packages.${pkgs.system}.imv
-    (ffmpeg-full.override {
-      withVpl = true;
-      withMfx = false;
-    })
-    vscode
-    # Doc view
-    evince
-    # EPUB and other
-    foliate
-    # GUI文件管理器
-    xfce.thunar
-    # 缩略图
-    xfce.tumbler
-    # 配置软件（也会配置默认启动软件）
-    # 配置在 ~/.config/xfce4/helpers.rc
-    xfce.xfce4-settings
-    # 归档文件查看器
-    # file-roller
-    scrcpy
+  home.packages =
+    with pkgs;
+    [
+      # Docker 的一个插件
+      docker-compose
+      # Scheme 一个实现
+      racket
+      # Guix 包管理器
+      guix
+      # 语言
+      guile
+      # 数据库
+      postgresql
+      libreoffice
+      # 测试显示器的VRR
+      # vrrtest
+      fastfetch
+      yt-dlp
+      # hyprpicker
+      mpvpaper
+      # Log
+      lnav
+      libjxl
+      libavif
+      # 一个回收站工具
+      trash-cli
+      # 基于libvips的图片浏览器
+      # vipsdisp
+      # 基于Qt的图片浏览器
+      # (qview.override {
+      #   x11Support = false;
+      # })
+      inputs.nixpkgs-wayland.packages.${pkgs.system}.imv
+      (ffmpeg-full.override {
+        withVpl = true;
+        withMfx = false;
+      })
+      vscode
+      # Doc view
+      evince
+      # EPUB and other
+      foliate
+      # GUI文件管理器
+      xfce.thunar
+      # 缩略图
+      xfce.tumbler
+      # 配置软件（也会配置默认启动软件）
+      # 配置在 ~/.config/xfce4/helpers.rc
+      xfce.xfce4-settings
+      # 归档文件查看器
+      # file-roller
+      scrcpy
 
-    python311
-    # JDK
-    graalvm-ce
-    # nodejs
-    bun
-    nodePackages_latest.nodejs
-    rustup
-    # C/C++
-    (clang-tools.override {
-      enableLibcxx = true;
-    })
-    # 编译器
-    llvmPackages.libcxxClang
+      python311
+      # JDK
+      graalvm-ce
+      # nodejs
+      bun
+      nodePackages_latest.nodejs
+      rustup
+      # C/C++
+      (clang-tools.override {
+        enableLibcxx = true;
+      })
+      # 编译器
+      llvmPackages.libcxxClang
 
-    # 与Nix相关的工具，提供更详细的日志输出。
-    # nh 内置
-    # nix-output-monitor
+      # 与Nix相关的工具，提供更详细的日志输出。
+      # nh 内置
+      # nix-output-monitor
 
-    lsof # 列出打开文件的工具
+      lsof # 列出打开文件的工具
 
-    # 用于调节音频设备的软件
-    # helvum
+      # 用于调节音频设备的软件
+      # helvum
 
-    #wine
-    wineWowPackages.waylandFull
-    # 种子文件客户端
-    qbittorrent
-    # cli 的版本
-    qbittorrent-nox
-    # 矢量图形编辑器
-    inkscape
-    # 绘画应用程序
-    # krita
-    # GTK 图像处理程序
-    # pinta
-    # blender
-    epiphany
-    font-manager
-    # gnome
-    dconf-editor
-    d-spy
-    # Matrix群组消息应用程序
-    # fractal
-    # GTK编写的远程桌面客户端
-    # remmina
-    (
-      heroic.override {
+      #wine
+      wineWowPackages.waylandFull
+      # 种子文件客户端
+      qbittorrent
+      # cli 的版本
+      qbittorrent-nox
+      # 矢量图形编辑器
+      inkscape
+      # 绘画应用程序
+      # krita
+      # GTK 图像处理程序
+      # pinta
+      # blender
+      epiphany
+      font-manager
+      # gnome
+      dconf-editor
+      d-spy
+      # Matrix群组消息应用程序
+      # fractal
+      # GTK编写的远程桌面客户端
+      # remmina
+      (heroic.override {
         extraPkgs = pkgs: [
           gamemode
         ];
-      }
-    )
-    # 同步文件
-    syncthing
+      })
+      # 同步文件
+      syncthing
 
-    (android-studio.override {
-      forceWayland = true;
-    }
-    )
-    (jetbrains.plugins.addPlugins
-      jetbrains.idea-ultimate
-      [
+      (android-studio.override {
+        forceWayland = true;
+      })
+      (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [
         "17718"
-      ]
-    )
-    (
-      godot_4.override {
+      ])
+      (godot_4.override {
         withWayland = true;
         # Wayland only 需要 https://github.com/godotengine/godot/pull/97771
         # withX11 = false;
-      }
-    )
-  ]) ++ (with pkgs-e0464e4; [
-    localsend
-  ]);
-
+      })
+    ]
+    ++ (with pkgs-e0464e4; [
+      localsend
+    ]);
 
   xdg.mimeApps = {
     enable = true;
@@ -194,7 +188,6 @@
     };
   };
 
-
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
@@ -209,7 +202,10 @@
       name = "Catppuccin-Mocha-Pink";
       package = pkgs.catppuccin-gtk.override {
         accents = [ "pink" ];
-        tweaks = [ "rimless" "black" ];
+        tweaks = [
+          "rimless"
+          "black"
+        ];
         variant = "mocha";
       };
     };
@@ -273,7 +269,6 @@
       ];
     };
   };
-
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

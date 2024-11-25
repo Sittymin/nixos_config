@@ -1,5 +1,6 @@
-{ pkgs
-, ...
+{
+  pkgs,
+  ...
 }:
 # let
 # GitHub520HostFile = builtins.fetchurl {
@@ -18,7 +19,11 @@
     # 如果不使用路由器 DNS 不知道为啥翻墙变慢(可能是校园网)
     # 额外添加的 DNS
     # 学校 DNS
-    nameservers = [ "223.5.5.5" "172.30.18.18" "172.30.8.51" ];
+    nameservers = [
+      "223.5.5.5"
+      "172.30.18.18"
+      "172.30.8.51"
+    ];
     # 使用 resolvconf 管理 DNS
     resolvconf.enable = true;
     # 让 DHCP 不要修改 DNS 服务器
@@ -66,7 +71,6 @@
     # geo 文件位置
     assetsPath = "/etc/dae";
   };
-
 
   # 自定义的服务
   systemd.services = {

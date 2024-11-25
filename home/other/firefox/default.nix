@@ -1,6 +1,7 @@
-{ pkgs
-, inputs
-, ...
+{
+  pkgs,
+  inputs,
+  ...
 }:
 {
   home = {
@@ -48,8 +49,9 @@
       userContent = ''
         @import "firefox-gnome-theme/userContent.css";
       '';
-      extensions = [
-      ];
+      extensions =
+        [
+        ];
     };
   };
 }

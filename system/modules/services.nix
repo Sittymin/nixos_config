@@ -1,6 +1,8 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   # NOTE:设置系统服务
   services = {
     # NOTE: Btrfs自动清理

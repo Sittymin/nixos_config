@@ -1,5 +1,7 @@
-{ ...
-}: {
+{
+  ...
+}:
+{
   imports = [
     ./windows-manager
     ./programs.nix

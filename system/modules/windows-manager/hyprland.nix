@@ -1,7 +1,7 @@
-{ pkgs
-, inputs
-, ...
-}: {
+{
+  ...
+}:
+{
   # 不仅有系统级, 还有用户级的
   programs.hyprland = {
     enable = true;

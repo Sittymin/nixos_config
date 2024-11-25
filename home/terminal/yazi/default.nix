@@ -1,6 +1,8 @@
-{ inputs
-, ...
-}: {
+{
+  inputs,
+  ...
+}:
+{
   programs.yazi = {
     enable = true;
     enableNushellIntegration = true;

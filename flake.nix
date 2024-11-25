@@ -109,106 +109,116 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-    nixosConfigurations = {
-      "nixos" = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
+  outputs =
+    { nixpkgs, home-manager, ... }@inputs:
+    {
+      # nixd 自动补全选项的前提(好像默认就是启用的)
+      nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+      nixosConfigurations = {
+        "nixos" = nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
 
-        specialArgs = {
-          inherit inputs;
-          pkgs-e0464e4 = import inputs.nixpkgs-e0464e4 {
-            inherit system;
-            config.allowUnfree = true;
-          };
-        };
-        modules = [
-          ./configuration.nix
-          ./overlay
-          ./system/host
-          ./system/config
-          ./system/modules
-          ./wallpaper
-
-          # 配置分区
-          inputs.disko.nixosModules.disko
-          ./disk-config.nix
-
-          # 安全启动部分
-          inputs.lanzaboote.nixosModules.lanzaboote
-          ({ pkgs, lib, ... }: {
-
-            environment.systemPackages = [
-              # For debugging and troubleshooting Secure Boot.
-              pkgs.sbctl
-            ];
-
-            # Lanzaboote currently replaces the systemd-boot module.
-            # This setting is usually set to true in configuration.nix
-            # generated at installation time. So we force it to false
-            # for now.
-            boot.loader.systemd-boot.enable = lib.mkForce false;
-
-            boot.lanzaboote = {
-              enable = true;
-              pkiBundle = "/etc/secureboot";
+          specialArgs = {
+            inherit inputs;
+            pkgs-e0464e4 = import inputs.nixpkgs-e0464e4 {
+              inherit system;
+              config.allowUnfree = true;
             };
-          })
+          };
+          modules = [
+            ./configuration.nix
+            ./overlay
+            ./system/host
+            ./system/config
+            ./system/modules
+            ./wallpaper
 
-          inputs.lix-module.nixosModules.default
-          inputs.nur.nixosModules.nur
-          inputs.chaotic.nixosModules.default
-          # inputs.daeuniverse.nixosModules.dae
-          inputs.nix-index-database.nixosModules.nix-index
-          inputs.niri.nixosModules.niri
-          ({ config, pkgs, ... }:
+            # 配置分区
+            inputs.disko.nixosModules.disko
+            ./disk-config.nix
+
+            # 安全启动部分
+            inputs.lanzaboote.nixosModules.lanzaboote
+            (
+              { pkgs, lib, ... }:
+              {
+
+                environment.systemPackages = [
+                  # For debugging and troubleshooting Secure Boot.
+                  pkgs.sbctl
+                ];
+
+                # Lanzaboote currently replaces the systemd-boot module.
+                # This setting is usually set to true in configuration.nix
+                # generated at installation time. So we force it to false
+                # for now.
+                boot.loader.systemd-boot.enable = lib.mkForce false;
+
+                boot.lanzaboote = {
+                  enable = true;
+                  pkiBundle = "/etc/secureboot";
+                };
+              }
+            )
+
+            inputs.lix-module.nixosModules.default
+            inputs.nur.nixosModules.nur
+            inputs.chaotic.nixosModules.default
+            # inputs.daeuniverse.nixosModules.dae
+            inputs.nix-index-database.nixosModules.nix-index
+            inputs.niri.nixosModules.niri
+            (
+              { config, pkgs, ... }:
+              {
+                # 使用我的NUR
+                # 使用方法pkgs.myRepo.example-package
+                nixpkgs.overlays = [
+                  (final: prev: {
+                    myRepo = inputs.myRepo.packages."${prev.system}";
+                  })
+                ];
+                # 允许的过时软件
+                nixpkgs.config.permittedInsecurePackages = [
+                  # xddxdd.baidunetdisk
+                  "electron-11.5.0"
+                ];
+                environment.systemPackages =
+                  (with config.nur.repos; [
+                    # NOTE:主要用于给waydroid提供转译层
+                    # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
+                    ataraxiasjel.waydroid-script
+
+                    sigprof.firefox-langpack-zh-CN
+
+                    xddxdd.baidunetdisk
+                  ])
+                  ++ (with pkgs; [
+                    # Waydroid 蔚蓝档案脚本修复需要
+                    unixtools.xxd
+                    myRepo.reqable
+                    # markdown 编辑器
+                    myRepo.apostrophe-2-6-3
+                    myRepo.steel
+                    # chromiun 内核浏览器
+                    # myRepo.thorium
+                  ]);
+              }
+            )
+            home-manager.nixosModules.home-manager
             {
-              # 使用我的NUR
-              # 使用方法pkgs.myRepo.example-package
-              nixpkgs.overlays = [
-                (final: prev: {
-                  myRepo = inputs.myRepo.packages."${prev.system}";
-                })
-              ];
-              # 允许的过时软件
-              nixpkgs.config.permittedInsecurePackages = [
-                # xddxdd.baidunetdisk
-                "electron-11.5.0"
-              ];
-              environment.systemPackages = (with config.nur.repos; [
-                # NOTE:主要用于给waydroid提供转译层
-                # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
-                ataraxiasjel.waydroid-script
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
 
-                sigprof.firefox-langpack-zh-CN
+              home-manager.users.Sittymin = import ./home;
+              # 如果遇到重复文件为原始文件添加backup，而不是发生错误
+              home-manager.backupFileExtension = "backup";
 
-                xddxdd.baidunetdisk
-              ]) ++
-              (with pkgs; [
-                # Waydroid 蔚蓝档案脚本修复需要
-                unixtools.xxd
-                myRepo.reqable
-                # markdown 编辑器
-                myRepo.apostrophe-2-6-3
-                myRepo.steel
-                # chromiun 内核浏览器
-                # myRepo.thorium
-              ]);
-            })
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.Sittymin = import ./home;
-            # 如果遇到重复文件为原始文件添加backup，而不是发生错误
-            home-manager.backupFileExtension = "backup";
-
-            # NOTE:使用 home-manager.extraSpecialArgs 自定义传递给 ./home.nix 的参数
-            # 取消注释下面这一行，就可以在 home.nix 中使用 flake 的所有 inputs 参数了
-            home-manager.extraSpecialArgs = specialArgs;
-          }
-        ];
+              # NOTE:使用 home-manager.extraSpecialArgs 自定义传递给 ./home.nix 的参数
+              # 取消注释下面这一行，就可以在 home.nix 中使用 flake 的所有 inputs 参数了
+              home-manager.extraSpecialArgs = specialArgs;
+            }
+          ];
+        };
       };
     };
-  };
 }

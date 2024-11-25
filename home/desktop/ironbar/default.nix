@@ -1,6 +1,8 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   xdg.configFile."ironbar" = {
     source = ./config;
     recursive = true;

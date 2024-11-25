@@ -1,7 +1,9 @@
-{ pkgs
-, config
-, ...
-}: {
+{
+  pkgs,
+  config,
+  ...
+}:
+{
 
   boot = {
     # NOTE:对于Arc显卡的特殊设置

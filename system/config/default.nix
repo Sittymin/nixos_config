@@ -1,6 +1,8 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   imports = [
     ./bluetooth.nix
     ./fonts.nix
@@ -44,38 +46,41 @@
     };
     # 用户帐户的可允许登录 shell 列表。/bin/sh会自动添加
     shells = [ pkgs.nushell ];
-    systemPackages = (with pkgs; [
-      sing-box
-      # git
-      curl
-      wget
-      btop # 系统和网络监控工具
-      intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
-      # 解压缩软件
-      p7zip # 7z
-      zstd
-      # BLAKE3 加密哈希函数
-      b3sum
+    systemPackages = (
+      with pkgs;
+      [
+        sing-box
+        # git
+        curl
+        wget
+        btop # 系统和网络监控工具
+        intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
+        # 解压缩软件
+        p7zip # 7z
+        zstd
+        # BLAKE3 加密哈希函数
+        b3sum
 
-      android-tools
-      # 显示文件类型的程序
-      file
-      # 可以使用 eglinfo 查看 mesa 版本
-      mesa-demos
-      # Qt 图片加载库（JXL）
-      libsForQt5.kimageformats
-      # GTK 图片加载库
-      gdk-pixbuf
+        android-tools
+        # 显示文件类型的程序
+        file
+        # 可以使用 eglinfo 查看 mesa 版本
+        mesa-demos
+        # Qt 图片加载库（JXL）
+        libsForQt5.kimageformats
+        # GTK 图片加载库
+        gdk-pixbuf
 
-      # 音频兼容层(当前对于我的世界有用)
-      alsa-oss
-      # TPM
-      swtpm
-      # 向路由器请求UPnP
-      miniupnpc
-      # 复制到系统剪贴板
-      wl-clipboard
-    ]);
+        # 音频兼容层(当前对于我的世界有用)
+        alsa-oss
+        # TPM
+        swtpm
+        # 向路由器请求UPnP
+        miniupnpc
+        # 复制到系统剪贴板
+        wl-clipboard
+      ]
+    );
     # ]) ++ (
     # with inputs.daeuniverse.packages.x86_64-linux; [
     #   dae

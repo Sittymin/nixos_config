@@ -1,5 +1,7 @@
-{ ...
-}: {
+{
+  ...
+}:
+{
   imports = [
     ./boot.nix
     ./hardware-configuration.nix
@@ -9,8 +11,14 @@
 
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      trusted-users = [ "root" "Sittymin" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      trusted-users = [
+        "root"
+        "Sittymin"
+      ];
       # NOTE: 在每次构建过程中对存储进行优化
       # PERF: 由nh的垃圾回收方式替代
       # auto-optimise-store = true;
@@ -71,7 +79,12 @@
     "/mnt/CT1000MX500SSD1" = {
       device = "/dev/sda";
       fsType = "btrfs";
-      options = [ "defaults" "noatime" "nodiratime" "user=Sittymin" ];
+      options = [
+        "defaults"
+        "noatime"
+        "nodiratime"
+        "user=Sittymin"
+      ];
     };
   };
 }

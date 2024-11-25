@@ -1,6 +1,8 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
@@ -22,9 +24,18 @@
       enable = true;
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
-        monospace = [ "Monaspace Neon" "Noto Color Emoji" ];
-        sansSerif = [ "LXGW Neo XiHei" "Noto Color Emoji" ];
-        serif = [ "LXGW WenKai" "Noto Color Emoji" ];
+        monospace = [
+          "Monaspace Neon"
+          "Noto Color Emoji"
+        ];
+        sansSerif = [
+          "LXGW Neo XiHei"
+          "Noto Color Emoji"
+        ];
+        serif = [
+          "LXGW WenKai"
+          "Noto Color Emoji"
+        ];
       };
     };
     # 触发问题比解决问题多

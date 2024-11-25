@@ -1,13 +1,23 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   # NOTE:设置用户账户
   users = {
     # NOTE:禁用多用户
     mutableUsers = false;
     users.Sittymin = {
       isNormalUser = true;
-      extraGroups = [ "networkmanager" "wheel" "video" "audio" "kvm" "libvirtd" "docker" ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "video"
+        "audio"
+        "kvm"
+        "libvirtd"
+        "docker"
+      ];
       # NOTE:家目录
       home = "/home/Sittymin";
       # NOTE:默认shell

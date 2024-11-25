@@ -1,5 +1,6 @@
-{ pkgs
-, ...
+{
+  pkgs,
+  ...
 }:
 {
   home.file = {
@@ -11,16 +12,14 @@
   };
   programs.helix = {
     enable = true;
-
     languages = with pkgs; {
       language-server = {
-        # 其实 C 语言环境挺棘手的，并不止需要这个
-        # clangd = {
-        #   commend = "${libclang}/bin/clangd";
-        # };
-        nil = {
-          command = "${nil}/bin/nil";
+        nixd = {
+          command = "${nixd}/bin/nixd";
         };
+        # nil = {
+        #   command = "${nil}/bin/nil";
+        # };
         vuels = {
           command = "${vue-language-server}/bin/vue-language-server";
           config = {
@@ -110,7 +109,10 @@
         };
         guile-lsp-server = {
           command = "${pkgs.myRepo.guile-lsp-server}/bin/guile-lsp-server";
-          args = [ "--log-level" "debug" ];
+          args = [
+            "--log-level"
+            "debug"
+          ];
         };
         clangd = {
           command = "${pkgs.clang-tools}/bin/clangd";
@@ -125,7 +127,10 @@
           auto-format = true;
           formatter = {
             command = "${nodePackages_latest.prettier}/bin/prettier";
-            args = [ "--parser" "vue" ];
+            args = [
+              "--parser"
+              "vue"
+            ];
           };
           language-servers = [
             "vuels"
@@ -138,7 +143,10 @@
           auto-format = true;
           formatter = {
             command = "${nodePackages_latest.prettier}/bin/prettier";
-            args = [ "--parser" "babel-flow" ];
+            args = [
+              "--parser"
+              "babel-flow"
+            ];
           };
         }
         {
@@ -147,7 +155,10 @@
           auto-format = true;
           formatter = {
             command = "${nodePackages_latest.prettier}/bin/prettier";
-            args = [ "--parser" "babel-ts" ];
+            args = [
+              "--parser"
+              "babel-ts"
+            ];
           };
         }
         {
@@ -166,20 +177,26 @@
         }
         {
           name = "html";
-          language-servers = [ "superhtml" "vscode-html-language-server" ];
+          language-servers = [
+            "superhtml"
+            "vscode-html-language-server"
+          ];
           auto-format = true;
           formatter = {
             command = "${superhtml}/bin/superhtml";
             # "-" 是表示需要格式化的文件
-            args = [ "fmt" "-" ];
+            args = [
+              "fmt"
+              "-"
+            ];
           };
         }
         {
           name = "nix";
-          language-servers = [ "nil" ];
+          language-servers = [ "nixd" ];
           auto-format = true;
           formatter = {
-            command = "${nixpkgs-fmt}/bin/nixpkgs-fmt";
+            command = "${nixfmt-rfc-style}/bin/nixfmt";
           };
         }
         {

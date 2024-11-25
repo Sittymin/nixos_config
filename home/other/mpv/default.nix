@@ -1,8 +1,10 @@
-{ pkgs
+{
+  pkgs,
   # 似乎不可以直接用 inputs
-, inputs
-, ...
-}: {
+  inputs,
+  ...
+}:
+{
   home.packages = with pkgs; [
     svp
   ];

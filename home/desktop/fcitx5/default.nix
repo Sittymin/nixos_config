@@ -1,6 +1,8 @@
-{ inputs
-, ...
-}: {
+{
+  inputs,
+  ...
+}:
+{
   xdg = {
     # ~/.local/share
     dataFile = {

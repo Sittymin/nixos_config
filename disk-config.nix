@@ -37,11 +37,13 @@
                     mountpoint = "/home";
                   };
                   "/nix" = {
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                     mountpoint = "/nix";
                   };
                 };
-
                 mountpoint = "/partition-root";
               };
             };
@@ -51,4 +53,3 @@
     };
   };
 }
-

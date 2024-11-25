@@ -3,8 +3,7 @@
     disk = {
       main = {
         type = "disk";
-        # /dev/nvme0n1
-        device = "<disk-name>";
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
@@ -38,11 +37,13 @@
                     mountpoint = "/home";
                   };
                   "/nix" = {
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                     mountpoint = "/nix";
                   };
                 };
-
                 mountpoint = "/partition-root";
               };
             };
@@ -52,4 +53,3 @@
     };
   };
 }
-
