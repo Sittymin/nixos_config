@@ -14,6 +14,7 @@
     enable = true;
     languages = with pkgs; {
       language-server = {
+        # 与 Lix 不兼容，只可以使用 nix
         nixd = {
           command = "${nixd}/bin/nixd";
         };

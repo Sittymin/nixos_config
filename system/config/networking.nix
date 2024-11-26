@@ -2,39 +2,37 @@
   pkgs,
   ...
 }:
-# let
-# GitHub520HostFile = builtins.fetchurl {
-#   url = "https://raw.hellogithub.com/hosts";
-#   sha256 = "1m3pdag28ng80why2gbxv12rxa6li3lmszxk83j326jvszlf2i1b";
-# };
-# GitHub520HostContent = builtins.readFile GitHub520HostFile;
-# in
 {
-  # Github Host 文件
-  # networking.extraHosts = GitHub520HostContent;
-
   # NOTE:设置网络连接
   networking = {
     hostName = "nixos"; # NOTE:主机名
+    # 下面的 nameservers 是依靠 resolvconf 生成的
+    resolvconf.enable = true;
+    # 用 dnsmasq 的转发使用 sing-box DNS
+    nameservers = [
+      "127.0.0.1"
+      "::1"
+    ];
     # 如果不使用路由器 DNS 不知道为啥翻墙变慢(可能是校园网)
     # 额外添加的 DNS
     # 学校 DNS
-    nameservers = [
-      "223.5.5.5"
-      "172.30.18.18"
-      "172.30.8.51"
-    ];
-    # 使用 resolvconf 管理 DNS
-    resolvconf.enable = true;
-    # 让 DHCP 不要修改 DNS 服务器
-    dhcpcd.extraConfig = "nohook resolv.conf";
+    # nameservers = [
+    #   "223.5.5.5"
+    #   "172.30.18.18"
+    #   "172.30.8.51"
+    # ];
+    dhcpcd = {
+      enable = true;
+      # 让 DHCP 不要修改 DNS 服务器
+      extraConfig = "nohook resolv.conf";
+    };
 
     networkmanager = {
       enable = true; # NOTE:启用NetworkManager来管理网络连接
       # 让 NetworkManager 不要修改 resolv.conf中的 DNS 服务器
       # dns = "none";
-      # 不使用路由器的 DNS
-      dns = "none";
+      # DNS (似乎上面的 nameservers 不会修改 resolv.conf)
+      dns = "dnsmasq";
     };
     # 防火墙由上级路由器配置
     firewall.enable = false;
@@ -44,6 +42,35 @@
       "ntp.ntsc.ac.cn"
       # "time.apple.com"
     ];
+  };
+  # 不能使用 resolved （不然不可以安全DNS）
+  services.resolved.enable = false;
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      # path: /etc/dnsmasq.d/dns-servers.conf
+      # only bind to lo
+      interface = "lo";
+      bind-interfaces = true;
+      # not use or poll /etc/resolv.conf
+      no-resolv = true;
+      no-poll = true;
+      # cache
+      # max live in cache
+      max-cache-ttl = 3600;
+      # min live in cache
+      min-cache-ttl = 300;
+      # cache size
+      cache-size = 1000;
+      # 启用顺序来先尝试 sing-box
+      strict-order = true;
+      server = [
+        # sing-box server
+        "127.0.0.1#5335"
+        # 回退源
+        "223.5.5.5"
+      ];
+    };
   };
   ### 目前 dae 还未支持 Reality
   # 直接软链接有风险

@@ -14,16 +14,16 @@
       # inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lix = {
-      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
-      flake = false;
-    };
-
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.lix.follows = "lix";
-    };
+    # nixd 不可以用 lix 构建
+    # lix = {
+    #   url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
+    #   flake = false;
+    # };
+    # lix-module = {
+    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.lix.follows = "lix";
+    # };
 
     nur = {
       url = "github:nix-community/NUR";
@@ -161,7 +161,7 @@
               }
             )
 
-            inputs.lix-module.nixosModules.default
+            # inputs.lix-module.nixosModules.default
             inputs.nur.nixosModules.nur
             inputs.chaotic.nixosModules.default
             # inputs.daeuniverse.nixosModules.dae
