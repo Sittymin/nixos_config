@@ -38,8 +38,10 @@
       enable = true;
     };
     # 自动挂载与管理U盘
+    # 挂载位置在 /run/media
     udisks2.enable = true;
-    # 是一个Gnome提供的文件系统抽象层（支持的软件可以看到U盘）
+    # 是一个Gnome提供的文件系统抽象层（显示 MTP 或网络设备）
+    # 挂载位置在 /run/user/1000/gvfs
     gvfs.enable = true;
     # 为了可以直连 fastboot, 下面是指定手机制造商
     udev.extraRules = ''
@@ -58,7 +60,7 @@
     # /var/lib/postgresql/${config.services.postgresql.package.psqlSchema}
     # };
     nginx = {
-      enable = true;
+      enable = false;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
@@ -73,8 +75,18 @@
 
         locations."/" = {
           # 代理的地址
-          proxyPass = "http://127.0.0.1:5050";
+          proxyPass = "http://127.0.0.1:9013";
           proxyWebsockets = true; # 如果需要使用WebSocket
+        };
+
+        locations."/storage/" = {
+          proxyPass = "http://127.0.0.1:9014";
+          proxyWebsockets = true;
+        };
+
+        locations."/socket.io/" = {
+          proxyPass = "http://127.0.0.1:9015";
+          proxyWebsockets = true;
         };
       };
     };

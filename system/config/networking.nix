@@ -8,11 +8,12 @@
     hostName = "nixos"; # NOTE:主机名
     # 下面的 nameservers 是依靠 resolvconf 生成的
     resolvconf.enable = true;
+    # NOTE: 可能是下面的 dnsmasq 控制
     # 用 dnsmasq 的转发使用 sing-box DNS
-    nameservers = [
-      "127.0.0.1"
-      "::1"
-    ];
+    # nameservers = [
+    #   "127.0.0.1"
+    #   "::1"
+    # ];
     # 如果不使用路由器 DNS 不知道为啥翻墙变慢(可能是校园网)
     # 额外添加的 DNS
     # 学校 DNS
@@ -31,11 +32,12 @@
       enable = true; # NOTE:启用NetworkManager来管理网络连接
       # 让 NetworkManager 不要修改 resolv.conf中的 DNS 服务器
       # dns = "none";
-      # DNS (似乎上面的 nameservers 不会修改 resolv.conf)
       dns = "dnsmasq";
     };
     # 防火墙由上级路由器配置
-    firewall.enable = false;
+    firewall = {
+      enable = false;
+    };
     # NTP
     timeServers = [
       # 国家授时中心
