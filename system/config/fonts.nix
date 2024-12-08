@@ -9,8 +9,7 @@
       # Icon fonts
       material-symbols
       # Nerd Fonts
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
-      # (nerdfonts.override { fonts = [ "Monaspace" ]; })
+      nerd-fonts.symbols-only
       # mono fonts
       # kitty用的是Var版本
       monaspace

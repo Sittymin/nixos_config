@@ -31,7 +31,7 @@
 
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
 
-    # TODO: 可滚动的平铺 Wayland 合成器
+    # 可滚动的平铺 Wayland 合成器
     niri.url = "github:sodiboo/niri-flake";
 
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -110,7 +110,7 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }@inputs:
+    { nixpkgs, ... }@inputs:
     {
       # nixd 自动补全选项的前提(好像默认就是启用的)
       nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
@@ -162,13 +162,13 @@
             )
 
             # inputs.lix-module.nixosModules.default
-            inputs.nur.nixosModules.nur
+            inputs.nur.modules.nixos.default
             inputs.chaotic.nixosModules.default
             # inputs.daeuniverse.nixosModules.dae
             inputs.nix-index-database.nixosModules.nix-index
             inputs.niri.nixosModules.niri
             (
-              { config, pkgs, ... }:
+              { pkgs, ... }:
               {
                 # 使用我的NUR
                 # 使用方法pkgs.myRepo.example-package
@@ -183,28 +183,24 @@
                   "electron-11.5.0"
                 ];
                 environment.systemPackages =
-                  (with config.nur.repos; [
+                  (with pkgs.nur.repos; [
                     # NOTE:主要用于给waydroid提供转译层
                     # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
-                    ataraxiasjel.waydroid-script
-
-                    sigprof.firefox-langpack-zh-CN
+                    # ataraxiasjel.waydroid-script
 
                     xddxdd.baidunetdisk
                   ])
                   ++ (with pkgs; [
                     # Waydroid 蔚蓝档案脚本修复需要
-                    unixtools.xxd
+                    # unixtools.xxd
                     myRepo.reqable
                     # markdown 编辑器
                     myRepo.apostrophe-2-6-3
                     myRepo.steel
-                    # chromiun 内核浏览器
-                    # myRepo.thorium
                   ]);
               }
             )
-            home-manager.nixosModules.home-manager
+            inputs.home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
