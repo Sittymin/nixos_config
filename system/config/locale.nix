@@ -73,7 +73,7 @@
               # 切换输入法时显示输入法信息
               ShowInputMethodInformation = "True";
               # 在焦点更改时显示输入法信息
-              showInputMethodInformationWhenFocusIn = "False";
+              showInputMethodInformationWhenFocusIn = "True";
               # 显示紧凑的输入法信息
               CompactInputMethodInformation = "True";
               # 显示第一个输入法的信息
@@ -143,8 +143,8 @@
                 TrayOutlineColor = "#000000";
                 # 托盘标签文本颜色
                 TrayTextColor = "#ffffff";
-                # 优先使用文字图标
-                PreferTextIcon = "False";
+                # 优先使用文字图标 （不开可能导致没图标）
+                PreferTextIcon = "True";
                 # 在图标中显示布局名称
                 ShowLayoutNameInIcon = "True";
                 # 使用输入法的语言来显示文字
