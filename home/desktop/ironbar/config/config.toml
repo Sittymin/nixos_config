@@ -64,5 +64,5 @@ muted = "󰝟"
 
 [[end]]
 type = "tray"
-direction = "right_to_left"
+orientation = "horizontal"
 icon_size = 32

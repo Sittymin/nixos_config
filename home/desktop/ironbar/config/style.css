@@ -360,19 +360,40 @@
   margin-left: 10px;
 }
 
+/* v0.16.1 版本托盘菜单使用 libdbusmenu-gtk3 父级不再是 .tary */
+
 /* 整体托盘右键菜单 */
-.tray .item window {
+menu {
   background: rgba(30, 30, 46, 0.8);
   border: 0.2em solid rgb(116, 199, 236);
 }
 
 /* 托盘右键菜单每个选项 */
-.tray .item window menu menuitem {
+menu>menuitem {
   color: rgb(205, 214, 244);
   padding: 0.5em;
 }
 
-.tray .item window menu menuitem:hover {
+menuitem:hover {
   color: #11111b;
   background: rgb(116, 199, 236);
 }
+
+/* v0.16.1 以前的版本 */
+
+/* 整体托盘右键菜单 */
+/* .tray .item window { */
+/* background: rgba(30, 30, 46, 0.8); */
+/* border: 0.2em solid rgb(116, 199, 236); */
+/* } */
+
+/* 托盘右键菜单每个选项 */
+/* .tray .item window menu menuitem { */
+/* color: rgb(205, 214, 244); */
+/* padding: 0.5em; */
+/* } */
+
+/* .tray .item window menu menuitem:hover { */
+/* color: #11111b; */
+/* background: rgb(116, 199, 236); */
+/* } */
