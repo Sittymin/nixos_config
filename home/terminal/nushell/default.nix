@@ -25,10 +25,10 @@
       extraEnv = ''
         $env.CARGO_HOME = ($env.HOME | path join ".cargo")
 
-        # 0.101 版本及以上推荐的 Path 配置（目前 Nix 自己配置好了）
-        # use std/util "path add"
-        # path add ($env.BUN_INSTALL | path join "bin")
-        # path add ($env.CARGO_HOME | path join "bin")
+        # 0.101 版本及以上推荐的 Path 配置
+        use std/util "path add"
+        path add ($env.BUN_INSTALL | path join "bin")
+        path add ($env.CARGO_HOME | path join "bin")
 
         # 让 GPG 在 pinentry-tty 签名生效
         $env.GPG_TTY = (tty | str trim)

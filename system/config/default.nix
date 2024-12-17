@@ -19,6 +19,8 @@
       # 设置 Rustup 镜像(字节跳动)
       RUSTUP_DIST_SERVER = "https://rsproxy.cn";
       RUSTUP_UPDATE_ROOT = "https://rsproxy.cn/rustup";
+      # 图标主题
+      GTK_ICON_THEME = "Papirus-Dark";
     };
     # 用户登录时初始化的环境变量
     sessionVariables = {
@@ -79,6 +81,12 @@
         miniupnpc
         # 复制到系统剪贴板
         wl-clipboard
+
+        # 图标需要全局安装
+        papirus-icon-theme
+
+        # OneAPI For Blender
+        distrobox
       ]
     );
     # ]) ++ (

@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -12,6 +13,8 @@
   };
   programs.helix = {
     enable = true;
+    # Git 版本的 Helix
+    package = inputs.helix.packages.${pkgs.system}.default;
     languages = with pkgs; {
       language-server = {
         # 与 Lix 不兼容，只可以使用 nix
@@ -100,9 +103,11 @@
           command = "${vscode-langservers-extracted}/bin/vscode-html-language-server";
         };
         rust-analyzer = {
-          command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
-          # 未测试用途
-          check.command = "${clippy}/bin/cargo-clippy";
+          # 使用 rustup 安装的
+          # command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
+          # 利用 clippy 检查代码
+          # check.command = "${clippy}/bin/cargo-clippy";
+          check.command = "clippy";
         };
         steel-language-server = {
           command = "${pkgs.myRepo.steel}/bin/steel-language-server";

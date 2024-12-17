@@ -19,6 +19,20 @@
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-wayland;
+    # https://github.com/nix-community/home-manager/blob/83ecd50915a09dca928971139d3a102377a8d242/modules/programs/firefox/mkFirefoxModule.nix#L269
+    languagePacks = [ "zh-CN" ];
+    # 组织设置 无法浏览器更改
+    policies = {
+      DefaultDownloadDirectory = "\${home}/Downloads";
+      # 启用或禁用网页翻译
+      TranslateEnabled = false;
+      # 移除 Firefox 界面中的 Pocket 功能。这不会从新标签页中移除它。
+      DisablePocket = true;
+      # 禁用默认书签的创建
+      NoDefaultBookmarks = true;
+      # 设置应用程序的首选语言环境列表
+      RequestedLocales = [ "zh-CN" ];
+    };
     profiles.default = {
       name = "Default";
       settings = {
@@ -35,13 +49,6 @@
         "gnomeTheme.normalWidthTabs" = false;
         #       将选项卡放置在窗口顶部
         "gnomeTheme.tabsAsHeaderbar" = false;
-
-        #       设置firefox语言
-        "font.language.group" = "zh-CN";
-        #       设置网站首选语言
-        "intl.accept_languages" = "zh-cn,zh,zh-tw";
-        #       设置下载默认文件夹
-        "browser.download.dir" = "/home/Sittymin/Downloads";
       };
       userChrome = ''
         @import "firefox-gnome-theme/userChrome.css";
@@ -49,9 +56,6 @@
       userContent = ''
         @import "firefox-gnome-theme/userContent.css";
       '';
-      extensions =
-        [
-        ];
     };
   };
 }

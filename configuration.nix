@@ -25,12 +25,12 @@
       # 添加额外缓存
       substituters = [
         "https://hyprland.cachix.org"
-        "https://cache.lix.systems"
+        # "https://cache.lix.systems"
         "https://sittymin.cachix.org"
       ];
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+        # "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "sittymin.cachix.org-1:GbIZbTYujtCGkvaoFL6cE6lvNvOpWNJgdcBNHXSDomw="
       ];
     };
@@ -50,7 +50,15 @@
   # NOTE:允许非自由软件
   nixpkgs.config.allowUnfree = true;
 
-  # NOTE:虚拟环境 
+  # 让 Qt 软件使用 gnome 的暗色外观
+  # https://wiki.nixos.org/wiki/KDE#GNOME_desktop_integration
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
+
+  # NOTE:虚拟环境
   virtualisation = {
     waydroid.enable = true;
     docker = {

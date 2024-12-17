@@ -60,6 +60,7 @@ space = "·"
 tab = "→"
 newline = ""
 tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+
 # 使用软换行
 [editor.soft-wrap]
 enable = true
@@ -69,6 +70,13 @@ max-wrap = 25
 max-indent-retain = 40
 # 在软换行的行之前插入的文本
 wrap-indicator = "󱞩"
+
+# 行内显示 LSP 诊断 而不是右上角覆盖
+# https://github.com/helix-editor/helix/pull/6417#issuecomment-2230939068
+[editor.inline-diagnostics]
+cursor-line = "hint"
+other-lines = "error"
+
 [keys.normal]
 # Ctrl + s 保存
 C-s = ":w"

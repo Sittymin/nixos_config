@@ -131,10 +131,6 @@
       # gnome
       dconf-editor
       d-spy
-      # Matrix群组消息应用程序
-      # fractal
-      # GTK编写的远程桌面客户端
-      # remmina
       (heroic.override {
         extraPkgs = pkgs: [
           gamemode
@@ -198,40 +194,66 @@
   # https://nix-community.github.io/home-manager/options.xhtml
   gtk = {
     enable = true;
-    theme = {
-      name = "Catppuccin-Mocha-Pink";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "pink" ];
-        tweaks = [
-          "rimless"
-          "black"
-        ];
-        variant = "mocha";
-      };
-    };
+    # 实际上可能只对完整桌面环境有效
+    # theme = {
+    #   name = "Catppuccin-Mocha-Pink";
+    #   package = pkgs.catppuccin-gtk.override {
+    #     accents = [ "pink" ];
+    #     tweaks = [
+    #       "rimless"
+    #       "black"
+    #     ];
+    #     variant = "mocha";
+    #   };
+    # };
     gtk2.extraConfig = ''
       gtk-im-module="fcitx"
+      gtk-icon-theme-name="Papirus-Dark"
     '';
     gtk3.extraConfig = {
+      # 图标主题
+      gtk-icon-theme-name = "Papirus-Dark";
+
       # GTK3偏好暗色主题
-      gtk-application-prefer-dark-theme = 1;
+      gtk-application-prefer-dark-theme = true;
       gtk-im-module = "fcitx";
     };
     gtk4.extraConfig = {
+      # 图标主题
+      gtk-icon-theme-name = "Papirus-Dark";
       # GTK4偏好暗色主题
       gtk-application-prefer-dark-theme = true;
       gtk-im-module = "fcitx";
     };
-    iconTheme = {
-      name = "Papirus";
-      package = pkgs.papirus-icon-theme;
+    # 好像没啥用？（上游似乎是一个远古代码）
+    # iconTheme = {
+    #   name = "Papirus-Dark";
+    #   package = pkgs.papirus-icon-theme;
+    # };
+  };
+  # 将图标软链接到 ~/.local/share/icons
+  # 正确读取图标了（这个是用户的，全局要在 usr/share，只要全局配置安装 icon 就会链接到那）
+  xdg.dataFile = {
+    "icons/Papirus-Dark" = {
+      source = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
+    };
+    # 回退主题部分（即 index.theme 的 Inherits 部分）
+    # 这个使用 Papirus-Dark 虽然会让所有软件使用 Papirus-Dark 图标但是会缺失图标
+    "icons/hicolor" = {
+      source = "${pkgs.papirus-icon-theme}/share/icons/hicolor";
+    };
+    "icons/breeze-dark" = {
+      source = "${pkgs.papirus-icon-theme}/share/icons/breeze-dark";
     };
   };
-  # 设置GTK颜色偏好为暗色
   dconf = {
     enable = true;
     settings = {
-      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      "org/gnome/desktop/interface" = {
+        icon-theme = "Papirus-Dark";
+        # 设置GTK颜色偏好为暗色
+        color-scheme = "prefer-dark";
+      };
       # https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Settings.html
       "org/freedesktop/appearance".color-scheme = 1;
       # KVM

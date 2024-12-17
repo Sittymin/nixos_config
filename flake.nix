@@ -107,6 +107,9 @@
       url = "github:nushell/nu_scripts";
       flake = false;
     };
+
+    # helix 官方的 flake
+    helix.url = "github:helix-editor/helix";
   };
 
   outputs =

@@ -16,6 +16,25 @@
           '';
         }
       );
+
+      ironbar = prev.ironbar.overrideAttrs (
+        finalAttrs: previousAttrs: {
+          buildInputs =
+            let
+              lib = prev.lib;
+              buildInputsWithoutIcons = lib.filter (
+                x: x != prev.adwaita-icon-theme && x != prev.hicolor-icon-theme
+              ) previousAttrs.buildInputs;
+            in
+            buildInputsWithoutIcons ++ [ prev.papirus-icon-theme ];
+
+          gappsWrapperArgs =
+            previousAttrs.gappsWrapperArgs
+            + ''
+              --set GTK_ICON_THEME "Papirus-Dark"
+            '';
+        }
+      );
     })
   ];
 }
