@@ -60,6 +60,7 @@
         # 解压缩软件
         p7zip # 7z
         zstd
+        unrar
         # BLAKE3 加密哈希函数
         b3sum
 
@@ -82,7 +83,10 @@
         # 复制到系统剪贴板
         wl-clipboard
 
-        # 图标需要全局安装
+        # 图标全局安装
+        # 会自动链接到目录
+        # /run/current-system/sw/share/icons
+        google-cursor
         papirus-icon-theme
 
         # OneAPI For Blender

@@ -187,6 +187,7 @@
   home.pointerCursor = {
     gtk.enable = true;
     x11.enable = true;
+    # 需要修补，否则回退图标直接就是 hicolor 而不会中间经过指定图标
     package = pkgs.google-cursor;
     name = "GoogleDot-Black";
     size = 24; # 1080P下16，2K下24
@@ -234,13 +235,19 @@
   # 将图标软链接到 ~/.local/share/icons
   # 正确读取图标了（这个是用户的，全局要在 usr/share，只要全局配置安装 icon 就会链接到那）
   xdg.dataFile = {
-    "icons/Papirus-Dark" = {
-      source = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
-    };
     # 回退主题部分（即 index.theme 的 Inherits 部分）
     # 这个使用 Papirus-Dark 虽然会让所有软件使用 Papirus-Dark 图标但是会缺失图标
+    # 所以用override 将原始 hicolor 文件夹改名为 hicolor-backup
+    # Papirus 主题的 hicolor 回退修改为 hicolor-backup
     "icons/hicolor" = {
+      source = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
+    };
+    "icons/hicolor-backup" = {
       source = "${pkgs.papirus-icon-theme}/share/icons/hicolor";
+    };
+    # 中间回退部分的主题
+    "icons/Papirus" = {
+      source = "${pkgs.papirus-icon-theme}/share/icons/Papirus";
     };
     "icons/breeze-dark" = {
       source = "${pkgs.papirus-icon-theme}/share/icons/breeze-dark";

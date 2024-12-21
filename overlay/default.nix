@@ -35,6 +35,27 @@
             '';
         }
       );
+      google-cursor = prev.google-cursor.overrideAttrs (
+        finalAttrs: previousAttrs: {
+          preInstall = ''
+            # Patch the index.theme files
+            for dir in GoogleDot-*; do
+              sed -i 's/Inherits="hicolor"/Inherits="Papirus-Dark"/' $dir/index.theme
+            done
+          '';
+        }
+      );
+
+      papirus-icon-theme = prev.papirus-icon-theme.overrideAttrs (
+        finalAttrs: previousAttrs: {
+          preInstall = ''
+            # 修改 Papirus 系列图标主题中对 hicolor 的引用
+            for dir in Papirus*; do
+              sed -i 's|hicolor|hicolor-backup|g' "$dir/index.theme"
+            done
+          '';
+        }
+      );
     })
   ];
 }
