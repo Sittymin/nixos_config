@@ -18,7 +18,8 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-wayland;
+    # package = inputs.firefox-nightly.packages.${pkgs.system}.firefox-nightly-bin;
+    # package = pkgs.firefox-wayland;
     # https://github.com/nix-community/home-manager/blob/83ecd50915a09dca928971139d3a102377a8d242/modules/programs/firefox/mkFirefoxModule.nix#L269
     languagePacks = [ "zh-CN" ];
     # 组织设置 无法浏览器更改

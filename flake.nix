@@ -36,6 +36,7 @@
 
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
+    # firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;

@@ -42,6 +42,8 @@
       BUN_INSTALL = "$HOME/.bun";
       # 暗色偏好
       GTK_THEME = "Adwaita:dark";
+      # X11 会使用这个变量
+      GDK_SCALE = 2;
       # 启用 Intel 显卡视频解码
       # https://github.com/mpv-player/mpv/discussions/13909
       ANV_VIDEO_DECODE = 1;

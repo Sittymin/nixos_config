@@ -4,7 +4,8 @@
 {
   imports = [
     ./fcitx5
-    ./hypr
+    # ./hypr
+    ./i3
     ./ironbar
     ./mako
     ./niri

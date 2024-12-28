@@ -4,12 +4,23 @@
   ...
 }:
 {
-  home.file = {
-    ".config/helix/config.toml".source = ./config.toml;
-    # NOTE: 配置 cargo 镜像(https://rsproxy.cn/)
-    ".cargo/config.toml".source = ./cargo_config.toml;
-    # 利用 Zellij 让 yazi 成为 Helix 的文件选择器
-    ".config/helix/yazi-picker.sh".source = ./yazi-picker.sh;
+  home = {
+    packages = with pkgs; [
+      # C 语言开发
+      llvmPackages_19.clangUseLLVM
+      # NOTE: Helix 打开现有文件会使用原先的缩进，如果为空格就会继续使用导致 Make 报错
+      # 删除原先空格缩进重新打开即可
+      # https://github.com/helix-editor/helix/issues/12112#issuecomment-2495533091
+      gnumake
+      # cmakeMinimal
+    ];
+    file = {
+      ".config/helix/config.toml".source = ./config.toml;
+      # NOTE: 配置 cargo 镜像(https://rsproxy.cn/)
+      ".cargo/config.toml".source = ./cargo_config.toml;
+      # 利用 Zellij 让 yazi 成为 Helix 的文件选择器
+      ".config/helix/yazi-picker.sh".source = ./yazi-picker.sh;
+    };
   };
   programs.helix = {
     enable = true;

@@ -143,8 +143,9 @@
                 TrayOutlineColor = "#000000";
                 # 托盘标签文本颜色
                 TrayTextColor = "#ffffff";
-                # 优先使用文字图标 （不开可能导致没图标）
-                PreferTextIcon = "True";
+                # 优先使用文字图标 不启用时必须存在输入法的图标
+                # 不然就是空的
+                PreferTextIcon = "False";
                 # 在图标中显示布局名称
                 ShowLayoutNameInIcon = "True";
                 # 使用输入法的语言来显示文字

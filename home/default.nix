@@ -97,12 +97,6 @@
       bun
       nodePackages_latest.nodejs
       rustup
-      # C/C++
-      (clang-tools.override {
-        enableLibcxx = true;
-      })
-      # 编译器
-      llvmPackages.libcxxClang
 
       # 与Nix相关的工具，提供更详细的日志输出。
       # nh 内置
@@ -126,16 +120,17 @@
       # GTK 图像处理程序
       # pinta
       # blender
-      epiphany
+      # epiphany
       font-manager
       # gnome
       dconf-editor
       d-spy
-      (heroic.override {
-        extraPkgs = pkgs: [
-          gamemode
-        ];
-      })
+      # (heroic.override {
+      #   extraPkgs = pkgs: [
+      #     gamemode
+      #   ];
+      # })
+
       # 同步文件
       syncthing
 

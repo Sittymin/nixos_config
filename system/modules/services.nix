@@ -60,7 +60,7 @@
     # /var/lib/postgresql/${config.services.postgresql.package.psqlSchema}
     # };
     nginx = {
-      enable = false;
+      enable = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
@@ -75,18 +75,15 @@
 
         locations."/" = {
           # 代理的地址
-          proxyPass = "http://127.0.0.1:9013";
+          proxyPass = "http://127.0.0.1:5757";
           proxyWebsockets = true; # 如果需要使用WebSocket
         };
-
-        locations."/storage/" = {
-          proxyPass = "http://127.0.0.1:9014";
+        locations."/api" = {
+          proxyPass = "http://127.0.0.1:5858";
           proxyWebsockets = true;
-        };
-
-        locations."/socket.io/" = {
-          proxyPass = "http://127.0.0.1:9015";
-          proxyWebsockets = true;
+          extraConfig = ''
+            rewrite ^/api/(.*) /$1 break;  # 去除 /api 前缀
+          '';
         };
       };
     };
