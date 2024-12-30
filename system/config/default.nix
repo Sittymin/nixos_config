@@ -40,8 +40,6 @@
       FLAKE = "$HOME/nixos_config";
       # BUN 默认不添加安装的Path
       BUN_INSTALL = "$HOME/.bun";
-      # 暗色偏好
-      GTK_THEME = "Adwaita:dark";
       # X11 会使用这个变量
       GDK_SCALE = 2;
       # 启用 Intel 显卡视频解码
@@ -85,9 +83,11 @@
         # 复制到系统剪贴板
         wl-clipboard
 
-        # 图标全局安装
         # 会自动链接到目录
         # /run/current-system/sw/share/icons
+        # 主题全局安装(不然暗色都没有)
+        adw-gtk3
+        # 图标全局安装
         google-cursor
         papirus-icon-theme
 

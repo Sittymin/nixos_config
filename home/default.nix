@@ -145,6 +145,8 @@
         # Wayland only 需要 https://github.com/godotengine/godot/pull/97771
         # withX11 = false;
       })
+      # 另外一个终端
+      # inputs.ghostty.packages.x86_64-linux.default
     ]
     ++ (with pkgs-e0464e4; [
       localsend
@@ -187,46 +189,16 @@
     name = "GoogleDot-Black";
     size = 24; # 1080P下16，2K下24
   };
-  # https://nix-community.github.io/home-manager/options.xhtml
-  gtk = {
-    enable = true;
-    # 实际上可能只对完整桌面环境有效
-    # theme = {
-    #   name = "Catppuccin-Mocha-Pink";
-    #   package = pkgs.catppuccin-gtk.override {
-    #     accents = [ "pink" ];
-    #     tweaks = [
-    #       "rimless"
-    #       "black"
-    #     ];
-    #     variant = "mocha";
-    #   };
-    # };
-    gtk2.extraConfig = ''
-      gtk-im-module="fcitx"
-      gtk-icon-theme-name="Papirus-Dark"
-    '';
-    gtk3.extraConfig = {
-      # 图标主题
-      gtk-icon-theme-name = "Papirus-Dark";
 
-      # GTK3偏好暗色主题
-      gtk-application-prefer-dark-theme = true;
-      gtk-im-module = "fcitx";
-    };
-    gtk4.extraConfig = {
-      # 图标主题
-      gtk-icon-theme-name = "Papirus-Dark";
-      # GTK4偏好暗色主题
-      gtk-application-prefer-dark-theme = true;
-      gtk-im-module = "fcitx";
-    };
-    # 好像没啥用？（上游似乎是一个远古代码）
-    # iconTheme = {
-    #   name = "Papirus-Dark";
-    #   package = pkgs.papirus-icon-theme;
-    # };
+  xdg.configFile = {
+    "gtk-4.0/settings.ini".source = ./gtk/gtk-4.0.ini;
+    "gtk-3.0/settings.ini".source = ./gtk/gtk-3.0.ini;
   };
+  gtk = {
+    # 会设置光标主题，建议只保留这一个启动，别的内部选项都没用
+    enable = true;
+  };
+
   # 将图标软链接到 ~/.local/share/icons
   # 正确读取图标了（这个是用户的，全局要在 usr/share，只要全局配置安装 icon 就会链接到那）
   xdg.dataFile = {
@@ -252,6 +224,8 @@
     enable = true;
     settings = {
       "org/gnome/desktop/interface" = {
+        # 需要全局先安装主题
+        gtk-theme = "adw-gtk3-dark";
         icon-theme = "Papirus-Dark";
         # 设置GTK颜色偏好为暗色
         color-scheme = "prefer-dark";

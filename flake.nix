@@ -111,6 +111,11 @@
 
     # helix 官方的 flake
     helix.url = "github:helix-editor/helix";
+
+    # 另外一个终端
+    # ghostty = {
+    #   url = "github:ghostty-org/ghostty";
+    # };
   };
 
   outputs =
