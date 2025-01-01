@@ -79,6 +79,10 @@ in
       enable = true;
       pinentryPackage = pkgs.pinentry-tty;
     };
+    wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
+    };
   };
   environment.systemPackages = with pkgs; [
     difftastic

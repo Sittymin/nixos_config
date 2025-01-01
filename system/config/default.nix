@@ -40,7 +40,7 @@
       FLAKE = "$HOME/nixos_config";
       # BUN 默认不添加安装的Path
       BUN_INSTALL = "$HOME/.bun";
-      # X11 会使用这个变量
+      # 有些程序会使用这个变量
       GDK_SCALE = 2;
       # 启用 Intel 显卡视频解码
       # https://github.com/mpv-player/mpv/discussions/13909

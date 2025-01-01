@@ -116,6 +116,13 @@
     # ghostty = {
     #   url = "github:ghostty-org/ghostty";
     # };
+
+    # 好看的 Fcitx5 主题
+    # 不知道为啥不能使用 SVG 作为背景
+    # fcitx5-mellow-themes = {
+    #   url = "github:sanweiya/fcitx5-mellow-themes";
+    #   flake = false;
+    # };
   };
 
   outputs =

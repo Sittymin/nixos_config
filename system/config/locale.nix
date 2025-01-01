@@ -151,9 +151,9 @@
                 # 使用输入法的语言来显示文字
                 UseInputMethodLanguageToDisplayText = "True";
                 # 主题
-                Theme = "purity_of_form_custom";
+                Theme = "Mellow Graphite dark";
                 # 深色主题
-                DarkTheme = "purity_of_form_custom";
+                DarkTheme = "Mellow Graphite dark";
                 # 跟随系统浅色/深色设置
                 UseDarkTheme = "False";
                 # 当被主题和桌面支持时使用系统的重点色

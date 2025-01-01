@@ -11,7 +11,8 @@
   home.file.".xinitrc".source = ./.xinitrc;
   xresources.properties = {
     # DPI 设置（使用主显示器的 DPI）
-    "Xft.dpi" = 192;
+    # 96 为默认的 DPI
+    "Xft.dpi" = 162;
 
     # ! 字体渲染设置
     "Xft.antialias" = 1;

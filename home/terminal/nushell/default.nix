@@ -35,6 +35,9 @@
 
         # 启用 Kitty 键盘协议
         $env.config.use_kitty_protocol = true
+
+        # 以便可以使用 sudo -E wireshark 使用图形界面(-E 为使用环境变量)
+        $env.XDG_RUNTIME_DIR = "/run/user/1000"
       '';
     };
   };

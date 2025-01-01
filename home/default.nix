@@ -45,9 +45,9 @@
       # Scheme 一个实现
       racket
       # Guix 包管理器
-      guix
+      # guix
       # 语言
-      guile
+      # guile
       # 数据库
       postgresql
       libreoffice
@@ -134,9 +134,12 @@
       # 同步文件
       syncthing
 
-      (android-studio.override {
-        forceWayland = true;
-      })
+      # 参考一下文件使用 mkshell
+      # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/android.section.md
+      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/mobile/androidenv/examples/shell.nix
+      # (android-studio.override {
+      #   forceWayland = true;
+      # })
       (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [
         "17718"
       ])
