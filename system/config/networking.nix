@@ -105,7 +105,7 @@
   systemd.services = {
     # 自动登录、断网与连接
     school = {
-      enable = true;
+      enable = false;
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {

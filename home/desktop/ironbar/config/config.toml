@@ -65,4 +65,7 @@ muted = "󰝟"
 [[end]]
 type = "tray"
 orientation = "horizontal"
-icon_size = 32
+# 两倍缩放的时候
+# icon_size = 32
+# 一倍缩放的时候
+icon_size = 16

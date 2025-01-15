@@ -64,6 +64,10 @@ output "Invalid Vendor Codename - RTK Monitor 0000000000001" {
     // 如果位置未设置或导致重叠，则输出将自动放置。
     position x=1920 y=0
 }
+output "SKYDATA S.P.A. G1AF24C-T240F             " {
+    mode "1920x1080@144.001"
+    scale 1.0
+}
 
 window-rule {
     match app-id="^mpv$"

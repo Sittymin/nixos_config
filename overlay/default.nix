@@ -17,41 +17,42 @@
         }
       );
 
-      ironbar = prev.ironbar.overrideAttrs (
-        finalAttrs: previousAttrs: {
-          buildInputs =
-            let
-              lib = prev.lib;
-              buildInputsWithoutIcons = lib.filter (
-                x: x != prev.adwaita-icon-theme && x != prev.hicolor-icon-theme
-              ) previousAttrs.buildInputs;
-            in
-            buildInputsWithoutIcons ++ [ prev.papirus-icon-theme ];
+      # ironbar = prev.ironbar.overrideAttrs (
+      #   finalAttrs: previousAttrs: {
+      #     buildInputs =
+      #       let
+      #         lib = prev.lib;
+      #         buildInputsWithoutIcons = lib.filter (
+      #           x: x != prev.adwaita-icon-theme && x != prev.hicolor-icon-theme
+      #         ) previousAttrs.buildInputs;
+      #       in
+      #       buildInputsWithoutIcons ++ [ prev.papirus-icon-theme ];
 
-          gappsWrapperArgs =
-            previousAttrs.gappsWrapperArgs
-            + ''
-              --set GTK_ICON_THEME "Papirus-Dark"
-            '';
-        }
-      );
-      google-cursor = prev.google-cursor.overrideAttrs (
-        finalAttrs: previousAttrs: {
-          preInstall = ''
-            # Patch the index.theme files
-            for dir in GoogleDot-*; do
-              sed -i 's/Inherits="hicolor"/Inherits="Papirus-Dark"/' $dir/index.theme
-            done
-          '';
-        }
-      );
+      #     gappsWrapperArgs =
+      #       previousAttrs.gappsWrapperArgs
+      #       + ''
+      #         --set GTK_ICON_THEME "Papirus-Dark"
+      #       '';
+      #   }
+      # );
+      # google-cursor = prev.google-cursor.overrideAttrs (
+      #   finalAttrs: previousAttrs: {
+      #     preInstall = ''
+      #       # Patch the index.theme files
+      #       for dir in GoogleDot-*; do
+      #         sed -i 's/Inherits="hicolor"/Inherits="Papirus-Dark"/' $dir/index.theme
+      #       done
+      #     '';
+      #   }
+      # );
 
       papirus-icon-theme = prev.papirus-icon-theme.overrideAttrs (
         finalAttrs: previousAttrs: {
           preInstall = ''
-            # 修改 Papirus 系列图标主题中对 hicolor 的引用
+            # 修改 Papirus 系列图标主题中对 hicolor 的引用，并添加 Adwaita 作为回退源
             for dir in Papirus*; do
               sed -i 's|hicolor|hicolor-backup|g' "$dir/index.theme"
+              # sed -i 's|hicolor-backup|Adwaita,hicolor-backup|g' "$dir/index.theme"
             done
           '';
         }

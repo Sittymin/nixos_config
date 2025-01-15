@@ -56,6 +56,7 @@ in
 
     git = {
       enable = true;
+      lfs.enable = true;
       config = {
         # 设置初始化的分支名位 main
         init.defaultBranch = "main";

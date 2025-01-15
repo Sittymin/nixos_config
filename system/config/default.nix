@@ -20,7 +20,8 @@
       RUSTUP_DIST_SERVER = "https://rsproxy.cn";
       RUSTUP_UPDATE_ROOT = "https://rsproxy.cn/rustup";
       # 图标主题
-      GTK_ICON_THEME = "Papirus-Dark";
+      # GTK_ICON_THEME = "Papirus-Dark";
+      GTK_ICON_THEME = "hicolor";
     };
     # 用户登录时初始化的环境变量
     sessionVariables = {
@@ -41,7 +42,7 @@
       # BUN 默认不添加安装的Path
       BUN_INSTALL = "$HOME/.bun";
       # 有些程序会使用这个变量
-      GDK_SCALE = 2;
+      # GDK_SCALE = 2;
       # 启用 Intel 显卡视频解码
       # https://github.com/mpv-player/mpv/discussions/13909
       ANV_VIDEO_DECODE = 1;
@@ -90,6 +91,7 @@
         # 图标全局安装
         google-cursor
         papirus-icon-theme
+        # adwaita-icon-theme
 
         # OneAPI For Blender
         distrobox

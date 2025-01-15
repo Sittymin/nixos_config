@@ -60,7 +60,7 @@
     # /var/lib/postgresql/${config.services.postgresql.package.psqlSchema}
     # };
     nginx = {
-      enable = true;
+      enable = false;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
@@ -87,5 +87,20 @@
         };
       };
     };
+    # 应用软件开发部分
+    # mysql = {
+    #   enable = true;
+    #   package = pkgs.mariadb;
+    #   settings = {
+    #     mysqld = {
+    #       port = "2000";
+    #       lower_case_table_names = 1; # 设置表名大小写不敏感
+    #     };
+    #   };
+    # };
+    # redis.servers."temp1" = {
+    #   enable = true;
+    #   port = 6379;
+    # };
   };
 }

@@ -75,6 +75,7 @@
         withMfx = false;
       })
       vscode
+      zed-editor
       # Doc view
       evince
       # EPUB and other
@@ -90,9 +91,11 @@
       # file-roller
       scrcpy
 
-      python311
+      python313
+      python313Packages.pex
       # JDK
-      graalvm-ce
+      # graalvm-ce
+      openjdk8-bootstrap
       # nodejs
       bun
       nodePackages_latest.nodejs
@@ -149,7 +152,7 @@
         # withX11 = false;
       })
       # 另外一个终端
-      # inputs.ghostty.packages.x86_64-linux.default
+      inputs.ghostty.packages.x86_64-linux.default
     ]
     ++ (with pkgs-e0464e4; [
       localsend
@@ -222,6 +225,9 @@
     "icons/breeze-dark" = {
       source = "${pkgs.papirus-icon-theme}/share/icons/breeze-dark";
     };
+    # "icons/Adwaita" = {
+    #   source = "${pkgs.adwaita-icon-theme}/share/icons/Adwaita";
+    # };
   };
   dconf = {
     enable = true;

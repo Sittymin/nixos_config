@@ -12,6 +12,8 @@ auto-completion = true
 color-modes = true
 # 自动补全替换完整单词，而不是光标前面部分
 completion-replace = true
+# 行尾后显示诊断的最低严重性 (如果行内指定的最低严重性高时会转换为行内)
+end-of-line-diagnostics = "hint"
 
 [editor.statusline]
 left = ["mode", "spinner"]
@@ -72,9 +74,10 @@ max-indent-retain = 40
 wrap-indicator = "󱞩"
 
 # 行内显示 LSP 诊断 而不是右上角覆盖
-# https://github.com/helix-editor/helix/pull/6417#issuecomment-2230939068
 [editor.inline-diagnostics]
-cursor-line = "hint"
+# 主光标所在行行内显示的最低严重性
+cursor-line = "warning"
+# 其他行行内显示的最低严重性
 other-lines = "error"
 
 [keys.normal]

@@ -113,9 +113,9 @@
     helix.url = "github:helix-editor/helix";
 
     # 另外一个终端
-    # ghostty = {
-    #   url = "github:ghostty-org/ghostty";
-    # };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
 
     # 好看的 Fcitx5 主题
     # 不知道为啥不能使用 SVG 作为背景

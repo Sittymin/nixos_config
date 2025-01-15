@@ -356,6 +356,7 @@
 }
 
 .tray .item {
+  /* 托盘图标大小在配置文件中修改 */
   margin-right: 10px;
   margin-left: 10px;
 }

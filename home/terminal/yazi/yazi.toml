@@ -30,75 +30,70 @@ edit = [
 open = [
 	{ run = 'xdg-open "$@"', desc = "Open", for = "linux" },
 ]
-reveal = [
-	{ run = 'xdg-open "$(dirname "$1")"',           desc = "Reveal", for = "linux" },
-	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
-]
 extract = [
 	{ run = 'ya pub extract --list "$@"', desc = "Extract here (ya)", for = "unix" },
-	{ run = '7z x "$1"', desc = "Extract here (7z)", for = "unix" },
+	# { run = '7z x "$1"', desc = "Extract here (7z)", for = "unix" },
+]
+rar-extract = [
 	{ run = 'unrar x "$1"', desc = "Extract here (unrar)", for = "unix" },
 ]
 play = [
 	{ run = 'mpv --force-window "$@"', orphan = true, for = "unix" },
 ]
-evince_open = [
+evince-open = [
 	{ run = 'evince "$@"', orphan = true },
 ]
-imv_open = [
+imv-open = [
 	{ run = 'imv -n "$@" ./ -u linear', orphan = true },
 ]
 
 [open]
 rules = [
-	{ name = "*/", use = [ "edit", "open", "reveal" ] },
+	{ mime = "text/*",  use = [ "edit" ] },
+	{ mime = "video/*", use = [ "play" ] },
+	{ mime = "audio/*", use = [ "play" ] },
 
-	{ mime = "text/*",  use = [ "edit", "reveal" ] },
-	{ mime = "video/*", use = [ "play", "reveal" ] },
-	{ mime = "audio/*", use = [ "play", "reveal" ] },
-	{ mime = "inode/x-empty", use = [ "edit", "reveal" ] },
+	# 目录
+	{ mime = "inode/directory", use = [ "edit" ] },
+	# 空文件
+	{ mime = "inode/empty", use = [ "edit" ] },
 
-	{ mime = "application/json", use = [ "edit", "reveal" ] },
-	{ mime = "*/javascript",     use = [ "edit", "reveal" ] },
+	{ mime = "application/json", use = [ "edit" ] },
+	{ mime = "*/javascript",     use = [ "edit" ] },
 
-	{ mime = "application/zip", use = [ "extract", "reveal" ] },
-  { mime = "application/gzip", use = [ "extract", "reveal" ] },
-  { mime = "application/x-7z-compressed", use = [ "extract", "reveal" ] },
-  { mime = "application/x-rar", use = [ "extract", "reveal" ] },
-  { mime = "application/x-tar", use = [ "extract", "reveal" ] },
-  { mime = "application/x-bzip2", use = [ "extract", "reveal" ] },
-  { mime = "application/x-lzma", use = [ "extract", "reveal" ] },
-  { mime = "application/x-lzip", use = [ "extract", "reveal" ] },
-  { mime = "application/x-lzop", use = [ "extract", "reveal" ] },
-  { mime = "application/x-xz", use = [ "extract", "reveal" ] },
-  { mime = "application/x-compress", use = [ "extract", "reveal" ] },
-  { mime = "application/zstd", use = [ "extract", "reveal" ] },
+	{ mime = "application/zip", use = [ "extract"  ] },
+  { mime = "application/gzip", use = [ "extract"  ] },
+  { mime = "application/7z-compressed", use = [ "extract"  ] },
+  { mime = "application/tar", use = [ "extract"  ] },
+  { mime = "application/xz", use = [ "extract"  ] },
+  { mime = "application/zstd", use = [ "extract"  ] },
+  { mime = "application/rar", use = [ "rar-extract"  ] },
 
 	# Evince view
-	{ mime = "application/x-cb7",              use = [ "evince_open"  ] },
-	{ mime = "application/x-cbr",              use = [ "evince_open"  ] },
-	{ mime = "application/x-cbt",              use = [ "evince_open"  ] },
-	{ mime = "application/x-cbz",              use = [ "evince_open"  ] },
-	{ mime = "image/vnd.djvu",                 use = [ "evince_open"  ] },
-	{ mime = "application/x-dvi",              use = [ "evince_open"  ] },
-	{ mime = "application/oxps",               use = [ "evince_open"  ] },
-	{ mime = "application/vnd.ms-xpsdocument", use = [ "evince_open"  ] },
-	{ mime = "application/pdf",                use = [ "evince_open"  ] },
-	{ mime = "application/postscript",         use = [ "evince_open"  ] },
+	{ mime = "application/x-cb7",              use = [ "evince-open"  ] },
+	{ mime = "application/x-cbr",              use = [ "evince-open"  ] },
+	{ mime = "application/x-cbt",              use = [ "evince-open"  ] },
+	{ mime = "application/x-cbz",              use = [ "evince-open"  ] },
+	{ mime = "image/vnd.djvu",                 use = [ "evince-open"  ] },
+	{ mime = "application/x-dvi",              use = [ "evince-open"  ] },
+	{ mime = "application/oxps",               use = [ "evince-open"  ] },
+	{ mime = "application/vnd.ms-xpsdocument", use = [ "evince-open"  ] },
+	{ mime = "application/pdf",                use = [ "evince-open"  ] },
+	{ mime = "application/postscript",         use = [ "evince-open"  ] },
 
 	# imv view
-	{ mime = "image/tiff",                     use = [ "imv_open"  ] },
-	{ mime = "image/x-tiff",                   use = [ "imv_open"  ] },
-	{ mime = "image/png",                      use = [ "imv_open"  ] },
-	{ mime = "image/jpeg",                     use = [ "imv_open"  ] },
-	{ mime = "image/svg+xml",                  use = [ "imv_open"  ] },
-	{ mime = "image/heif",                     use = [ "imv_open"  ] },
-	{ mime = "image/heif-sequence",            use = [ "imv_open"  ] },
-	{ mime = "image/heic",                     use = [ "imv_open"  ] },
-	{ mime = "image/heic-sequence",            use = [ "imv_open"  ] },
-	{ mime = "image/jxl",                      use = [ "imv_open"  ] },
+	{ mime = "image/tiff",                     use = [ "imv-open"  ] },
+	{ mime = "image/x-tiff",                   use = [ "imv-open"  ] },
+	{ mime = "image/png",                      use = [ "imv-open"  ] },
+	{ mime = "image/jpeg",                     use = [ "imv-open"  ] },
+	{ mime = "image/svg+xml",                  use = [ "imv-open"  ] },
+	{ mime = "image/heif",                     use = [ "imv-open"  ] },
+	{ mime = "image/heif-sequence",            use = [ "imv-open"  ] },
+	{ mime = "image/heic",                     use = [ "imv-open"  ] },
+	{ mime = "image/heic-sequence",            use = [ "imv-open"  ] },
+	{ mime = "image/jxl",                      use = [ "imv-open"  ] },
 
-	{ mime = "*", use = [ "open", "reveal" ] },
+	{ mime = "*", use = [ "open" ] },
 ]
 
 [tasks]
