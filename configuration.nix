@@ -66,6 +66,10 @@
       daemon.settings = {
         # Docker 占用的地址, 注意不要与通信的地址冲突
         bip = "192.168.3.1/24";
+        proxies = {
+          http-proxy = "http://127.0.0.1:5353";
+          https-proxy = "http://127.0.0.1:5353";
+        };
       };
     };
     # KVM
@@ -83,6 +87,29 @@
     # 使用 sftp 吧
   };
 
+  # 1. 创建新的 swap 文件，禁用 CoW (Btrfs 需要)
+  # sudo touch /swapfile
+  # sudo chattr +C /swapfile  # 禁用 Copy-on-Write
+
+  # 2. 创建所需大小的 swap 文件
+  # sudo dd if=/dev/zero of=/swapfile bs=1M count=8192
+
+  # 3. 设置适当的权限
+  # sudo chmod 600 /swapfile
+
+  # 4. 格式化为 swap
+  # sudo mkswap /swapfile
+
+  # 5. 启用 swap
+  # sudo swapon /swapfile
+
+  # NOTE: 如果修改交换分区需要先禁用然后删除 swap 文件最后重新执行上面的步骤
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 8192; # 可选：指定大小（以 MiB 为单位）
+    }
+  ];
   fileSystems = {
     "/mnt/CT1000MX500SSD1" = {
       device = "/dev/sda";

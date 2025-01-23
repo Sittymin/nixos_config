@@ -83,7 +83,7 @@ window-rule {
 }
 // 画中画自动浮动 (可以在拖动窗口时右键切换浮动)
 window-rule {
-    match app-id="firefox$" title="^Picture-in-Picture$"
+    match app-id="firefox$" title="^画中画$"
 
     open-floating true
     default-column-width { fixed 480; }
