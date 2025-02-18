@@ -131,9 +131,7 @@
             "debug"
           ];
         };
-        clangd = {
-          command = "${pkgs.clang-tools}/bin/clangd";
-        };
+        clangd.command = "${pkgs.clang-tools}/bin/clangd";
       };
       language = [
         {
@@ -225,6 +223,21 @@
           name = "scheme";
           # language-servers = [ "steel-language-server" ];
           language-servers = [ "guile-lsp-server" ];
+        }
+        {
+          name = "svelte";
+          # 自动格式化
+          # bun i -g prettier prettier-plugin-svelte
+          auto-format = true;
+          formatter = {
+            command = "prettier";
+            args = [
+              "--parser"
+              "svelte"
+              "--plugin"
+              "prettier-plugin-svelte"
+            ];
+          };
         }
       ];
       # 也许需要允许 hx --grammar fetch 和 hx --grammar build

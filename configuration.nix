@@ -66,10 +66,10 @@
       daemon.settings = {
         # Docker 占用的地址, 注意不要与通信的地址冲突
         bip = "192.168.3.1/24";
-        proxies = {
-          http-proxy = "http://127.0.0.1:5353";
-          https-proxy = "http://127.0.0.1:5353";
-        };
+        # proxies = {
+        #   http-proxy = "http://127.0.0.1:5353";
+        #   https-proxy = "http://127.0.0.1:5353";
+        # };
       };
     };
     # KVM

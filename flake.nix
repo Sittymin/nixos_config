@@ -87,8 +87,6 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    # daeuniverse.url = "github:daeuniverse/flake.nix/unstable";
-
     # 查找包含库的软件包
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -123,6 +121,22 @@
     #   url = "github:sanweiya/fcitx5-mellow-themes";
     #   flake = false;
     # };
+
+    # daeuniverse.url = "github:daeuniverse/flake.nix/unstable";
+
+    mosdns_rule = {
+      url = "github:Sittymin/mosdns_rule";
+      flake = false;
+    };
+
+    v2ray-geoip-dat = {
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat";
+      flake = false;
+    };
+    v2ray-geosite-dat = {
+      url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat";
+      flake = false;
+    };
   };
 
   outputs =
@@ -142,6 +156,7 @@
             };
           };
           modules = [
+            ./modules/mosdns
             ./configuration.nix
             ./overlay
             ./system/host

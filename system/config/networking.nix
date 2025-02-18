@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -67,14 +68,12 @@
       # 启用顺序来先尝试 sing-box
       strict-order = true;
       server = [
-        # sing-box server
-        "127.0.0.1#5335"
+        "127.0.0.53"
         # 回退源
         "223.5.5.5"
       ];
     };
   };
-  ### 目前 dae 还未支持 Reality
   # 直接软链接有风险
   # environment.etc = {
   #   "dae/config.dae" = {
@@ -84,7 +83,7 @@
   # };
   # dae 代理
   services.dae = {
-    enable = false;
+    enable = true;
 
     openFirewall = {
       enable = true;
@@ -95,17 +94,23 @@
 
     #   package = inputs.daeuniverse.packages.x86_64-linux.daed;
     #   disableTxChecksumIpGeneric = false;
-    configFile = "/etc/dae/config.dae";
+    configFile = "/home/Sittymin/StaticDoNotUpload/ForGFW/dae/config.dae";
 
     # geo 文件位置
-    assetsPath = "/etc/dae";
+    assetsPath = toString (
+      pkgs.runCommand "dae-assets" { } ''
+        mkdir -p $out
+        ln -s ${inputs.v2ray-geoip-dat} $out/geoip.dat
+        ln -s ${inputs.v2ray-geosite-dat} $out/geosite.dat
+      ''
+    );
   };
 
   # 自定义的服务
   systemd.services = {
     # 自动登录、断网与连接
     school = {
-      enable = false;
+      enable = true;
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
@@ -119,7 +124,7 @@
     };
     # sing-box 代理服务
     sing-box = {
-      enable = true;
+      enable = false;
       wantedBy = [ "multi-user.target" ];
       after = [ "school.service" ];
       serviceConfig = {
@@ -130,6 +135,97 @@
         RestartSec = 10;
       };
       description = "Sing-box Service";
+    };
+  };
+
+  services.mosdns = {
+    enable = true;
+    config = {
+      log.level = "info";
+
+      plugins = [
+        # Domain/IP set
+        {
+          tag = "ads";
+          type = "domain_set";
+          args.files = [ "${inputs.mosdns_rule}/ads.txt" ];
+        }
+        {
+          tag = "proxy";
+          type = "domain_set";
+          args.files = [ "${inputs.mosdns_rule}/proxy.txt" ];
+        }
+        # Upstream
+        {
+          tag = "upstream_cloudflare";
+          type = "forward";
+          args.concurrent = 2;
+          args.upstreams = [
+            {
+              addr = "https://1.1.1.1/dns-query";
+              # 无法使用?
+              # socks5 = "127.0.0.1:7874";
+            }
+            {
+              addr = "https://1.0.0.1/dns-query";
+              # 无法使用?
+              # socks5 = "127.0.0.1:7874";
+            }
+          ];
+        }
+        {
+          tag = "upstream_alidns";
+          type = "forward";
+          args.concurrent = 2;
+          args.upstreams = [
+            { addr = "https://223.5.5.5/dns-query"; }
+            { addr = "https://223.6.6.6/dns-query"; }
+          ];
+        }
+        # Main
+        {
+          tag = "main";
+          type = "sequence";
+          args = [
+            # 对于国内域名, 转发到国内 DNS 以保证速度
+            {
+              matches = "qname $ads";
+              exec = "reject 2";
+            }
+            {
+              exec = "cache 1024"; # 然后。查找 cache。
+            }
+            {
+              matches = "has_resp";
+              exec = "accept";
+            }
+            {
+              matches = "!qname $proxy";
+              exec = "$upstream_alidns";
+            }
+            {
+              # 返回不是内网 IP
+              matches = [ "!resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 fc00::/7" ];
+              exec = "accept";
+            }
+            # 因为可能没有很好的境外 IPv6 连接能力
+            {
+              exec = "prefer_ipv4";
+            }
+            {
+              exec = "$upstream_cloudflare";
+            }
+          ];
+        }
+        # Server
+        {
+          type = "udp_server";
+          args = {
+            entry = "main";
+            listen = "127.0.0.53:53";
+          };
+        }
+      ];
     };
   };
 

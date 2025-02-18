@@ -66,6 +66,6 @@ muted = "󰝟"
 type = "tray"
 orientation = "horizontal"
 # 两倍缩放的时候
-# icon_size = 32
+icon_size = 32
 # 一倍缩放的时候
-icon_size = 16
+# icon_size = 16

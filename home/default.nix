@@ -43,7 +43,7 @@
       # Docker 的一个插件
       docker-compose
       # Scheme 一个实现
-      racket
+      # racket
       # Guix 包管理器
       # guix
       # 语言
@@ -91,11 +91,10 @@
       # file-roller
       scrcpy
 
-      python313
-      python313Packages.pex
+      python312
       # JDK
-      # graalvm-ce
-      openjdk8-bootstrap
+      graalvm-ce
+      # openjdk8-bootstrap
       # nodejs
       bun
       nodePackages_latest.nodejs
@@ -143,16 +142,17 @@
       # (android-studio.override {
       #   forceWayland = true;
       # })
-      (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [
-        "17718"
-      ])
+      # (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [
+      #   "17718"
+      # ])
       (godot_4.override {
         withWayland = true;
         # Wayland only 需要 https://github.com/godotengine/godot/pull/97771
         # withX11 = false;
       })
       # 另外一个终端
-      inputs.ghostty.packages.x86_64-linux.default
+      # inputs.ghostty.packages.x86_64-linux.default
+      rsync
     ]
     ++ (with pkgs-e0464e4; [
       localsend

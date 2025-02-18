@@ -7,8 +7,12 @@
 # KTC
 # --output DP-2 --primary --mode 3840x2160 --rate 144.00 \
 exec_always --no-startup-id xrandr \
-    --output DP-2 --primary --mode 1920x1080 --rate 144.00 \
+    --output DP-2 --primary --mode 3840x2160 --rate 144.00 \
     --output HDMI-3 --mode 2560x1440 --right-of DP-2
+
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s noblank
 
 workspace 1 output DP-2
 workspace 2 output HDMI-3
