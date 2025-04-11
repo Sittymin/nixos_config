@@ -63,14 +63,14 @@
       max-cache-ttl = 3600;
       # min live in cache
       min-cache-ttl = 300;
-      # cache size
-      cache-size = 1000;
+      # 缓存不由 dnsmasq 负责
+      cache-size = 0;
       # 启用顺序来先尝试 sing-box
       strict-order = true;
       server = [
         "127.0.0.53"
         # 回退源
-        "223.5.5.5"
+        # "223.5.5.5"
       ];
     };
   };
@@ -110,7 +110,7 @@
   systemd.services = {
     # 自动登录、断网与连接
     school = {
-      enable = true;
+      enable = false;
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
@@ -142,9 +142,12 @@
     enable = true;
     config = {
       log.level = "info";
+      # 用于发送命令
+      api.http = "127.0.0.53:8080";
 
       plugins = [
         # Domain/IP set
+        # WARN: 这里有问题！会导致海外域名被屏蔽
         {
           tag = "ads";
           type = "domain_set";
@@ -155,6 +158,11 @@
           type = "domain_set";
           args.files = [ "${inputs.mosdns_rule}/proxy.txt" ];
         }
+        {
+          tag = "direct";
+          type = "domain_set";
+          args.files = [ "${inputs.mosdns_rule}/direct.txt" ];
+        }
         # Upstream
         {
           tag = "upstream_cloudflare";
@@ -162,14 +170,28 @@
           args.concurrent = 2;
           args.upstreams = [
             {
+              # addr = "https://one.one.one.one/dns-query";
               addr = "https://1.1.1.1/dns-query";
               # 无法使用?
               # socks5 = "127.0.0.1:7874";
+              dial_addr = "1.1.1.1";
+              # 解析出的 IP 版本
+              bootstrap_version = 4;
+              # 连接复用保持时间 单位秒
+              idle_timeout = 60;
+              # enable_http3 = true;
             }
             {
+              # addr = "https://one.one.one.one/dns-query";
               addr = "https://1.0.0.1/dns-query";
               # 无法使用?
               # socks5 = "127.0.0.1:7874";
+              dial_addr = "1.0.0.1";
+              # 解析出的 IP 版本
+              bootstrap_version = 4;
+              # 连接复用保持时间 单位秒
+              idle_timeout = 60;
+              # enable_http3 = true;
             }
           ];
         }
@@ -178,48 +200,139 @@
           type = "forward";
           args.concurrent = 2;
           args.upstreams = [
-            { addr = "https://223.5.5.5/dns-query"; }
-            { addr = "https://223.6.6.6/dns-query"; }
+            {
+              addr = "https://dns.alidns.com/dns-query";
+              dial_addr = "223.5.5.5";
+              enable_http3 = true;
+            }
+            {
+              addr = "https://dns.alidns.com/dns-query";
+              dial_addr = "223.6.6.6";
+              enable_http3 = true;
+            }
           ];
+        }
+        {
+          tag = "cache";
+          type = "cache";
+          args = {
+            size = 1024; # 内置内存缓存大小。单位= 条。默认= 1024。每个 cache 插件的内存缓存是独立的。
+
+            # (实验性) lazy cache 设定。lazy_cache_ttl > 0 会启用 lazy cache。
+            # 所有应答都会在缓存中存留 lazy_cache_ttl 秒，但自身的 TTL 仍然有效。如果命中过期的应答，
+            # 则缓存会立即返回 TTL 为 5 的应答，然后自动在后台发送请求更新数据。
+            # 相比强行增加应答自身的 TTL 的方法，lazy cache 能提高命中率，同时还能保持一定的数据新鲜度。
+            lazy_cache_ttl = 86400; # lazy cache 生存时间。单位= 秒。默认= 0 (禁用 lazy cache)。
+            # 建议值 86400（1天）~ 259200（3天）
+
+          };
         }
         # Main
         {
           tag = "main";
           type = "sequence";
           args = [
-            # 对于国内域名, 转发到国内 DNS 以保证速度
+            # WARN: 修改之后部署之后需要利用systemctl 重启
             {
               matches = "qname $ads";
               exec = "reject 2";
             }
             {
-              exec = "cache 1024"; # 然后。查找 cache。
+              matches = [
+                "!qname ddns.ideal2077.com"
+                "!qname ddnsv6.ideal2077.com"
+                "!qname ddns.sittymin.top"
+                "!qname ddnsv6.sittymin.top"
+              ];
+              exec = "$cache"; # 然后。查找 cache。
+            }
+            {
+              matches = "has_resp";
+              exec = "query_summary has_resp";
             }
             {
               matches = "has_resp";
               exec = "accept";
             }
             {
-              matches = "!qname $proxy";
+              # 对于国内域名, 转发到国内 DNS 以保证速度
+              matches = [
+                "qname $direct"
+                # "qname jp.sittymin.top"
+              ];
               exec = "$upstream_alidns";
             }
             {
-              # 返回不是内网 IP
-              matches = [ "!resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 fc00::/7" ];
+              matches = [
+                "qname ddns.ideal2077.com"
+                "qname ddnsv6.ideal2077.com"
+                "qname ddns.sittymin.top"
+                "qname ddnsv6.sittymin.top"
+              ];
+              exec = "ttl 1"; # ddns 域名 TTL 缩短
+            }
+            {
+              matches = [ "has_resp" ];
               exec = "accept";
             }
-            # 因为可能没有很好的境外 IPv6 连接能力
+            # {
+            #   # 返回不是内网与广播 IP
+            #   matches = [ "!resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 fc00::/7 127.0.0.1 0.0.0.0 ::1" ];
+            #   exec = "accept";
+            # }
+
             {
+              exec = "query_summary perfer ipv4";
+            }
+            {
+              # 因为可能没有很好的境外 IPv6 连接能力
               exec = "prefer_ipv4";
             }
             {
+              matches = [
+                "qname ddns.ideal2077.com"
+                "qname ddnsv6.ideal2077.com"
+                "qname ddns.sittymin.top"
+                "qname ddnsv6.sittymin.top"
+              ];
+              exec = "ttl 1"; # ddns 域名 TTL 缩短
+            }
+            # {
+            #   # 对于非代理域名, 转发到国内 DNS 以保证速度 并且避免代理兜底导致 ipv6 无法使用
+            #   matches = [
+            #     "!qname $proxy"
+            #   ];
+            #   exec = "$upstream_alidns";
+            # }
+            # {
+            #   matches = [ "has_resp" ];
+            #   exec = "accept";
+            # }
+            {
               exec = "$upstream_cloudflare";
             }
+            {
+              matches = [ "has_resp" ];
+              exec = "accept";
+            }
+            # {
+            #   exec = "query_summary fallback alidns";
+            # }
+            # {
+            #   exec = "$upstream_alidns";
+            # }
           ];
         }
         # Server
         {
           type = "udp_server";
+          args = {
+            entry = "main";
+            listen = "127.0.0.53:53";
+          };
+        }
+        {
+          type = "tcp_server";
           args = {
             entry = "main";
             listen = "127.0.0.53:53";

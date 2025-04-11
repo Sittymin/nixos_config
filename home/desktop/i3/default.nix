@@ -12,8 +12,8 @@
   xresources.properties = {
     # DPI 设置（使用主显示器的 DPI）
     # 96 为默认的 DPI
-    # "Xft.dpi" = 162;
-    "Xft.dpi" = 331;
+    "Xft.dpi" = 162;
+    # "Xft.dpi" = 331;
 
     # ! 字体渲染设置
     "Xft.antialias" = 1;

@@ -120,10 +120,10 @@
           # check.command = "${clippy}/bin/cargo-clippy";
           check.command = "clippy";
         };
-        steel-language-server = {
-          command = "${pkgs.myRepo.steel}/bin/steel-language-server";
-          args = [ ];
-        };
+        # steel-language-server = {
+        #   command = "${pkgs.myRepo.steel}/bin/steel-language-server";
+        #   args = [ ];
+        # };
         guile-lsp-server = {
           command = "${pkgs.myRepo.guile-lsp-server}/bin/guile-lsp-server";
           args = [

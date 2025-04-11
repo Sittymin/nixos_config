@@ -1,4 +1,5 @@
 {
+  pkgs,
   ...
 }:
 {
@@ -11,6 +12,7 @@
       };
     };
   };
+  environment.systemPackages = [ pkgs.bluez ];
   # NOTE:蓝牙配对的一个GUI
   services.blueman.enable = true;
 }

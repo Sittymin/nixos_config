@@ -10,6 +10,7 @@
     ./terminal
     ./desktop
     ./other
+    # inputs.ironbar.homeManagerModules.default
   ];
 
   # 注意修改这里的用户名与用户目录
@@ -40,6 +41,21 @@
   home.packages =
     with pkgs;
     [
+      (android-studio.withSdk
+        (androidenv.composeAndroidPackages {
+          includeNDK = true;
+          includeEmulator = true;
+          emulatorVersion = "33.1.6";
+        }).androidsdk
+      )
+      # 镜像屏幕
+      wl-mirror
+      uv
+      # 基于 VScode 的 AI 代码编辑器
+      code-cursor
+      moonlight-qt
+      # 利用 ssh 挂载远程文件夹
+      sshfs
       # Docker 的一个插件
       docker-compose
       # Scheme 一个实现
@@ -70,6 +86,11 @@
       #   x11Support = false;
       # })
       inputs.nixpkgs-wayland.packages.${pkgs.system}.imv
+
+      # 图片相关处理的程序
+      imagemagick
+      # imagemagick PDF 处理
+      ghostscript
       (ffmpeg-full.override {
         withVpl = true;
         withMfx = false;
@@ -174,17 +195,17 @@
     #   "sxiv.desktop"
     #   "gimp.desktop"
     # ];
-    defaultApplications = {
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
-      "x-scheme-handler/about" = "firefox.desktop";
-      "x-scheme-handler/unknown" = "firefox.desktop";
-      # 终端
-      "x-scheme-handler/terminal" = "kitty.desktop";
-      # 文件夹打开方式
-      "inode/directory" = "thunar.desktop";
-    };
+    # defaultApplications = {
+    #   "text/html" = "firefox.desktop";
+    #   "x-scheme-handler/http" = "firefox.desktop";
+    #   "x-scheme-handler/https" = "firefox.desktop";
+    #   "x-scheme-handler/about" = "firefox.desktop";
+    #   "x-scheme-handler/unknown" = "firefox.desktop";
+    #   # 终端
+    #   "x-scheme-handler/terminal" = "kitty.desktop";
+    #   # 文件夹打开方式
+    #   "inode/directory" = "thunar.desktop";
+    # };
   };
 
   home.pointerCursor = {
@@ -275,7 +296,23 @@
         obs-pipewire-audio-capture
       ];
     };
+    # 这里是 SSH client 配置
+    # 使用 SSH 密钥转发
+    ssh = {
+      enable = true;
+      extraConfig = ''
+        Host gongsi
+          HostName 192.168.2.5
+          User ps
+
+        Host hkt
+          HostName 192.168.2.100
+          User administrator
+      '';
+    };
   };
+  # 启用 OpenSSH 私钥代理
+  services.ssh-agent.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

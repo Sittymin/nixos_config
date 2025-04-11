@@ -24,6 +24,9 @@
       '';
       extraEnv = ''
         $env.CARGO_HOME = ($env.HOME | path join ".cargo")
+        $env.RUSTUP_DIST_SERVER = "https://rsproxy.cn"
+        $env.RUSTUP_UPDATE_ROOT = "https://rsproxy.cn/rustup"
+
 
         # 0.101 版本及以上推荐的 Path 配置
         use std/util "path add"

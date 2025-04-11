@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -81,7 +82,7 @@ in
       pinentryPackage = pkgs.pinentry-tty;
     };
     wireshark = {
-      enable = true;
+      enable = false;
       package = pkgs.wireshark;
     };
   };

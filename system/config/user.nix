@@ -17,6 +17,9 @@
         "kvm"
         "libvirtd"
         "docker"
+        "input"
+        # 摄像头的用户组
+        "tape"
       ];
       # NOTE:家目录
       home = "/home/Sittymin";

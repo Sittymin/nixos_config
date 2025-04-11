@@ -14,6 +14,7 @@ input {
 
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
+// 4K 27寸 自购屏
 output "Shenzhen KTC Technology Group H27P22S 0000000000001" {
     // 160 可能会导致其他输出不可用
     // 并且必须一直启用VRR
@@ -43,6 +44,7 @@ output "Shenzhen KTC Technology Group H27P22S 0000000000001" {
     // 如果位置未设置或导致重叠，则输出将自动放置。
     position x=0 y=0
 }
+// 便携屏
 output "Invalid Vendor Codename - RTK Monitor 0000000000001" {
     // 上面使用VRR加160刷新率之后可能无法输出副屏或主屏
     // mode "2560x1440@59.951"
@@ -62,18 +64,39 @@ output "Invalid Vendor Codename - RTK Monitor 0000000000001" {
     // 例如，一个缩放为2.0的3840×2160输出将具有1920×1080的逻辑大小，
     // 因此要将另一个输出直接放置在其右侧，需将其x设置为1920。
     // 如果位置未设置或导致重叠，则输出将自动放置。
-    position x=1920 y=0
+    position x=2560 y=0
 }
 output "SKYDATA S.P.A. G1AF24C-T240F             " {
     mode "1920x1080@144.001"
     scale 1.0
+}
+// 公司的那显示器
+output "Philips Consumer Electronics Company 245S9RB UK02441059214" {
+    mode "2560x1440@100.000"
+
+    // Transform allows to rotate the output counter-clockwise, valid values are:
+    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
+    transform "normal"
+    variable-refresh-rate on-demand=true
+
+    // 实际输出的缩放
+    scale 1.0
+    // 输出在全局坐标空间中的位置。
+    // 这会影响方向性监视器操作，如 "focus-monitor-left"，以及光标移动。
+    // 光标只能在直接相邻的输出之间移动。
+    // 位置设置需要考虑输出的缩放和旋转：
+    // 输出的大小以逻辑或缩放后的像素为单位。
+    // 例如，一个缩放为2.0的3840×2160输出将具有1920×1080的逻辑大小，
+    // 因此要将另一个输出直接放置在其右侧，需将其x设置为1920。
+    // 如果位置未设置或导致重叠，则输出将自动放置。
+    position x=0 y=0
 }
 
 window-rule {
     match app-id="^mpv$"
 
     variable-refresh-rate true
-    open-on-output "Shenzhen KTC Technology Group H27P22S 0000000000001"
+    // open-on-output "Shenzhen KTC Technology Group H27P22S 0000000000001"
 }
 window-rule {
     // 边框圆角内半径
@@ -88,6 +111,30 @@ window-rule {
     open-floating true
     default-column-width { fixed 480; }
     default-window-height { fixed 270; }
+}
+
+// 屏幕共享的窗口标红
+window-rule {
+    match is-window-cast-target=true
+
+    focus-ring {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
+
+    border {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
+
+    shadow {
+        color "#7d0d2d70"
+    }
+
+    tab-indicator {
+        active-color "#f38ba8"
+        inactive-color "#7d0d2d"
+    }
 }
 
 
@@ -125,7 +172,7 @@ layout {
         // 填入 off 禁用
 
         // 宽度(px)
-        width 4
+        width 2
 
         // 可以使用 CSS 当中的颜色 例如 "red" "#FFF"
         //  "rgb(255, 127, 0)", rgba(), hsl()
@@ -133,8 +180,6 @@ layout {
         // 活动窗口
         active-color "#7fc8ff"
 
-        // 非活动窗口
-        inactive-color "#505050"
 
     // 您也可以使用渐变色。它们优先于纯色。
     // 渐变色的渲染方式与 CSS 的 linear-gradient(angle, from, to) 相同。
@@ -150,15 +195,25 @@ layout {
     // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"    }
     }
 
-    // border 与上文相同
+    // border 设置与上文相同
+    // 但是 border 是实际会增大窗口体积的
     border {
         // 使用 off 禁用
-        off
+        // off
 
-        width 4
-        active-color "#ffc87f"
+        width 2
+        active-color "#7fc8ff"
         inactive-color "#505050"
 
+    }
+
+    shadow {
+        // 填入 on 才能启用
+        on
+        color "#7fc8ff"        // 蓝色阴影（50%透明度）
+        inactive-color "#505050" // 灰色阴影（50%透明度）
+        spread 10              // 柔和的阴影扩散半径
+        offset x=0 y=0
     }
 
     // 让周围留出空间放其他窗口或留白
@@ -299,14 +354,16 @@ binds {
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     Mod+C { close-window; }
+    // 平铺式与标签式切换
+    Mod+W { toggle-column-tabbed-display; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
     Mod+Up    { focus-window-up; }
     Mod+Right { focus-column-right; }
     Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-down; }
-    Mod+K     { focus-window-up; }
+    Mod+J     { focus-window-down-or-top; }
+    Mod+K     { focus-window-up-or-bottom; }
     Mod+L     { focus-column-right; }
 
     Mod+Shift+Left  { move-column-left; }

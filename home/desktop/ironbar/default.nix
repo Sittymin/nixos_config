@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -18,4 +19,8 @@
       pkgs.ironbar
     ];
   };
+  # programs.ironbar = {
+  #   enable = true;
+  #   # config = /home/Sittymin/.config/ironbar/config.toml;
+  # };
 }

@@ -5,6 +5,8 @@
 {
   # NOTE:设置系统服务
   services = {
+    # 限制日志大小
+    journald.extraConfig = "SystemMaxUse=10M";
     # NOTE: Btrfs自动清理
     btrfs.autoScrub = {
       enable = true;
@@ -21,6 +23,7 @@
         };
       };
     };
+    # 这里是 SSH server
     openssh = {
       enable = true;
       settings = {

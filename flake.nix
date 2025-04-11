@@ -8,11 +8,12 @@
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     # 安全启动
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      # 可选，但是注意限制系统软件数量
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # NOTE: 等重装系统全盘加密并且 ESP 分区较大时再说吧
+    # lanzaboote = {
+    # url = "github:nix-community/lanzaboote/v0.4.1";
+    # 可选，但是注意限制系统软件数量
+    # inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # nixd 不可以用 lix 构建
     # lix = {
@@ -137,6 +138,11 @@
       url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat";
       flake = false;
     };
+
+    ironbar = {
+      url = "github:JakeStanger/ironbar";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -169,28 +175,28 @@
             ./disk-config.nix
 
             # 安全启动部分
-            inputs.lanzaboote.nixosModules.lanzaboote
-            (
-              { pkgs, lib, ... }:
-              {
+            # inputs.lanzaboote.nixosModules.lanzaboote
+            # (
+            #   { pkgs, lib, ... }:
+            #   {
 
-                environment.systemPackages = [
-                  # For debugging and troubleshooting Secure Boot.
-                  pkgs.sbctl
-                ];
+            #     environment.systemPackages = [
+            #       # For debugging and troubleshooting Secure Boot.
+            #       pkgs.sbctl
+            #     ];
 
-                # Lanzaboote currently replaces the systemd-boot module.
-                # This setting is usually set to true in configuration.nix
-                # generated at installation time. So we force it to false
-                # for now.
-                boot.loader.systemd-boot.enable = lib.mkForce false;
+            #     # Lanzaboote currently replaces the systemd-boot module.
+            #     # This setting is usually set to true in configuration.nix
+            #     # generated at installation time. So we force it to false
+            #     # for now.
+            #     boot.loader.systemd-boot.enable = lib.mkForce false;
 
-                boot.lanzaboote = {
-                  enable = true;
-                  pkiBundle = "/etc/secureboot";
-                };
-              }
-            )
+            #     boot.lanzaboote = {
+            #       enable = true;
+            #       pkiBundle = "/etc/secureboot";
+            #     };
+            #   }
+            # )
 
             # inputs.lix-module.nixosModules.default
             inputs.nur.modules.nixos.default
@@ -227,7 +233,7 @@
                     myRepo.reqable
                     # markdown 编辑器
                     myRepo.apostrophe-2-6-3
-                    myRepo.steel
+                    # myRepo.steel
                   ]);
               }
             )

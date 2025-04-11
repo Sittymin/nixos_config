@@ -4,6 +4,9 @@
 }:
 {
   hardware = {
+    # Xbox 控制器内核插件 (好吧，无效)
+    xpadneo.enable = false;
+    # xone.enable = true;
     graphics = {
       enable = true;
       enable32Bit = true;

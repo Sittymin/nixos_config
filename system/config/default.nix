@@ -52,6 +52,10 @@
     systemPackages = (
       with pkgs;
       [
+        # 路由追踪
+        traceroute
+        # DNS 解析
+        dig
         sing-box
         # git
         curl
@@ -111,4 +115,6 @@
       defaultApplications = { };
     };
   };
+  # 使用 ssh-agent 来签名
+  security.pam.sshAgentAuth.enable = true;
 }
