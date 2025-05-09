@@ -1,0 +1,15 @@
+[manager]
+prepend_keymap = [
+  # 返回当前 Git 仓库的根目录
+  {on = [ "g", "r" ], run = 'shell -- ya emit cd "$(git rev-parse --show-toplevel)"'},
+  # 拖动文件到其他程序
+  {on  = "<C-n>", run = 'shell -- dragon-drop -x -i -T "$1"'},
+  # 在复制时将选定的文件复制到系统剪贴板
+  {on  = "y", run = [ 'shell -- for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list', "yank" ]},
+  # 挂载磁盘插件
+  # 需要安装 ya pack -a yazi-rs/plugins:mount
+  {on  = "M", run = "plugin mount"},
+  # 更改权限
+  # ya pack -a yazi-rs/plugins:chmod
+  {on   = [ "c", "m" ], run  = "plugin chmod", desc = "Chmod on selected files"},
+]

@@ -125,8 +125,17 @@
 
     # daeuniverse.url = "github:daeuniverse/flake.nix/unstable";
 
-    mosdns_rule = {
-      url = "github:Sittymin/mosdns_rule";
+    # mosdns 的匹配规则
+    adsList = {
+      url = "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt";
+      flake = false;
+    };
+    proxyList = {
+      url = "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/proxy-list.txt";
+      flake = false;
+    };
+    directList = {
+      url = "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt";
       flake = false;
     };
 

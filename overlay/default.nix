@@ -16,25 +16,17 @@
           '';
         }
       );
+      xdg-desktop-portal-termfilechooser = prev.xdg-desktop-portal-termfilechooser.overrideAttrs (
+        finalAttrs: previousAttrs: {
+          version = "1.1.0";
 
-      # ironbar = prev.ironbar.overrideAttrs (
-      #   finalAttrs: previousAttrs: {
-      #     buildInputs =
-      #       let
-      #         lib = prev.lib;
-      #         buildInputsWithoutIcons = lib.filter (
-      #           x: x != prev.adwaita-icon-theme && x != prev.hicolor-icon-theme
-      #         ) previousAttrs.buildInputs;
-      #       in
-      #       buildInputsWithoutIcons ++ [ prev.papirus-icon-theme ];
+          src = previousAttrs.src.override {
+            tag = "v${finalAttrs.version}";
+            hash = "sha256-o2FBPSJrcyAz6bJKQukj6Y5ikGpFuH1Un1qwX4w73os=";
+          };
+        }
+      );
 
-      #     gappsWrapperArgs =
-      #       previousAttrs.gappsWrapperArgs
-      #       + ''
-      #         --set GTK_ICON_THEME "Papirus-Dark"
-      #       '';
-      #   }
-      # );
       # google-cursor = prev.google-cursor.overrideAttrs (
       #   finalAttrs: previousAttrs: {
       #     preInstall = ''

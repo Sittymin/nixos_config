@@ -1,6 +1,6 @@
 {
   pkgs,
-  inputs,
+  # inputs,
   ...
 }:
 let
@@ -85,6 +85,8 @@ in
       enable = false;
       package = pkgs.wireshark;
     };
+    # 咱不需要 nano (它默认开启)
+    nano.enable = false;
   };
   environment.systemPackages = with pkgs; [
     difftastic

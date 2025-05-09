@@ -210,9 +210,11 @@ layout {
     shadow {
         // 填入 on 才能启用
         on
-        color "#7fc8ff"        // 蓝色阴影（50%透明度）
-        inactive-color "#505050" // 灰色阴影（50%透明度）
-        spread 10              // 柔和的阴影扩散半径
+        color "#7fc8ff"        // 蓝色阴影
+        inactive-color "#505050" // 灰色阴影
+        // 柔和的阴影扩散半径
+        // 感觉是 gap 的一半比较好
+        spread 8
         offset x=0 y=0
     }
 
@@ -346,10 +348,9 @@ binds {
     // Note: the entire command goes as a single argument in the end.
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
-    // Example volume keys mappings for PipeWire & WirePlumber.
-    // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    // 键盘按钮控制 PipeWire & WirePlumber.
+    // XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+    // XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 

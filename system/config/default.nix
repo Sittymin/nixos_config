@@ -115,6 +115,10 @@
       defaultApplications = { };
     };
   };
-  # 使用 ssh-agent 来签名
-  security.pam.sshAgentAuth.enable = true;
+  security.pam = {
+    # 使用 ssh-agent 来签名
+    sshAgentAuth.enable = true;
+  };
+  # 默认是1024:524288
+  systemd.user.extraConfig = "DefaultLimitNOFILE=65535:524288";
 }

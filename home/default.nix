@@ -95,7 +95,6 @@
         withVpl = true;
         withMfx = false;
       })
-      vscode
       zed-editor
       # Doc view
       evince
@@ -166,7 +165,7 @@
       # (jetbrains.plugins.addPlugins jetbrains.idea-ultimate [
       #   "17718"
       # ])
-      (godot_4.override {
+      (godot.override {
         withWayland = true;
         # Wayland only 需要 https://github.com/godotengine/godot/pull/97771
         # withX11 = false;
@@ -301,13 +300,17 @@
     ssh = {
       enable = true;
       extraConfig = ''
-        Host gongsi
+        Host gs
           HostName 192.168.2.5
           User ps
 
         Host hkt
           HostName 192.168.2.100
           User administrator
+
+        Host jt
+          HostName 183.246.174.89
+          User wcxsb
       '';
     };
   };

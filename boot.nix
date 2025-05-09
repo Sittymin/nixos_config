@@ -38,8 +38,14 @@
       "net.ipv4.tcp_fastopen" = "3";
       # 更有效地利用带宽和减少延迟
       "net.ipv4.tcp_congestion_control" = "bbr";
+      # 关闭 docker0 的 send_redirects（避免 ICMP 请求绕过透明代理）
+      "net.ipv4.conf.docker0.send_redirects" = 0;
+
+      # 开启 docker0 的 IPv6 forwarding（如果需要 IPv6）
+      "net.ipv6.conf.docker0.forwarding" = 1;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_13;
     # 会花屏
     # kernelPackages = pkgs.linuxPackages_latest-libre;
     # OBS 虚拟摄像头

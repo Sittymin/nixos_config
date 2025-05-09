@@ -151,17 +151,17 @@
         {
           tag = "ads";
           type = "domain_set";
-          args.files = [ "${inputs.mosdns_rule}/ads.txt" ];
+          args.files = [ "${inputs.adsList}" ];
         }
         {
           tag = "proxy";
           type = "domain_set";
-          args.files = [ "${inputs.mosdns_rule}/proxy.txt" ];
+          args.files = [ "${inputs.proxyList}" ];
         }
         {
           tag = "direct";
           type = "domain_set";
-          args.files = [ "${inputs.mosdns_rule}/direct.txt" ];
+          args.files = [ "${inputs.directList}" ];
         }
         # Upstream
         {
@@ -170,27 +170,31 @@
           args.concurrent = 2;
           args.upstreams = [
             {
+              # NOTE: 本来就会与 VPS 建立 TLS 连接
+              # NOTE: DNS 再建立一个握手实在是太慢了
               # addr = "https://one.one.one.one/dns-query";
-              addr = "https://1.1.1.1/dns-query";
+              addr = "udp://1.1.1.1/dns-query";
               # 无法使用?
               # socks5 = "127.0.0.1:7874";
-              dial_addr = "1.1.1.1";
+              # dial_addr = "1.1.1.1";
               # 解析出的 IP 版本
-              bootstrap_version = 4;
+              # bootstrap_version = 4;
               # 连接复用保持时间 单位秒
-              idle_timeout = 60;
+              # idle_timeout = 300;
+              # enable_pipeline = true;
               # enable_http3 = true;
             }
             {
               # addr = "https://one.one.one.one/dns-query";
-              addr = "https://1.0.0.1/dns-query";
+              addr = "udp://1.0.0.1/dns-query";
               # 无法使用?
               # socks5 = "127.0.0.1:7874";
-              dial_addr = "1.0.0.1";
+              # dial_addr = "1.0.0.1";
               # 解析出的 IP 版本
-              bootstrap_version = 4;
+              # bootstrap_version = 4;
               # 连接复用保持时间 单位秒
-              idle_timeout = 60;
+              # idle_timeout = 300;
+              # enable_pipeline = true;
               # enable_http3 = true;
             }
           ];
@@ -201,13 +205,13 @@
           args.concurrent = 2;
           args.upstreams = [
             {
-              addr = "https://dns.alidns.com/dns-query";
-              dial_addr = "223.5.5.5";
+              addr = "https://223.5.5.5/dns-query";
+              # dial_addr = "223.5.5.5";
               enable_http3 = true;
             }
             {
-              addr = "https://dns.alidns.com/dns-query";
-              dial_addr = "223.6.6.6";
+              addr = "https://223.6.6.6/dns-query";
+              # dial_addr = "223.6.6.6";
               enable_http3 = true;
             }
           ];
@@ -239,16 +243,13 @@
             }
             {
               matches = [
-                "!qname ddns.ideal2077.com"
-                "!qname ddnsv6.ideal2077.com"
-                "!qname ddns.sittymin.top"
-                "!qname ddnsv6.sittymin.top"
+                "!qname ddns.ideal2077.com ddnsv6.ideal2077.com ddns.sittymin.top ddnsv6.sittymin.top"
               ];
               exec = "$cache"; # 然后。查找 cache。
             }
             {
               matches = "has_resp";
-              exec = "query_summary has_resp";
+              exec = "query_summary 命中缓存";
             }
             {
               matches = "has_resp";
@@ -256,33 +257,28 @@
             }
             {
               # 对于国内域名, 转发到国内 DNS 以保证速度
+              # WARN: 数组中只可以有一条，不然会不匹配
               matches = [
-                "qname $direct"
-                # "qname jp.sittymin.top"
+                "qname $direct jp.sittymin.top bwg.wujiacheng.top new.tuhaobo.top"
               ];
               exec = "$upstream_alidns";
             }
             {
               matches = [
-                "qname ddns.ideal2077.com"
-                "qname ddnsv6.ideal2077.com"
-                "qname ddns.sittymin.top"
-                "qname ddnsv6.sittymin.top"
+                "qname ddns.ideal2077.com ddnsv6.ideal2077.com ddns.sittymin.top ddnsv6.sittymin.top"
               ];
               exec = "ttl 1"; # ddns 域名 TTL 缩短
             }
             {
               matches = [ "has_resp" ];
+              exec = "query_summary 国内解析";
+            }
+            {
+              matches = [ "has_resp" ];
               exec = "accept";
             }
-            # {
-            #   # 返回不是内网与广播 IP
-            #   matches = [ "!resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 fc00::/7 127.0.0.1 0.0.0.0 ::1" ];
-            #   exec = "accept";
-            # }
-
             {
-              exec = "query_summary perfer ipv4";
+              exec = "query_summary 删除 IPv6 回应";
             }
             {
               # 因为可能没有很好的境外 IPv6 连接能力
@@ -290,37 +286,63 @@
             }
             {
               matches = [
-                "qname ddns.ideal2077.com"
-                "qname ddnsv6.ideal2077.com"
-                "qname ddns.sittymin.top"
-                "qname ddnsv6.sittymin.top"
+                "qname ddns.ideal2077.com ddnsv6.ideal2077.com ddns.sittymin.top ddnsv6.sittymin.top"
               ];
               exec = "ttl 1"; # ddns 域名 TTL 缩短
             }
-            # {
-            #   # 对于非代理域名, 转发到国内 DNS 以保证速度 并且避免代理兜底导致 ipv6 无法使用
-            #   matches = [
-            #     "!qname $proxy"
-            #   ];
-            #   exec = "$upstream_alidns";
-            # }
-            # {
-            #   matches = [ "has_resp" ];
-            #   exec = "accept";
-            # }
             {
+              matches = [
+                "qname $proxy blog.sittymin.top"
+              ];
+              exec = "$upstream_cloudflare";
+            }
+            {
+              matches = [ "has_resp" ];
+              exec = "query_summary 国外解析";
+            }
+            {
+              matches = [ "has_resp" ];
+              exec = "accept";
+            }
+            {
+              exec = "$upstream_alidns";
+            }
+            {
+              matches = [
+                "!resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 0.0.0.0 127.0.0.0/8 169.254.0.0/16 100.64.0.0/10 192.0.0.0/24 192.0.2.0/24 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 224.0.0.0/4 233.252.0.0/24 240.0.0.0/4"
+              ];
+              exec = "query_summary 国外域名国内解析";
+            }
+            {
+              matches = [
+                "resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 0.0.0.0 127.0.0.0/8 169.254.0.0/16 100.64.0.0/10 192.0.0.0/24 192.0.2.0/24 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 224.0.0.0/4 233.252.0.0/24 240.0.0.0/4"
+              ];
+              exec = "query_summary 国外域名国外解析";
+            }
+            {
+              matches = [
+                "resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 0.0.0.0 127.0.0.0/8 169.254.0.0/16 100.64.0.0/10 192.0.0.0/24 192.0.2.0/24 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 224.0.0.0/4 233.252.0.0/24 240.0.0.0/4"
+              ];
               exec = "$upstream_cloudflare";
             }
             {
               matches = [ "has_resp" ];
               exec = "accept";
             }
-            # {
-            #   exec = "query_summary fallback alidns";
-            # }
-            # {
-            #   exec = "$upstream_alidns";
-            # }
+            {
+              exec = "$upstream_alidns";
+            }
+            {
+              matches = [ "has_resp" ];
+              exec = "query_summary 国外解析失败回退到国内解析";
+            }
+            {
+              matches = [ "has_resp" ];
+              exec = "accept";
+            }
+            {
+              exec = "query_summary 回退到国内解析也失败了";
+            }
           ];
         }
         # Server
