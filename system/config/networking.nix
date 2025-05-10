@@ -5,35 +5,52 @@
 }:
 {
   # NOTE:设置网络连接
+  environment.etc = {
+    # networkmanager 内置的 dnsmasq 的配置
+    "NetworkManager/dnsmasq.d/mosdns".text = ''
+      # 指定 mosdns 作为首选 DNS 服务器
+      server=127.0.0.53
+
+      # 指定 223.5.5.5 作为备用 DNS 服务器
+      server=223.5.5.5
+
+      # 告诉 dnsmasq 不要从 /etc/resolv.conf 读取上游服务器
+      # (因为 NetworkManager 会将 /etc/resolv.conf 指向这个 dnsmasq 实例本身)
+      no-resolv
+
+      # 禁用 dnsmasq 的缓存功能
+      # 由 mosdns 负责
+      cache-size=0
+
+      # 严格按照配置文件中 server 的顺序进行查询
+      strict-order
+
+      # 记录转发目标服务器的日志
+      log-queries
+    '';
+  };
   networking = {
-    hostName = "nixos"; # NOTE:主机名
-    # 下面的 nameservers 是依靠 resolvconf 生成的
-    resolvconf.enable = true;
-    # NOTE: 可能是下面的 dnsmasq 控制
-    # 用 dnsmasq 的转发使用 sing-box DNS
-    # nameservers = [
-    #   "127.0.0.1"
-    #   "::1"
-    # ];
-    # 如果不使用路由器 DNS 不知道为啥翻墙变慢(可能是校园网)
-    # 额外添加的 DNS
-    # 学校 DNS
-    # nameservers = [
-    #   "223.5.5.5"
-    #   "172.30.18.18"
-    #   "172.30.8.51"
-    # ];
-    dhcpcd = {
-      enable = true;
-      # 让 DHCP 不要修改 DNS 服务器
-      extraConfig = "nohook resolv.conf";
-    };
+    # NOTE:主机名
+    hostName = "nixos";
+    # resolv.conf 改用 networkmanager 控制
+    resolvconf.enable = false;
+
+    # dhcp 改用 networkmanager 控制
+    dhcpcd.enable = false;
 
     networkmanager = {
-      enable = true; # NOTE:启用NetworkManager来管理网络连接
-      # 让 NetworkManager 不要修改 resolv.conf中的 DNS 服务器
-      # dns = "none";
+      enable = true;
+      # 这里使用的是它内置的dnsmasq
       dns = "dnsmasq";
+      # 使用内置的 dhcp 客户端
+      dhcp = "internal";
+      settings = {
+        main = {
+          # 使用软链接配置resolv.conf
+          # 似乎只是变成 networkmanager 来生成 resolv.conf
+          "rc-manager" = "symlink";
+        };
+      };
     };
     # 防火墙由上级路由器配置
     firewall = {
@@ -46,34 +63,12 @@
       # "time.apple.com"
     ];
   };
-  # 不能使用 resolved （不然不可以安全DNS）
+  # 不使用 systemd-resolved 来管理 DNS
+  # DNS 改用 networkmanager 控制
   services.resolved.enable = false;
-  services.dnsmasq = {
-    enable = true;
-    settings = {
-      # path: /etc/dnsmasq.d/dns-servers.conf
-      # only bind to lo
-      interface = "lo";
-      bind-interfaces = true;
-      # not use or poll /etc/resolv.conf
-      no-resolv = true;
-      no-poll = true;
-      # cache
-      # max live in cache
-      max-cache-ttl = 3600;
-      # min live in cache
-      min-cache-ttl = 300;
-      # 缓存不由 dnsmasq 负责
-      cache-size = 0;
-      # 启用顺序来先尝试 sing-box
-      strict-order = true;
-      server = [
-        "127.0.0.53"
-        # 回退源
-        # "223.5.5.5"
-      ];
-    };
-  };
+  # 使用 networkmanager 自带的
+  services.dnsmasq.enable = false;
+
   # 直接软链接有风险
   # environment.etc = {
   #   "dae/config.dae" = {
