@@ -38,7 +38,7 @@
       # Clutter 好像是一个图形界面的库
       CLUTTER_BACKEND = "wayland";
       # nh 的 flake 的查找路径
-      FLAKE = "$HOME/nixos_config";
+      NH_FLAKE = "$HOME/nixos_config";
       # BUN 默认不添加安装的Path
       BUN_INSTALL = "$HOME/.bun";
       # 有些程序会使用这个变量

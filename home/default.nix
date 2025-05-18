@@ -48,6 +48,8 @@
           emulatorVersion = "33.1.6";
         }).androidsdk
       )
+      # 一个思维链 md 笔记软件
+      obsidian
       # 镜像屏幕
       wl-mirror
       uv
@@ -311,6 +313,9 @@
         Host jt
           HostName 183.246.174.89
           User wcxsb
+        Host zwt
+          HostName 36.170.109.135
+          User root
       '';
     };
   };

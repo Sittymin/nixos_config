@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   nixpkgs.overlays = [
     (final: prev: {
@@ -47,6 +47,11 @@
               # sed -i 's|hicolor-backup|Adwaita,hicolor-backup|g' "$dir/index.theme"
             done
           '';
+        }
+      );
+      librime = prev.librime.overrideAttrs (
+        finalAttrs: previousAttrs: {
+          buildInputs = (previousAttrs.buildInputs or [ ]) ++ [ pkgs.luajit ]; # 用luajit
         }
       );
     })

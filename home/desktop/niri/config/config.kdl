@@ -52,7 +52,8 @@ output "Invalid Vendor Codename - RTK Monitor 0000000000001" {
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
-    transform "normal"
+    // transform "normal"
+    transform "90"
 
     // 实际输出的缩放
     scale 2.0
@@ -64,7 +65,7 @@ output "Invalid Vendor Codename - RTK Monitor 0000000000001" {
     // 例如，一个缩放为2.0的3840×2160输出将具有1920×1080的逻辑大小，
     // 因此要将另一个输出直接放置在其右侧，需将其x设置为1920。
     // 如果位置未设置或导致重叠，则输出将自动放置。
-    position x=2560 y=0
+    position x=0 y=0
 }
 output "SKYDATA S.P.A. G1AF24C-T240F             " {
     mode "1920x1080@144.001"
@@ -89,7 +90,7 @@ output "Philips Consumer Electronics Company 245S9RB UK02441059214" {
     // 例如，一个缩放为2.0的3840×2160输出将具有1920×1080的逻辑大小，
     // 因此要将另一个输出直接放置在其右侧，需将其x设置为1920。
     // 如果位置未设置或导致重叠，则输出将自动放置。
-    position x=0 y=0
+    position x=720 y=0
 }
 
 window-rule {
@@ -227,6 +228,10 @@ layout {
         // top 64
         // bottom 64
     }
+
+    // 使工作区背景透明
+    background-color "transparent"
+
 }
 
 // 随niri一起启动的程序。
@@ -261,6 +266,28 @@ hotkey-overlay {
     skip-at-startup
 }
 
+// -- 让概览中壁纸不要缩放
+// 使壁纸作为概览的背景
+layer-rule {
+    // 为了找到正确的 namespace 可以通过运行 niri msg layers.
+    match namespace="^swww-daemon$"
+    place-within-backdrop true
+}
+
+window-rule {
+    match is-floating=true
+    // 窗口上下浮动
+    baba-is-float true
+}
+
+// 关闭工作区阴影
+overview {
+    workspace-shadow {
+        off
+    }
+}
+// ----------------------------
+
 // Animation settings.
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
 animations {
@@ -272,53 +299,203 @@ animations {
 
     // 使用的配置https://github.com/YaLTeR/niri/discussions/325#discussioncomment-9492497
     window-open {
-        // 动画持续时间，单位为毫秒
-        duration-ms 350
+        duration-ms 250 // 您可以根据喜好调整时长
+        curve "ease-out-cubic" // 选择一个合适的缓动曲线
+        custom-shader r#"
+            // 函数定义参考 open_custom_shader.txt
+            vec4 open_from_middle_line(vec3 coords_geo, vec3 size_geo) {
+                float p = niri_clamped_progress; // 动画进度，从 0 到 1
+
+                vec4 color = vec4(0.0, 0.0, 0.0, 0.0); // 默认为完全透明
+
+                // 如果进度非常小，几乎不可见，直接返回透明
+                if (p <= 0.001) {
+                    return color;
+                }
+
+                // 计算当前进度下，窗口在垂直方向上应该显示的范围
+                // p=0 时, top=0.5, bottom=0.5 (一条线)
+                // p=1 时, top=0.0, bottom=1.0 (完整高度)
+                float current_half_height = p * 0.5;
+                float visible_top_y = 0.5 - current_half_height;
+                float visible_bottom_y = 0.5 + current_half_height;
+
+                // 检查当前片元是否在可见区域内
+                if (coords_geo.x >= 0.0 && coords_geo.x <= 1.0 &&
+                    coords_geo.y >= visible_top_y && coords_geo.y <= visible_bottom_y) {
+                    
+                    // 将几何坐标转换为纹理坐标
+                    vec3 coords_tex = niri_geo_to_tex * coords_geo;
+                    color = texture2D(niri_tex, coords_tex.st); // 从窗口纹理中采样颜色
+
+                    // 根据进度调整透明度，实现淡入效果
+                    // niri_clamped_progress 用于确保窗口在扩展的同时渐显
+                    color *= p; 
+                }
+
+                return color;
+            }
+
+            vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+                return open_from_middle_line(coords_geo, size_geo);
+            }
+        "#
+    }
+
+    window-close {
+        duration-ms 500 // 您可以根据效果调整，确保有足够时间飞出
         curve "linear"
-        custom-shader r"
-            vec4 expanding_circle(vec3 coords_geo, vec3 size_geo) {
-            vec3 coords_tex = niri_geo_to_tex * coords_geo;
-            vec4 color = texture2D(niri_tex, coords_tex.st);
-            vec2 coords = (coords_geo.xy - vec2(0.5, 0.5)) * size_geo.xy * 2.0;
-            coords = coords / length(size_geo.xy);
-            float p = niri_clamped_progress;
-            if (p * p <= dot(coords, coords))
-            color = vec4(0.0);
-            return color;
-        }
+        custom-shader r#"
+            vec4 throw_360_and_rotate(vec3 coords_geo, vec3 size_geo) {
+                float p_clamped = niri_clamped_progress;
+                // 使用平方进度，使动画具有加速“抛出”的效果
+                float effective_progress = p_clamped * p_clamped;
 
-        vec4 open_color(vec3 coords_geo, vec3 size_geo) {
-            return expanding_circle(coords_geo, size_geo);
-        }
-        "
-     }
+                // 使用您原始代码中的旋转轴心：底部中心 vec2(0.5, 1.0)
+                // 如果希望围绕窗口中心旋转，可以改成 vec2(0.5, 0.5)
+                vec2 pivot_geo = vec2(0.5, 1.0); 
+                
+                // 1. 将坐标从几何空间转换到以轴心为原点的像素空间
+                vec2 coords_pixels = (coords_geo.xy - pivot_geo) * size_geo.xy;
 
-   window-close {
-      duration-ms 500
-      curve "linear"
-      custom-shader r"
-        vec4 fall_and_rotate(vec3 coords_geo, vec3 size_geo) {
-            float progress = niri_clamped_progress * niri_clamped_progress;
-            vec2 coords = (coords_geo.xy - vec2(0.5, 1.0)) * size_geo.xy;
-            coords.y -= progress * 1440.0;
-            float random = (niri_random_seed - 0.5) / 2.0;
-            random = sign(random) - random;
-            float max_angle = 0.5 * random;
-            float angle = progress * max_angle;
-            mat2 rotate = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-            coords = rotate * coords;
-            coords_geo = vec3(coords / size_geo.xy + vec2(0.5, 1.0), 1.0);
-            vec3 coords_tex = niri_geo_to_tex * coords_geo;
-            vec4 color = texture2D(niri_tex, coords_tex.st);
+                // --- 2. 计算位移（360度随机方向）---
+                // 使用 niri_random_seed 生成一个 [0, 2*PI) 的随机角度
+                float throw_angle_rad = niri_random_seed * 2.0 * 3.1415926535; 
+                
+                // 增加移动距离以确保窗口能飞出屏幕。您可以根据需要调整此值。
+                // 之前 1440.0 可能对某些方向或屏幕尺寸不够。
+                float travel_distance_pixels = effective_progress * 2500.0; 
 
-            return color;
-        }
+                coords_pixels.x += cos(throw_angle_rad) * travel_distance_pixels;
+                coords_pixels.y += sin(throw_angle_rad) * travel_distance_pixels;
 
-        vec4 close_color(vec3 coords_geo, vec3 size_geo) {
-            return fall_and_rotate(coords_geo, size_geo);
-        }
-      "
-   }
+                // --- 3. 计算旋转 ---
+                // 为了让旋转效果与抛出方向使用不同的随机特性，
+                // 我们对原始种子进行一些变换来派生旋转用的随机值。
+                float rotation_seed_input = fract(niri_random_seed * 12.34567); // 生成一个不同的 [0,1) 的值
+
+                // 沿用您之前的随机数生成逻辑来决定旋转角度和方向
+                float random_val_for_angle_cfg = (rotation_seed_input - 0.5) / 2.0; // Range: [-0.25, 0.25)
+                random_val_for_angle_cfg = sign(random_val_for_angle_cfg) - random_val_for_angle_cfg; // Range: ~[-1,-0.5] U [0.5,1]
+                
+                // 您原始的旋转系数。如果希望更剧烈的旋转，可以增大此值。
+                float max_angle_coeff = 5.0; 
+                float current_angle_rad = effective_progress * max_angle_coeff * random_val_for_angle_cfg;
+                
+                mat2 rotation_matrix = mat2(cos(current_angle_rad), -sin(current_angle_rad), 
+                                            sin(current_angle_rad), cos(current_angle_rad));
+                // 在像素空间应用旋转
+                coords_pixels = rotation_matrix * coords_pixels;
+
+                // 4. 将坐标从像素空间转换回几何空间 (加上轴心点偏移)
+                // 使用 coords_geo.z 保持原始的z值
+                vec3 transformed_coords_geo = vec3(coords_pixels / size_geo.xy + pivot_geo, coords_geo.z);
+
+                // 5. 纹理采样
+                // 使用 niri 提供的 niri_geo_to_tex 矩阵将变换后的几何坐标转为纹理坐标
+                vec3 coords_for_niri_tex_lookup = niri_geo_to_tex * transformed_coords_geo;
+                vec4 color = texture2D(niri_tex, coords_for_niri_tex_lookup.st);
+
+                // 直接返回采样颜色，不修改透明度和缩放。
+                // 窗口的“消失”依赖于其内容完全移出 niri 渲染的原始窗口区域。
+                return color;
+            }
+
+            vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+                return throw_360_and_rotate(coords_geo, size_geo);
+            }
+        "#
+    }
+    // 增加黏滞区域显示边框颜色
+    // 还是太闪了
+    // window-resize {
+    //     duration-ms 500
+    //     curve "ease-out-cubic"
+    //     custom-shader r#"
+    //         vec4 light_blue_color = vec4(0.498039, 0.784314, 1.0, 0.1); // 淡蓝色 (RGB)
+    //         vec4 transparent_color = vec4(0.0, 0.0, 0.0, 0.0);    // 完全透明
+
+    //         vec4 resize_color(vec3 coords_curr_geo, vec3 size_curr_geo) {
+    //             float p = niri_clamped_progress; // 动画进度, 0 (开始) 到 1 (结束)
+
+    //             // 1. 将当前像素的坐标转换到“之前” (prev_geo) 和“之后” (next_geo) 的几何空间
+    //             vec2 uv_in_prev_geo = (niri_curr_geo_to_prev_geo * coords_curr_geo).xy; //
+    //             vec2 uv_in_next_geo = (niri_curr_geo_to_next_geo * coords_curr_geo).xy; //
+
+    //             // 2. 处理在“之前”窗口几何区域之外的像素 (例如阴影)
+    //             if (uv_in_prev_geo.x < -0.001 || uv_in_prev_geo.x > 1.001 ||
+    //                 uv_in_prev_geo.y < -0.001 || uv_in_prev_geo.y > 1.001) {
+    //                 return texture2D(niri_tex_prev, (niri_geo_to_tex_prev * coords_curr_geo).st); //
+    //             }
+
+    //             // 3. 如果像素在最终缩小的窗口内部 (next_geo)，则显示最终窗口的内容
+    //             if (uv_in_next_geo.x >= 0.0 && uv_in_next_geo.x <= 1.0 &&
+    //                 uv_in_next_geo.y >= 0.0 && uv_in_next_geo.y <= 1.0) {
+    //                 return texture2D(niri_tex_next, (niri_geo_to_tex_next * coords_curr_geo).st); //
+    //             }
+
+    //             // 4. 像素在 prev_geo 内部但在 next_geo 外部 (即窗口缩小后让出的空间)
+    //             // 在这个区域应用黏滞的淡蓝色效果。
+
+    //             // 判断是否正在缩小 (基于当前帧的 curr_geo 与 next_geo 的相对大小)
+    //             // 这个判断对于确保效果只在缩小时出现很重要。
+    //             bool is_shrinking_overall = (niri_curr_geo_to_next_geo[0][0] > 1.001 || niri_curr_geo_to_next_geo[1][1] > 1.001); //
+
+    //             if (!is_shrinking_overall && p < 0.999) { // p < 0.999 避免在动画结束瞬间的判断问题
+    //                 // 如果不是缩小动画，但仍落入此区域 (例如窗口形状复杂变化)，则显示上一帧内容。
+    //                 return texture2D(niri_tex_prev, (niri_geo_to_tex_prev * coords_curr_geo).st); //
+    //             }
+    //             if (!is_shrinking_overall && p >= 0.999) { // 动画结束时，如果不是缩小，则应该是透明或next_tex的内容（但已处理）
+    //                 return transparent_color;
+    //             }
+
+
+    //             // --- 计算淡蓝色区域的“黏滞”不透明度 ---
+    //             float margin_size = 0.25;      // 黏滞感应区域的相对宽度 (从prev_geo边缘向内)
+    //             float sticky_strength = 0.9;   // 黏滞强度 (0-1)，值越大，蓝色“消失”得越慢
+
+    //             // 计算当前像素 uv_in_prev_geo 到 prev_geo 四个边缘的最小距离
+    //             float dist_to_edge_x = min(uv_in_prev_geo.x, 1.0 - uv_in_prev_geo.x); // 0 在边缘, 0.5 在中心
+    //             float dist_to_edge_y = min(uv_in_prev_geo.y, 1.0 - uv_in_prev_geo.y);
+
+    //             // 默认情况下，蓝色区域是完全不透明的 (alpha = 1.0)
+    //             float blue_alpha = 1.0;
+
+    //             // X轴: 计算蓝色在该点由于黏滞效应而应有的不透明度
+    //             if (dist_to_edge_x < margin_size) {
+    //                 float norm_dist_in_margin = dist_to_edge_x / margin_size; // 0 在最外边缘, 1 在黏滞区内边缘
+    //                 // "effective_progress_for_fading_blue": 蓝色开始变得透明的有效进度
+    //                 // 在最外边缘 (norm_dist_in_margin = 0)，这个进度因为 sticky_strength 的作用而滞后于 p
+    //                 float effective_p_fade = p * (1.0 - sticky_strength * (1.0 - smoothstep(0.0, 1.0, norm_dist_in_margin)));
+    //                 // blue_alpha 从 1 (不透明) 过渡到 0 (透明)，随着 effective_p_fade 从 0 到 1
+    //                 blue_alpha = min(blue_alpha, 1.0 - effective_p_fade);
+    //             } else {
+    //                 // 在黏滞感应区之外 (更靠近中心)，蓝色则根据实际进度 p 变得透明
+    //                 blue_alpha = min(blue_alpha, 1.0 - p);
+    //             }
+
+    //             // Y轴: 类似计算
+    //             if (dist_to_edge_y < margin_size) {
+    //                 float norm_dist_in_margin = dist_to_edge_y / margin_size;
+    //                 float effective_p_fade = p * (1.0 - sticky_strength * (1.0 - smoothstep(0.0, 1.0, norm_dist_in_margin)));
+    //                 blue_alpha = min(blue_alpha, 1.0 - effective_p_fade);
+    //             } else {
+    //                 blue_alpha = min(blue_alpha, 1.0 - p);
+    //             }
+                
+    //             blue_alpha = clamp(blue_alpha, 0.0, 1.0);
+
+    //             return vec4(light_blue_color.rgb, light_blue_color.a * blue_alpha);
+    //         }
+    //     "#
+    // }
+}
+
+gestures {
+    // 关闭移动到左上角触发概览
+    hot-corners {
+        off
+    }
 }
 
 binds {
@@ -336,17 +513,10 @@ binds {
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    // Suggested binds for running programs: terminal, app launcher, screen locker.
-    // Mod+Q { spawn "kitty"; }
     Mod+Q { spawn "kitty"; }
     Mod+B { spawn "firefox"; }
     // 用到了四个程序 sh tofi xargs niri
     Mod+R { spawn "sh" "-c" "tofi-drun | xargs niri msg action spawn --"; }
-    // Super+Alt+L { spawn "swaylock"; }
-
-    // You can also use a shell. Do this if you need pipes, multiple commands, etc.
-    // Note: the entire command goes as a single argument in the end.
-    // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
     // 键盘按钮控制 PipeWire & WirePlumber.
     // XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
@@ -355,102 +525,58 @@ binds {
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     Mod+C { close-window; }
-    // 平铺式与标签式切换
-    Mod+W { toggle-column-tabbed-display; }
 
-    Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-down; }
-    Mod+Up    { focus-window-up; }
-    Mod+Right { focus-column-right; }
+    // 激活窗口切换
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down-or-top; }
     Mod+K     { focus-window-up-or-bottom; }
     Mod+L     { focus-column-right; }
 
-    Mod+Shift+Left  { move-column-left; }
-    Mod+Shift+Down  { move-window-down; }
-    Mod+Shift+Up    { move-window-up; }
-    Mod+Shift+Right { move-column-right; }
+    // 激活窗口移动
     Mod+Shift+H     { move-column-left; }
     Mod+Shift+J     { move-window-down; }
     Mod+Shift+K     { move-window-up; }
     Mod+Shift+L     { move-column-right; }
 
-    // Alternative commands that move across workspaces when reaching
-    // the first or last window in a column.
-    // Mod+J     { focus-window-or-workspace-down; }
-    // Mod+K     { focus-window-or-workspace-up; }
-    // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
-
+    // 激活第一个
     Mod+Insert { focus-column-first; }
+    // 激活最后一个
     Mod+End  { focus-column-last; }
-    Mod+Ctrl+Insert { move-column-to-first; }
-    Mod+Ctrl+End  { move-column-to-last; }
+    Mod+Shift+Insert { move-column-to-first; }
+    Mod+Shift+End  { move-column-to-last; }
 
-    Mod+Ctrl+Left  { focus-monitor-left; }
-    Mod+Ctrl+Down  { focus-monitor-down; }
-    Mod+Ctrl+Up    { focus-monitor-up; }
-    Mod+Ctrl+Right { focus-monitor-right; }
+    // 显示器之间移动
     Mod+Ctrl+H     { focus-monitor-left; }
     Mod+Ctrl+J     { focus-monitor-down; }
     Mod+Ctrl+K     { focus-monitor-up; }
     Mod+Ctrl+L     { focus-monitor-right; }
 
-    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
     Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
 
-    // Alternatively, there are commands to move just a single window:
+    // 只移动单个窗口
     // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
     // ...
 
-    // And you can also move a whole workspace to another monitor:
+    // 移动整个工作区
     // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
     // ...
 
-    Mod+Page_Down      { focus-workspace-down; }
-    Mod+Page_Up        { focus-workspace-up; }
+    // 工作区移动
     Mod+U              { focus-workspace-down; }
     Mod+I              { focus-workspace-up; }
-    Mod+Shift+Page_Down { move-column-to-workspace-down; }
-    Mod+Shift+Page_Up   { move-column-to-workspace-up; }
     Mod+Shift+U         { move-column-to-workspace-down; }
     Mod+Shift+I         { move-column-to-workspace-up; }
-
-    // Alternatively, there are commands to move just a single window:
-    Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
-    Mod+Ctrl+Page_Up { move-window-to-workspace-up; }
-    Mod+Ctrl+U { move-window-to-workspace-down; }
-    Mod+Ctrl+I { move-window-to-workspace-up; }
-    // ...
-
-    // Mod+Shift+Page_Down { move-workspace-down; }
-    // Mod+Shift+Page_Up   { move-workspace-up; }
-    // Mod+Shift+U         { move-workspace-down; }
-    // Mod+Shift+I         { move-workspace-up; }
 
     // 滚轮相关
     Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
-    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
     // 实际上一般鼠标不可以左右滚动滚轮
-    Mod+WheelScrollRight      { focus-column-right; }
-    Mod+WheelScrollLeft       { focus-column-left; }
-    Mod+Ctrl+WheelScrollRight { move-column-right; }
-    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
-
-    // 通常在应用程序中按住Shift进行上下滚动会导致水平滚动；这些绑定复制了这种行为
-    Mod+Shift+WheelScrollDown      { focus-column-right; }
-    Mod+Shift+WheelScrollUp        { focus-column-left; }
-    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
-    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+    // 所以向左是Shift+鼠标滚轮向上
+    Mod+WheelScrollRight      cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+WheelScrollLeft       cooldown-ms=150 { move-column-to-workspace-up; }
 
     // niri 是动态工作区，使用时中间不会跨越空工作区
     Mod+1 { focus-workspace 1; }
@@ -484,18 +610,23 @@ binds {
     Mod+Ctrl+9 { move-window-to-workspace 9; }
 
     // 与之前的工作区切换焦点
-    Mod+Tab { focus-workspace-previous; }
+    // Mod+Tab { focus-workspace-previous; }
+     
+    // 切换概览(或者鼠标移动到屏幕左上方也可以实现: gestures 中的 hot-corners 功能)
+    Mod+Tab { toggle-overview; }
 
-    // Comma = 逗号; Period = 句号
+    // Comma = 逗号; Period = 句号; BracketLeft = "["; BracketRight = "]"
     // 合并到单列
     // Mod+Comma  { consume-window-into-column; }
     // 分割到不同列
     // Mod+Period { expel-window-from-column; }
 
+    // 平铺式与标签式切换
+    Mod+W { toggle-column-tabbed-display; }
+
     // 向左和向右合并或分割窗口到列
-    // 比上面好用 (Mod + 左右方括号)
-    Mod+BracketLeft  { consume-or-expel-window-left; }
-    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Y  { consume-or-expel-window-left; }
+    Mod+O { consume-or-expel-window-right; }
 
     // 在预设的宽度切换
     // Mod+R { switch-preset-column-width; }
@@ -505,6 +636,8 @@ binds {
     Mod+F { maximize-column; }
     // 全屏
     Mod+Shift+F { fullscreen-window; }
+    // 假全屏（让其他软件以为这个窗口全屏了）
+    Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
     // 居中列
     // Mod+C { center-column; }
 
@@ -523,7 +656,7 @@ binds {
     Mod+Shift+Minus { set-window-height "-10%"; }
     Mod+Shift+Equal { set-window-height "+10%"; }
 
-
+    // 截图
     Mod+P { screenshot; }
     Mod+Ctrl+P { screenshot-screen; }
     Mod+Alt+P { screenshot-window; }

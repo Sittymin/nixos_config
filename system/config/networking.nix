@@ -78,7 +78,8 @@
   # };
   # dae 代理
   services.dae = {
-    enable = true;
+    # NOTE: 公司里先用路由器的代理了
+    enable = false;
 
     openFirewall = {
       enable = true;
@@ -138,7 +139,7 @@
     config = {
       log.level = "info";
       # 用于发送命令
-      api.http = "127.0.0.53:8080";
+      api.http = "127.0.0.53:80";
 
       plugins = [
         # Domain/IP set
@@ -254,7 +255,7 @@
               # 对于国内域名, 转发到国内 DNS 以保证速度
               # WARN: 数组中只可以有一条，不然会不匹配
               matches = [
-                "qname $direct jp.sittymin.top bwg.wujiacheng.top new.tuhaobo.top"
+                "qname $direct jp.sittymin.top bwg.wujiacheng.top new.tuhaobo.top store.steampowered.com"
               ];
               exec = "$upstream_alidns";
             }
