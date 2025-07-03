@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 prepend_keymap = [
   # 返回当前 Git 仓库的根目录
   {on = [ "g", "r" ], run = 'shell -- ya emit cd "$(git rev-parse --show-toplevel)"'},

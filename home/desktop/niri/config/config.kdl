@@ -53,10 +53,12 @@ output "Invalid Vendor Codename - RTK Monitor 0000000000001" {
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
     // transform "normal"
-    transform "90"
+    transform "normal"
 
     // 实际输出的缩放
-    scale 2.0
+    // 1920x1080
+    // scale 1.33 
+    scale 2 
     // 输出在全局坐标空间中的位置。
     // 这会影响方向性监视器操作，如 "focus-monitor-left"，以及光标移动。
     // 光标只能在直接相邻的输出之间移动。
@@ -65,7 +67,7 @@ output "Invalid Vendor Codename - RTK Monitor 0000000000001" {
     // 例如，一个缩放为2.0的3840×2160输出将具有1920×1080的逻辑大小，
     // 因此要将另一个输出直接放置在其右侧，需将其x设置为1920。
     // 如果位置未设置或导致重叠，则输出将自动放置。
-    position x=0 y=0
+    position x=1920 y=0
 }
 output "SKYDATA S.P.A. G1AF24C-T240F             " {
     mode "1920x1080@144.001"
@@ -90,7 +92,7 @@ output "Philips Consumer Electronics Company 245S9RB UK02441059214" {
     // 例如，一个缩放为2.0的3840×2160输出将具有1920×1080的逻辑大小，
     // 因此要将另一个输出直接放置在其右侧，需将其x设置为1920。
     // 如果位置未设置或导致重叠，则输出将自动放置。
-    position x=720 y=0
+    position x=0 y=0
 }
 
 window-rule {
@@ -246,7 +248,9 @@ spawn-at-startup "swww img /etc/nixos/wallpaper/nixos-wallpaper-catppuccin-mocha
 // 4K 视频还是太吃性能了
 // spawn-at-startup "mpvpaper" "-o" "no-audio --loop" "*" "/home/Sittymin/WallPaper/碧蓝档案 | Blue Archive | Miyu (Swimsuit) | 4k 60.mp4"
 // 开启PBH
-spawn-at-startup "docker-compose" "-f" "/home/Sittymin/PBH/docker-compose.yml" "up" "-d"
+spawn-at-startup "docker" "compose" "-f" "/home/Sittymin/PBH/docker-compose.yml" "up" "-d"
+// 微信机器人
+spawn-at-startup "docker" "compose" "-f" "/home/Sittymin/Project/WeChatPadPro-docker/docker-compose.yml" "up" "-d"
 spawn-at-startup "qbittorrent-nox" "-d"
 // 同步文件 目前是Rime
 spawn-at-startup "syncthing"

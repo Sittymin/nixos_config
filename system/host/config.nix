@@ -4,6 +4,8 @@
 }:
 {
   hardware = {
+    # 允许使用闭源固件
+    enableAllFirmware = true;
     graphics = {
       enable = true;
       enable32Bit = true;

@@ -28,7 +28,7 @@
                 matches = [
                   {
                     # 波浪号表示后面是正则表达式
-                    "node.name" = "~alsa_output.*hdmi-stereo*";
+                    "node.name" = "~alsa_output.*hdmi-stereo";
                   }
                 ];
                 actions = {

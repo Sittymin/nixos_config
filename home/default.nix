@@ -41,13 +41,13 @@
   home.packages =
     with pkgs;
     [
-      (android-studio.withSdk
-        (androidenv.composeAndroidPackages {
-          includeNDK = true;
-          includeEmulator = true;
-          emulatorVersion = "33.1.6";
-        }).androidsdk
-      )
+      # (android-studio.withSdk
+      #   (androidenv.composeAndroidPackages {
+      #     includeNDK = true;
+      #     includeEmulator = true;
+      #   }).androidsdk
+      # )
+      chromium
       # 一个思维链 md 笔记软件
       obsidian
       # 镜像屏幕
@@ -102,8 +102,10 @@
       evince
       # EPUB and other
       foliate
-      # GUI文件管理器
+      # GUI 文件管理器
       xfce.thunar
+      # GUI 压缩文件查看
+      peazip
       # 缩略图
       xfce.tumbler
       # 配置软件（也会配置默认启动软件）
@@ -181,7 +183,7 @@
     ]);
 
   xdg.mimeApps = {
-    enable = true;
+    enable = false;
     ## 默认应用 参考: https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-latest.html
     # desktop 文件在 $env.XDG_DATA_DIRS 环境变量的各个目录中
     # 系统级

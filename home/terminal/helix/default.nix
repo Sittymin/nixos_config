@@ -131,7 +131,11 @@
             "debug"
           ];
         };
-        clangd.command = "${pkgs.clang-tools}/bin/clangd";
+        clangd.command = "${clang-tools}/bin/clangd";
+        # 负责 Python 代码检查与格式化
+        ruff.command = "${ruff}/bin/ruff";
+        # 负责 Python 自动补全
+        jedi.command = "${python313Packages.jedi-language-server}/bin/jedi-language-server";
       };
       language = [
         {
@@ -225,6 +229,8 @@
           language-servers = [ "guile-lsp-server" ];
         }
         {
+          # 启动的时候需要在项目根目录（也就是tsconfig,json）的位置直接 hx <代码文件>
+          # 才可以正确初始化 LSP
           name = "svelte";
           # 自动格式化
           # bun i -g prettier prettier-plugin-svelte
@@ -236,6 +242,30 @@
               "svelte"
               "--plugin"
               "prettier-plugin-svelte"
+            ];
+          };
+        }
+        {
+          name = "python";
+          # 自动格式化
+          auto-format = true;
+          formatter = {
+            command = "${ruff}/bin/ruff";
+            args = [
+              "format"
+              "-"
+            ];
+          };
+        }
+        {
+          name = "slint";
+          # 自动格式化
+          auto-format = true;
+          formatter = {
+            command = "slint-lsp";
+            args = [
+              "format"
+              "/dev/stdin"
             ];
           };
         }

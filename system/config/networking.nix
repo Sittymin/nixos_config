@@ -11,6 +11,9 @@
       # 指定 mosdns 作为首选 DNS 服务器
       server=127.0.0.53
 
+      # 我的软路由
+      server=192.168.47.1
+
       # 指定 223.5.5.5 作为备用 DNS 服务器
       server=223.5.5.5
 
@@ -79,7 +82,7 @@
   # dae 代理
   services.dae = {
     # NOTE: 公司里先用路由器的代理了
-    enable = false;
+    enable = true;
 
     openFirewall = {
       enable = true;
@@ -106,7 +109,7 @@
   systemd.services = {
     # 自动登录、断网与连接
     school = {
-      enable = false;
+      enable = true;
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
@@ -169,7 +172,7 @@
               # NOTE: 本来就会与 VPS 建立 TLS 连接
               # NOTE: DNS 再建立一个握手实在是太慢了
               # addr = "https://one.one.one.one/dns-query";
-              addr = "udp://1.1.1.1/dns-query";
+              addr = "1.1.1.1";
               # 无法使用?
               # socks5 = "127.0.0.1:7874";
               # dial_addr = "1.1.1.1";
@@ -182,7 +185,7 @@
             }
             {
               # addr = "https://one.one.one.one/dns-query";
-              addr = "udp://1.0.0.1/dns-query";
+              addr = "1.0.0.1";
               # 无法使用?
               # socks5 = "127.0.0.1:7874";
               # dial_addr = "1.0.0.1";
