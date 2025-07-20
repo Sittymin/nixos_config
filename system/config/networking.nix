@@ -82,7 +82,7 @@
   # dae 代理
   services.dae = {
     # NOTE: 公司里先用路由器的代理了
-    enable = true;
+    enable = false;
 
     openFirewall = {
       enable = true;
@@ -109,7 +109,7 @@
   systemd.services = {
     # 自动登录、断网与连接
     school = {
-      enable = true;
+      enable = false;
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {

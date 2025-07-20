@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-e0464e4.url = "github:NixOS/nixpkgs/e0464e47880a69896f0fb1810f00e0de469f770a";
+    nixpkgs-electron11.url = "github:NixOS/nixpkgs/nixos-23.11";
     # git 版本的软件
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
@@ -171,6 +172,50 @@
             };
           };
           modules = [
+            # 相当于在configuration.nix
+            (
+              { pkgs, ... }:
+              {
+                # 为官方 pkgs 增加其他包
+                nixpkgs.overlays = [
+                  (final: prev: {
+                    baidunetdisk = final.callPackage ./pkgs/baidunetdisk {
+                    };
+                    myRepo = inputs.myRepo.packages."${prev.system}";
+                    electron_11 =
+                      (import inputs.nixpkgs-electron11 {
+                        system = prev.system;
+                        config = {
+                          allowUnfree = true;
+                          permittedInsecurePackages = [ "electron-11.5.0" ];
+                        };
+                      }).electron_11;
+                  })
+                ];
+                # 允许的过时软件
+                nixpkgs.config.permittedInsecurePackages = [
+                  # xddxdd.dingtalk
+                  "openssl-1.1.1w"
+                ];
+                environment.systemPackages =
+                  (with pkgs.nur.repos; [
+                    # NOTE:主要用于给waydroid提供转译层
+                    # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
+                    # ataraxiasjel.waydroid-script
+
+                    xddxdd.dingtalk
+                  ])
+                  ++ (with pkgs; [
+                    # Waydroid 蔚蓝档案脚本修复需要
+                    # unixtools.xxd
+                    myRepo.reqable
+                    # markdown 编辑器
+                    # myRepo.steel
+                    baidunetdisk
+                  ]);
+
+              }
+            )
             ./modules/mosdns
             ./configuration.nix
             ./overlay
@@ -216,33 +261,6 @@
             (
               { pkgs, ... }:
               {
-                # 使用我的NUR
-                # 使用方法pkgs.myRepo.example-package
-                nixpkgs.overlays = [
-                  (final: prev: {
-                    myRepo = inputs.myRepo.packages."${prev.system}";
-                  })
-                ];
-                # 允许的过时软件
-                nixpkgs.config.permittedInsecurePackages = [
-                  # xddxdd.baidunetdisk
-                  "electron-11.5.0"
-                ];
-                environment.systemPackages =
-                  (with pkgs.nur.repos; [
-                    # NOTE:主要用于给waydroid提供转译层
-                    # 使用方法https://www.reddit.com/r/NixOS/comments/15k2jxc/need_help_with_activating_libhoudini_for_waydroid/
-                    # ataraxiasjel.waydroid-script
-
-                    xddxdd.baidunetdisk
-                  ])
-                  ++ (with pkgs; [
-                    # Waydroid 蔚蓝档案脚本修复需要
-                    # unixtools.xxd
-                    myRepo.reqable
-                    # markdown 编辑器
-                    # myRepo.steel
-                  ]);
               }
             )
             inputs.home-manager.nixosModules.home-manager

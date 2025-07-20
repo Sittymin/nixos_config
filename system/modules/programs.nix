@@ -90,8 +90,5 @@ in
   };
   environment.systemPackages = with pkgs; [
     difftastic
-    # Steam
-    gamemode
-    gamescope
   ];
 }

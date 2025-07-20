@@ -44,8 +44,7 @@
       # 开启 docker0 的 IPv6 forwarding（如果需要 IPv6）
       "net.ipv6.conf.docker0.forwarding" = 1;
     };
-    # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_13;
+    kernelPackages = pkgs.linuxPackages_latest;
     # 会花屏
     # kernelPackages = pkgs.linuxPackages_latest-libre;
     # OBS 虚拟摄像头

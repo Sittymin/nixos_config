@@ -52,7 +52,6 @@
       obsidian
       # 镜像屏幕
       wl-mirror
-      uv
       # 基于 VScode 的 AI 代码编辑器
       code-cursor
       moonlight-qt

@@ -19,7 +19,19 @@
       fcitx5 = {
         waylandFrontend = true;
         addons = with pkgs; [
-          fcitx5-rime
+          # 修改以支持 emoji
+          (fcitx5-rime.override {
+            librime =
+              (pkgs.librime.override {
+                plugins = [
+                  pkgs.librime-lua
+                  pkgs.librime-octagram
+                ];
+              }).overrideAttrs
+                (old: {
+                  buildInputs = (old.buildInputs or [ ]) ++ [ luajit ];
+                });
+          })
           # 日语支持
           fcitx5-anthy
         ];
