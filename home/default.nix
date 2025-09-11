@@ -41,6 +41,10 @@
   home.packages =
     with pkgs;
     [
+      jetbrains.idea-ultimate
+      busybox
+      kdePackages.kdeconnect-kde
+      alvr
       # (android-studio.withSdk
       #   (androidenv.composeAndroidPackages {
       #     includeNDK = true;
@@ -54,6 +58,8 @@
       wl-mirror
       # 基于 VScode 的 AI 代码编辑器
       code-cursor
+      kiro
+      vscode
       moonlight-qt
       # 利用 ssh 挂载远程文件夹
       sshfs
@@ -134,6 +140,7 @@
 
       #wine
       wineWowPackages.waylandFull
+      # android-translation-layer
       # 种子文件客户端
       qbittorrent
       # cli 的版本
@@ -170,8 +177,7 @@
       # ])
       (godot.override {
         withWayland = true;
-        # Wayland only 需要 https://github.com/godotengine/godot/pull/97771
-        # withX11 = false;
+        withX11 = false;
       })
       # 另外一个终端
       # inputs.ghostty.packages.x86_64-linux.default
@@ -302,20 +308,14 @@
     # 使用 SSH 密钥转发
     ssh = {
       enable = true;
+      enableDefaultConfig = false;
       extraConfig = ''
-        Host gs
-          HostName 192.168.2.5
-          User ps
+        Host wrt
+          HostName 192.168.47.1
+          User root
 
-        Host hkt
-          HostName 192.168.2.100
-          User administrator
-
-        Host jt
-          HostName 183.246.174.89
-          User wcxsb
-        Host zwt
-          HostName 36.170.109.135
+        Host jp
+          HostName 195.245.229.19
           User root
       '';
     };

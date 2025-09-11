@@ -1,11 +1,14 @@
 { inputs, ... }:
+let
+  flatpak_nu = ./flatpak-completions.nu;
+in
 {
   programs = {
     nushell = {
       enable = true;
       extraConfig = ''
         # 自定义自动补全
-        use /etc/nixos/home/terminal/nushell/custom_completions.nu *
+        source ${flatpak_nu}
         # 社区一些自动补全
         source ${inputs.nu-scripts}/custom-completions/adb/adb-completions.nu
         source ${inputs.nu-scripts}/custom-completions/cargo/cargo-completions.nu

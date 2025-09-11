@@ -136,6 +136,8 @@
         ruff.command = "${ruff}/bin/ruff";
         # 负责 Python 自动补全
         jedi.command = "${python313Packages.jedi-language-server}/bin/jedi-language-server";
+        slint-lsp.command = "${slint-lsp}/bin/slint-lsp";
+        wgsl-analyzer.command = "${wgsl-analyzer}/bin/wgsl-analyzer";
       };
       language = [
         {
@@ -262,11 +264,19 @@
           # 自动格式化
           auto-format = true;
           formatter = {
-            command = "slint-lsp";
+            command = "${slint-lsp}/bin/slint-lsp";
             args = [
               "format"
               "/dev/stdin"
             ];
+          };
+        }
+        {
+          name = "wgsl";
+          # 自动格式化
+          auto-format = true;
+          formatter = {
+            command = "${wgsl-analyzer}/bin/wgslfmt";
           };
         }
       ];
