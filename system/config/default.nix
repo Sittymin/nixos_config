@@ -47,6 +47,7 @@
       # https://github.com/mpv-player/mpv/discussions/13909
       # ANV_VIDEO_DECODE = 1;
       # https://bbs.archlinux.org/viewtopic.php?id=305668
+      # https://docs.mesa3d.org/envvars.html#anvil-anv-driver-environment-variables
       ANV_DEBUG = "video-decode";
     };
     # 用户帐户的可允许登录 shell 列表。/bin/sh会自动添加

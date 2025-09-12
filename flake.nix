@@ -209,7 +209,6 @@
                     # Waydroid 蔚蓝档案脚本修复需要
                     # unixtools.xxd
                     myRepo.reqable
-                    # markdown 编辑器
                     # myRepo.steel
                     baidunetdisk
                   ]);

@@ -309,6 +309,9 @@
     ssh = {
       enable = true;
       enableDefaultConfig = false;
+      matchBlocks = {
+        "*" = { }; # 声明默认的 match block
+      };
       extraConfig = ''
         Host wrt
           HostName 192.168.47.1

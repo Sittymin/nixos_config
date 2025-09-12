@@ -82,7 +82,7 @@
   # dae 代理
   services.dae = {
     # NOTE: 公司里先用路由器的代理了
-    enable = false;
+    enable = true;
 
     openFirewall = {
       enable = true;
@@ -142,7 +142,7 @@
     config = {
       log.level = "info";
       # 用于发送命令
-      api.http = "127.0.0.53:80";
+      api.http = "127.0.0.53:8080";
 
       plugins = [
         # Domain/IP set
@@ -169,32 +169,10 @@
           args.concurrent = 2;
           args.upstreams = [
             {
-              # NOTE: 本来就会与 VPS 建立 TLS 连接
-              # NOTE: DNS 再建立一个握手实在是太慢了
-              # addr = "https://one.one.one.one/dns-query";
               addr = "1.1.1.1";
-              # 无法使用?
-              # socks5 = "127.0.0.1:7874";
-              # dial_addr = "1.1.1.1";
-              # 解析出的 IP 版本
-              # bootstrap_version = 4;
-              # 连接复用保持时间 单位秒
-              # idle_timeout = 300;
-              # enable_pipeline = true;
-              # enable_http3 = true;
             }
             {
-              # addr = "https://one.one.one.one/dns-query";
               addr = "1.0.0.1";
-              # 无法使用?
-              # socks5 = "127.0.0.1:7874";
-              # dial_addr = "1.0.0.1";
-              # 解析出的 IP 版本
-              # bootstrap_version = 4;
-              # 连接复用保持时间 单位秒
-              # idle_timeout = 300;
-              # enable_pipeline = true;
-              # enable_http3 = true;
             }
           ];
         }
@@ -205,12 +183,12 @@
           args.upstreams = [
             {
               addr = "https://223.5.5.5/dns-query";
-              # dial_addr = "223.5.5.5";
+              dial_addr = "223.5.5.5";
               enable_http3 = true;
             }
             {
               addr = "https://223.6.6.6/dns-query";
-              # dial_addr = "223.6.6.6";
+              dial_addr = "223.6.6.6";
               enable_http3 = true;
             }
           ];
@@ -225,7 +203,7 @@
             # 所有应答都会在缓存中存留 lazy_cache_ttl 秒，但自身的 TTL 仍然有效。如果命中过期的应答，
             # 则缓存会立即返回 TTL 为 5 的应答，然后自动在后台发送请求更新数据。
             # 相比强行增加应答自身的 TTL 的方法，lazy cache 能提高命中率，同时还能保持一定的数据新鲜度。
-            lazy_cache_ttl = 86400; # lazy cache 生存时间。单位= 秒。默认= 0 (禁用 lazy cache)。
+            # lazy_cache_ttl = 86400; # lazy cache 生存时间。单位= 秒。默认= 0 (禁用 lazy cache)。
             # 建议值 86400（1天）~ 259200（3天）
 
           };
@@ -236,15 +214,17 @@
           type = "sequence";
           args = [
             # WARN: 修改之后部署之后需要利用systemctl 重启
+            # 广告拦截
             {
               matches = "qname $ads";
               exec = "reject 2";
             }
+            # 缓存检查（排除DDNS域名）
             {
               matches = [
-                "!qname ddns.ideal2077.com ddnsv6.ideal2077.com ddns.sittymin.top ddnsv6.sittymin.top"
+                "!qname ddns.sittymin.top ddnsv6.sittymin.top"
               ];
-              exec = "$cache"; # 然后。查找 cache。
+              exec = "$cache";
             }
             {
               matches = "has_resp";
@@ -254,40 +234,40 @@
               matches = "has_resp";
               exec = "accept";
             }
+            # DDNS 域名设置短 TTL
             {
-              # 对于国内域名, 转发到国内 DNS 以保证速度
-              # WARN: 数组中只可以有一条，不然会不匹配
               matches = [
-                "qname $direct jp.sittymin.top bwg.wujiacheng.top new.tuhaobo.top store.steampowered.com"
+                "qname ddns.sittymin.top ddnsv6.sittymin.top"
+              ];
+              exec = "ttl 1"; # ddns 域名 TTL 缩短
+            }
+            # 对于国内域名(direct列表)，直接转发到国内DNS，保持IPv4+IPv6双栈
+            {
+              matches = [
+                "qname $direct jp.sittymin.top"
               ];
               exec = "$upstream_alidns";
             }
             {
-              matches = [
-                "qname ddns.ideal2077.com ddnsv6.ideal2077.com ddns.sittymin.top ddnsv6.sittymin.top"
-              ];
-              exec = "ttl 1"; # ddns 域名 TTL 缩短
+              matches = "has_resp";
+              exec = "query_summary 国内域名双栈解析";
             }
             {
-              matches = [ "has_resp" ];
-              exec = "query_summary 国内解析";
-            }
-            {
-              matches = [ "has_resp" ];
+              matches = "has_resp";
               exec = "accept";
             }
+            # 明确需要国外解析的域名
             {
-              exec = "query_summary 删除 IPv6 回应";
-            }
-            {
-              # 因为可能没有很好的境外 IPv6 连接能力
-              exec = "prefer_ipv4";
+              matches = [
+                "qname $proxy blog.sittymin.top"
+              ];
+              exec = "query_summary 删除 IPv6 回应（国外域名）";
             }
             {
               matches = [
-                "qname ddns.ideal2077.com ddnsv6.ideal2077.com ddns.sittymin.top ddnsv6.sittymin.top"
+                "qname $proxy blog.sittymin.top"
               ];
-              exec = "ttl 1"; # ddns 域名 TTL 缩短
+              exec = "prefer_ipv4";
             }
             {
               matches = [
@@ -296,51 +276,53 @@
               exec = "$upstream_cloudflare";
             }
             {
-              matches = [ "has_resp" ];
+              matches = "has_resp";
               exec = "query_summary 国外解析";
             }
             {
-              matches = [ "has_resp" ];
+              matches = "has_resp";
               exec = "accept";
             }
+            # 对于其他域名（非direct，非proxy），删除IPv6响应，仅IPv4
+            {
+              exec = "query_summary 删除 IPv6 回应（其他域名）";
+            }
+            {
+              exec = "prefer_ipv4";
+            }
+
+            # 先用国内DNS尝试解析
             {
               exec = "$upstream_alidns";
             }
+
+            # 检查返回结果，如果是国外IP或被污染，重新用国外DNS解析
             {
               matches = [
-                "!resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 0.0.0.0 127.0.0.0/8 169.254.0.0/16 100.64.0.0/10 192.0.0.0/24 192.0.2.0/24 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 224.0.0.0/4 233.252.0.0/24 240.0.0.0/4"
+                "resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 127.0.0.0/8 169.254.0.0/16 100.64.0.0/10 192.0.0.0/24 192.0.2.0/24 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 224.0.0.0/4 240.0.0.0/4 0.0.0.0"
               ];
-              exec = "query_summary 国外域名国内解析";
+              exec = "query_summary 可能被 DNS 污染重新解析";
             }
             {
               matches = [
-                "resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 0.0.0.0 127.0.0.0/8 169.254.0.0/16 100.64.0.0/10 192.0.0.0/24 192.0.2.0/24 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 224.0.0.0/4 233.252.0.0/24 240.0.0.0/4"
-              ];
-              exec = "query_summary 国外域名国外解析";
-            }
-            {
-              matches = [
-                "resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 0.0.0.0 127.0.0.0/8 169.254.0.0/16 100.64.0.0/10 192.0.0.0/24 192.0.2.0/24 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 224.0.0.0/4 233.252.0.0/24 240.0.0.0/4"
+                "resp_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 127.0.0.0/8 169.254.0.0/16 100.64.0.0/10 192.0.0.0/24 192.0.2.0/24 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 224.0.0.0/4 240.0.0.0/4 0.0.0.0"
               ];
               exec = "$upstream_cloudflare";
             }
             {
-              matches = [ "has_resp" ];
+              matches = "has_resp";
+              exec = "query_summary 国外DNS解析完成";
+            }
+            {
+              matches = "has_resp";
               exec = "accept";
             }
+            # 如果国内DNS返回公网IP，则接受结果
             {
-              exec = "$upstream_alidns";
+              exec = "query_summary 国内DNS解析完成";
             }
             {
-              matches = [ "has_resp" ];
-              exec = "query_summary 国外解析失败回退到国内解析";
-            }
-            {
-              matches = [ "has_resp" ];
               exec = "accept";
-            }
-            {
-              exec = "query_summary 回退到国内解析也失败了";
             }
           ];
         }

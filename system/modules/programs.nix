@@ -62,14 +62,19 @@ in
         # 设置初始化的分支名位 main
         init.defaultBranch = "main";
 
-        # 使用 difftastic 美化修改对比 (git difftool)
-        diff.tool = "difftastic";
-        difftool.prompt = false;
-        # NOTE: 因为 NixOS 必须传入字符串 所以 difft "$LOCAL" "$REMOTE" 需要在最终配置加双引号的参数转义
-        difftool.difftastic.cmd = "difft \"$LOCAL\" \"$REMOTE\"";
-        pager.difftool = true;
+        # 使用 kitty 美化修改对比
+        diff = {
+          tool = "kitty";
+          guitool = "kitty.gui";
+        };
+        difftool = {
+          prompt = false;
+          trustExitCode = true;
+        };
+        difftool.kitty.cmd = "kitten diff $LOCAL $REMOTE";
+        difftool."kitty.gui".cmd = "kitten diff $LOCAL $REMOTE";
         # 为 git difftool 添加别名 git dft
-        alias.dft = "difftool";
+        # alias.dft = "difftool";
 
         # 设置Git使用GPG签名( HomeManager 代替，毕竟定义用户的不再全局)
         # user.signingkey = "747FDF0404DC5B77";
@@ -88,7 +93,4 @@ in
     # 咱不需要 nano (它默认开启)
     nano.enable = false;
   };
-  environment.systemPackages = with pkgs; [
-    difftastic
-  ];
 }
