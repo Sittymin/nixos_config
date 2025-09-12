@@ -77,10 +77,6 @@
         file
         # 可以使用 eglinfo 查看 mesa 版本
         mesa-demos
-        # Qt 图片加载库（JXL）
-        libsForQt5.kimageformats
-        # GTK 图片加载库
-        gdk-pixbuf
 
         # 音频兼容层(当前对于我的世界有用)
         alsa-oss
