@@ -120,17 +120,18 @@
           # check.command = "${clippy}/bin/cargo-clippy";
           check.command = "clippy";
         };
-        # steel-language-server = {
-        #   command = "${pkgs.myRepo.steel}/bin/steel-language-server";
-        #   args = [ ];
-        # };
-        guile-lsp-server = {
-          command = "${pkgs.myRepo.guile-lsp-server}/bin/guile-lsp-server";
-          args = [
-            "--log-level"
-            "debug"
-          ];
+        steel-language-server = {
+          command = "${pkgs.steel}/bin/steel-language-server";
+          args = [ ];
         };
+        # FIXME: 构建存在问题
+        # guile-lsp-server = {
+        #   command = "${pkgs.myRepo.guile-lsp-server}/bin/guile-lsp-server";
+        #   args = [
+        #     "--log-level"
+        #     "debug"
+        #   ];
+        # };
         clangd.command = "${clang-tools}/bin/clangd";
         # 负责 Python 代码检查与格式化
         ruff.command = "${ruff}/bin/ruff";
@@ -227,8 +228,8 @@
         }
         {
           name = "scheme";
-          # language-servers = [ "steel-language-server" ];
-          language-servers = [ "guile-lsp-server" ];
+          language-servers = [ "steel-language-server" ];
+          # language-servers = [ "guile-lsp-server" ];
         }
         {
           # 启动的时候需要在项目根目录（也就是tsconfig,json）的位置直接 hx <代码文件>

@@ -73,8 +73,8 @@ in
         };
         difftool.kitty.cmd = "kitten diff $LOCAL $REMOTE";
         difftool."kitty.gui".cmd = "kitten diff $LOCAL $REMOTE";
-        # 为 git difftool 添加别名 git dft
-        # alias.dft = "difftool";
+        # 添加使用 kitten 查看差异别名 git dft
+        alias.dft = "difftool --no-symlinks --dir-diff";
 
         # 设置Git使用GPG签名( HomeManager 代替，毕竟定义用户的不再全局)
         # user.signingkey = "747FDF0404DC5B77";

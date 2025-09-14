@@ -153,6 +153,9 @@
       url = "github:JakeStanger/ironbar";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # 无状态
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs =
@@ -226,6 +229,8 @@
             # 配置分区
             inputs.disko.nixosModules.disko
             ./disk-config.nix
+            # 无状态系统
+            inputs.impermanence.nixosModules.impermanence
 
             # 安全启动部分
             # inputs.lanzaboote.nixosModules.lanzaboote
@@ -257,11 +262,6 @@
             # inputs.daeuniverse.nixosModules.dae
             inputs.nix-index-database.nixosModules.nix-index
             inputs.niri.nixosModules.niri
-            (
-              { pkgs, ... }:
-              {
-              }
-            )
             inputs.home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

@@ -54,6 +54,12 @@
           "rc-manager" = "symlink";
         };
       };
+      # 使用 iwd 作为无线后端
+      wifi.backend = "iwd";
+    };
+    # 无线配置
+    wireless.iwd = {
+      enable = true;
     };
     # 防火墙由上级路由器配置
     firewall = {
@@ -331,6 +337,7 @@
           type = "udp_server";
           args = {
             entry = "main";
+            # 如果放到路由器上应当是使用 0.0.0.0 ，但是由于我主机是使用 nm 的 dnsmasq 所以监听本地即可
             listen = "127.0.0.53:53";
           };
         }

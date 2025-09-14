@@ -51,7 +51,7 @@
     # NOTE:允许非自由软件
     allowUnfree = true;
     # NOTE: 同意安卓许可
-    android_sdk.accept_license = true;
+    # android_sdk.accept_license = true;
   };
 
   # 让 Qt 软件使用 gnome 的暗色外观
@@ -108,12 +108,12 @@
   # sudo swapon /swapfile
 
   # NOTE: 如果修改交换分区需要先禁用然后删除 swap 文件最后重新执行上面的步骤
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 8192; # 可选：指定大小（以 MiB 为单位）
-    }
-  ];
+  # swapDevices = [
+  #   {
+  #     device = "/swapfile";
+  #     size = 8192; # 可选：指定大小（以 MiB 为单位）
+  #   }
+  # ];
   fileSystems = {
     "/mnt/CT1000MX500SSD1" = {
       device = "/dev/sda";
