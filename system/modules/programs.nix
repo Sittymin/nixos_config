@@ -92,5 +92,10 @@ in
     };
     # 咱不需要 nano (它默认开启)
     nano.enable = false;
+
+    alvr = {
+      enable = false;
+      openFirewall = true;
+    };
   };
 }

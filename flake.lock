@@ -19,7 +19,7 @@
     "adsList": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-piywWpuCQRqttM0dF2x9iE14ZdH7l/c9rsvZUtrtEuI=",
+        "narHash": "sha256-CHe2c9HuP8qhWWlghTIv63+5MaRBqlns77VntnS9fz0=",
         "type": "file",
         "url": "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/reject-list.txt"
       },
@@ -86,7 +86,7 @@
     "directList": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-bJSf8s8MhGNoC5HIA7Z/ps2E8FKEXOvfiZ/YirRdH/4=",
+        "narHash": "sha256-W7AokfAx8NgbFcpUMM/lE3veB/OiQqbGiYUGD8tEsD4=",
         "type": "file",
         "url": "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/direct-list.txt"
       },
@@ -303,6 +303,22 @@
         "type": "github"
       }
     },
+    "flatpaks": {
+      "locked": {
+        "lastModified": 1754772718,
+        "narHash": "sha256-AlYxWTqGiYlyMbMkh7Zt+2wekPxd3d1x6INbr2nQtTI=",
+        "owner": "in-a-dil-emma",
+        "repo": "declarative-flatpak",
+        "rev": "8ca8ff9fffb6c94561b74f79569a0ac0e43464c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "in-a-dil-emma",
+        "ref": "stable-v3",
+        "repo": "declarative-flatpak",
+        "type": "github"
+      }
+    },
     "ghostty": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -382,6 +398,21 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "impermanence": {
+      "locked": {
+        "lastModified": 1737831083,
+        "narHash": "sha256-LJggUHbpyeDvNagTUrdhe/pRVp4pnS6wVKALS782gRI=",
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "rev": "4b3e914cdf97a5b536a889e939fb2fd2b043a170",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "impermanence",
         "type": "github"
       }
     },
@@ -894,7 +925,7 @@
     "proxyList": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-dPUUyAtwFo0R8Eq7LMhhkYtQO+ftENaPFlC5l0y5D4k=",
+        "narHash": "sha256-tUKgYxob8X1h+oT1sY9Pr0W8aY3hGy1U7tBoLG1TUMk=",
         "type": "file",
         "url": "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/proxy-list.txt"
       },
@@ -946,9 +977,11 @@
         "disko": "disko",
         "fbriere-mpv-scripts": "fbriere-mpv-scripts",
         "firefox-gnome-theme": "firefox-gnome-theme",
+        "flatpaks": "flatpaks",
         "ghostty": "ghostty",
         "helix": "helix",
         "home-manager": "home-manager_2",
+        "impermanence": "impermanence",
         "ironbar": "ironbar",
         "mpv-progressbar": "mpv-progressbar",
         "myRepo": "myRepo",
@@ -1130,7 +1163,7 @@
     "v2ray-geosite-dat": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-2b7eR8VNlHZJm2Lm7KwsrIUAJ+40nTn+qnSitZiLy8o=",
+        "narHash": "sha256-Xp6aCv1gyPbYHy0aEk4ZKTzVZtVK6auFpe3UM72v9Hk=",
         "type": "file",
         "url": "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
       },

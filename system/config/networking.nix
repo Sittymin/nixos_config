@@ -57,10 +57,6 @@
       # 使用 iwd 作为无线后端
       wifi.backend = "iwd";
     };
-    # 无线配置
-    wireless.iwd = {
-      enable = true;
-    };
     # 防火墙由上级路由器配置
     firewall = {
       enable = false;
@@ -88,7 +84,7 @@
   # dae 代理
   services.dae = {
     # NOTE: 公司里先用路由器的代理了
-    enable = true;
+    enable = false;
 
     openFirewall = {
       enable = true;

@@ -156,6 +156,9 @@
 
     # 无状态
     impermanence.url = "github:nix-community/impermanence";
+
+    # flatpak 由 nix 管理
+    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
   };
 
   outputs =
@@ -231,6 +234,8 @@
             ./disk-config.nix
             # 无状态系统
             inputs.impermanence.nixosModules.impermanence
+
+            inputs.flatpaks.nixosModule
 
             # 安全启动部分
             # inputs.lanzaboote.nixosModules.lanzaboote

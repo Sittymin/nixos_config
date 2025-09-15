@@ -1,4 +1,6 @@
 {
+  # WARN: 新路径由于需要创建映射路径，所以会被覆盖为空
+  # WARN: 记得备份放到映射过来的路径
   # 持久路径部分
   environment.persistence."/nix/persistent" = {
     # 不作为挂载磁盘显示
@@ -9,6 +11,8 @@
       "/etc/NetworkManager/system-connections"
       # 全局缓存
       "/var/cache"
+      # 用户映射信息
+      "/var/lib/nixos"
       # 持久化 systemd 日志目录
       "/var/log/journal"
     ];
@@ -20,17 +24,48 @@
     # 用户目录文件
     users.Sittymin = {
       directories = [
+        "nixos_config"
+
+        "Development"
         "Documents"
         "Downloads"
         "Music"
         "Pictures"
+        "Public"
         "Videos"
+
+        "StaticDoNotUpload"
 
         ".cache"
         ".gnupg"
         ".ssh"
+
+        # 火狐浏览器数据
+        ".mozilla"
+        # Steam 文件数据
+        ".local/share/Steam"
+        # Steam 客户端设置
+        ".steam"
+
+        # Rime 同步文件夹
+        ".local/share/fcitx5/rime/sync"
+        # Syncthing 同步软件设置的文件夹
+        ".local/state/syncthing"
+        # yazi 插件
+        ".config/yazi/plugins"
+        # flatpak 数据 (NOTE: 全局的安装会重启时删除)
+        ## 每个 Flatpak 应用的用户数据
+        ".var/app"
       ];
-      files = [ ];
+      files = [
+        # Rime 的安装信息（不可以 NixOS 配置来生成）
+        # WARN: 当中的 installation_id 是用于同步的文件夹名
+        ".local/share/fcitx5/rime/installation.yaml"
+        # nushell 历史命令
+        ".config/nushell/history.txt"
+        # yazi 插件信息
+        ".config/yazi/package.toml"
+      ];
     };
   };
   # 避免构建时在内存中
@@ -96,8 +131,7 @@
 
                   # 存放 NixOS 系统的分区，使用剩下的所有空间。
                   content = {
-                    type = "filesystem";
-                    format = "btrfs";
+                    type = "btrfs";
                     # 格式化时直接覆盖
                     extraArgs = [ "-f" ];
                     # 用作 Nix 分区，Disko 生成磁盘镜像时根据此处配置挂载分区，需要和 fileSystems.* 一致
@@ -197,9 +231,9 @@
 
   # 解锁 LUKS（必须）
   boot.initrd.luks.devices.crypted = {
-    # 指向承载 Btrfs 的那块加密分区（推荐用 PARTUUID/UUID，而不是 /dev/nvme0n1p2 这类易变路径）
-    device = "/dev/disk/by-partuuid/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
-    allowDiscards = true; # 与你的需求一致
+    # 指向承载 Btrfs 的那块加密分区
+    device = "/dev/nvme0n1p2";
+    allowDiscards = true; # 与disko的配置一致
     # 交互式输入密码（常见做法）
     # 如需 keyfile 非交互式解锁，配合 boot.initrd.secrets 使用：
     # keyFile = "/keyfile.bin";

@@ -163,9 +163,9 @@
                 # 使用输入法的语言来显示文字
                 UseInputMethodLanguageToDisplayText = "True";
                 # 主题
-                Theme = "Mellow Graphite dark";
+                Theme = "mellow-graphite-dark";
                 # 深色主题
-                DarkTheme = "Mellow Graphite dark";
+                DarkTheme = "mellow-graphite-dark";
                 # 跟随系统浅色/深色设置
                 UseDarkTheme = "False";
                 # 当被主题和桌面支持时使用系统的重点色

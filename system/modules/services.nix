@@ -39,6 +39,13 @@
     };
     flatpak = {
       enable = true;
+      remotes = {
+        "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      };
+      packages = [
+        "flathub:app/com.tencent.WeChat/x86_64/stable"
+        "flathub:app/com.bambulab.BambuStudio/x86_64/stable"
+      ];
     };
     # 自动挂载与管理U盘
     # 挂载位置在 /run/media

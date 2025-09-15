@@ -44,7 +44,6 @@
       jetbrains.idea-ultimate
       # busybox
       kdePackages.kdeconnect-kde
-      # alvr
       # (android-studio.withSdk
       #   (androidenv.composeAndroidPackages {
       #     includeNDK = true;

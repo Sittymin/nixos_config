@@ -11,7 +11,7 @@
   };
   programs.niri = {
     enable = true;
-    package = pkgs.niri-unstable;
+    package = pkgs.niri-stable;
   };
   # 是 niri flake 中的
   # https://github.com/sodiboo/niri-flake/blob/main/flake.nix#L271
