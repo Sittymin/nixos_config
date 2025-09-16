@@ -15,6 +15,8 @@
       "/var/lib/nixos"
       # 持久化 systemd 日志目录
       "/var/log/journal"
+      # 安全启动密钥存放地
+      "/var/lib/sbctl"
     ];
     # 映射文件
     files = [
@@ -216,7 +218,7 @@
 
   fileSystems."/boot" = {
     # WARN: 分区名(注意格式化后按需修改)
-    device = "/dev/nvme0n1p1";
+    device = "/dev/disk/by-partuuid/5149c07a-3539-4087-9a81-190476aa0253";
     fsType = "vfat";
     options = [
       "umask=0077"
@@ -232,7 +234,7 @@
   # 解锁 LUKS（必须）
   boot.initrd.luks.devices.crypted = {
     # 指向承载 Btrfs 的那块加密分区
-    device = "/dev/nvme0n1p2";
+    device = "/dev/disk/by-partuuid/df92d26d-1b91-4807-bf33-d57032e74381";
     allowDiscards = true; # 与disko的配置一致
     # 交互式输入密码（常见做法）
     # 如需 keyfile 非交互式解锁，配合 boot.initrd.secrets 使用：

@@ -8,14 +8,6 @@
     # git 版本的软件
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
-    # 安全启动
-    # NOTE: 等重装系统全盘加密并且 ESP 分区较大时再说吧
-    # lanzaboote = {
-    # url = "github:nix-community/lanzaboote/v0.4.1";
-    # 可选，但是注意限制系统软件数量
-    # inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     # nixd 不可以用 lix 构建
     # lix = {
     #   url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
@@ -86,9 +78,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-
     # 查找包含库的软件包
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -154,11 +143,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     # 无状态
     impermanence.url = "github:nix-community/impermanence";
 
     # flatpak 由 nix 管理
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
+
+    # 安全启动
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      # 推荐开启减少重复构建包
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -235,31 +235,34 @@
             # 无状态系统
             inputs.impermanence.nixosModules.impermanence
 
-            inputs.flatpaks.nixosModule
-
             # 安全启动部分
-            # inputs.lanzaboote.nixosModules.lanzaboote
-            # (
-            #   { pkgs, lib, ... }:
-            #   {
+            inputs.lanzaboote.nixosModules.lanzaboote
+            (
+              { pkgs, lib, ... }:
+              {
 
-            #     environment.systemPackages = [
-            #       # For debugging and troubleshooting Secure Boot.
-            #       pkgs.sbctl
-            #     ];
+                # 使用 TPM 解锁 LUKS
+                boot.initrd.systemd.enable = true;
 
-            #     # Lanzaboote currently replaces the systemd-boot module.
-            #     # This setting is usually set to true in configuration.nix
-            #     # generated at installation time. So we force it to false
-            #     # for now.
-            #     boot.loader.systemd-boot.enable = lib.mkForce false;
+                environment.systemPackages = [
+                  # For debugging and troubleshooting Secure Boot.
+                  pkgs.sbctl
+                ];
 
-            #     boot.lanzaboote = {
-            #       enable = true;
-            #       pkiBundle = "/etc/secureboot";
-            #     };
-            #   }
-            # )
+                # Lanzaboote currently replaces the systemd-boot module.
+                # This setting is usually set to true in configuration.nix
+                # generated at installation time. So we force it to false
+                # for now.
+                boot.loader.systemd-boot.enable = lib.mkForce false;
+
+                boot.lanzaboote = {
+                  enable = true;
+                  pkiBundle = "/var/lib/sbctl";
+                };
+              }
+            )
+
+            inputs.flatpaks.nixosModule
 
             # inputs.lix-module.nixosModules.default
             inputs.nur.modules.nixos.default
