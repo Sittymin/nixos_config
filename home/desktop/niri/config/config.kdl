@@ -230,9 +230,9 @@ spawn-at-startup "swww" "img" "/home/Sittymin/nixos_config/wallpaper/nixos-wallp
 // 4K 视频还是太吃性能了
 // spawn-at-startup "mpvpaper" "-o" "no-audio --loop" "*" "/home/Sittymin/WallPaper/碧蓝档案 | Blue Archive | Miyu (Swimsuit) | 4k 60.mp4"
 // 开启PBH
-spawn-at-startup "docker" "compose" "-f" "/home/Sittymin/PBH/docker-compose.yml" "up" "-d"
+spawn-at-startup "docker" "compose" "-f" "/home/Sittymin/Development/PBH/docker-compose.yml" "up" "-d"
 // 微信机器人
-spawn-at-startup "docker" "compose" "-f" "/home/Sittymin/Project/WeChatPadPro-docker/docker-compose.yml" "up" "-d"
+spawn-at-startup "docker" "compose" "-f" "/home/Sittymin/Development/WeChatPadPro-docker/docker-compose.yml" "up" "-d"
 spawn-at-startup "qbittorrent-nox" "-d"
 // 同步文件 目前是Rime
 spawn-at-startup "syncthing"

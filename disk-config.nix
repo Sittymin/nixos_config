@@ -17,6 +17,8 @@
       "/var/log/journal"
       # 安全启动密钥存放地
       "/var/lib/sbctl"
+      # Docker 相关数据
+      "/var/lib/docker"
     ];
     # 映射文件
     files = [
@@ -58,6 +60,19 @@
         # flatpak 数据 (NOTE: 全局的安装会重启时删除)
         ## 每个 Flatpak 应用的用户数据
         ".var/app"
+        # qBittorrent 核心配置文件
+        ".config/qBittorrent"
+        # qBittorrent 的种子 + 进度状态
+        ".local/share/qBittorrent/BT_backup"
+        # 百度网盘
+        ".config/baidunetdisk"
+        # Rust 工具链
+        ".rustup"
+        ".cargo"
+        # Cursor 用户配置
+        ".config/Cursor"
+        # Bun 全局安装包
+        ".bun"
       ];
       files = [
         # Rime 的安装信息（不可以 NixOS 配置来生成）

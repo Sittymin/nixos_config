@@ -113,6 +113,18 @@
       # 系统级默认程序
       defaultApplications = { };
     };
+    portal = {
+      extraPortals = with pkgs; [
+        # 支持使用非 Gnome 软件
+        xdg-desktop-portal-gtk
+        # 支持 niri 屏幕录制相关功能
+        xdg-desktop-portal-gnome
+      ];
+      config = {
+        # 使用非 Nautilus 的文件管理器选择文件
+        common."org.freedesktop.impl.portal.FileChooser" = "gtk";
+      };
+    };
   };
   security.pam = {
     # 使用 ssh-agent 来签名

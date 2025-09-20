@@ -25,8 +25,11 @@
       # 由 mosdns 负责
       cache-size=0
 
+      # 默认全部同时查询
       # 严格按照配置文件中 server 的顺序进行查询
-      strict-order
+      # strict-order
+      # 五秒无响应时切换(不然默认是 2 分钟)
+      # dns-forward-time=5
 
       # 记录转发目标服务器的日志
       log-queries
@@ -84,7 +87,7 @@
   # dae 代理
   services.dae = {
     # NOTE: 公司里先用路由器的代理了
-    enable = false;
+    enable = true;
 
     openFirewall = {
       enable = true;
@@ -144,7 +147,7 @@
     config = {
       log.level = "info";
       # 用于发送命令
-      api.http = "127.0.0.53:8080";
+      api.http = "127.0.0.53:8888";
 
       plugins = [
         # Domain/IP set

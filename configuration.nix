@@ -27,11 +27,15 @@
         # "https://hyprland.cachix.org"
         # "https://cache.lix.systems"
         # "https://sittymin.cachix.org"
+        # Ironbar
+        "https://cache.garnix.io"
       ];
       trusted-public-keys = [
         # "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         # "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         # "sittymin.cachix.org-1:GbIZbTYujtCGkvaoFL6cE6lvNvOpWNJgdcBNHXSDomw="
+        # Ironbar
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
     };
     # NOTE:每周进行垃圾回收
