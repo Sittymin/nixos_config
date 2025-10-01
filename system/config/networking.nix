@@ -4,6 +4,8 @@
   ...
 }:
 {
+  # 让网络连接在后台尝试，而不是在系统启动时等它
+  systemd.services.NetworkManager-wait-online.enable = false;
   # NOTE:设置网络连接
   environment.etc = {
     # networkmanager 内置的 dnsmasq 的配置
@@ -57,7 +59,7 @@
           "rc-manager" = "symlink";
         };
       };
-      # 使用 iwd 作为无线后端
+      # 使用 iwd 作为无线后端 (与热点不可同时使用)
       wifi.backend = "iwd";
     };
     # 防火墙由上级路由器配置
@@ -109,6 +111,10 @@
       ''
     );
   };
+  #  覆盖 systemd 服务的安装部分，阻止它开机自启
+  # systemd.services.dae = {
+  #   wantedBy = pkgs.lib.mkForce [ ];
+  # };
 
   # 自定义的服务
   systemd.services = {

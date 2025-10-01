@@ -65,6 +65,7 @@
         wget
         btop # 系统和网络监控工具
         intel-gpu-tools # 可以用intel_gpu_top显示Arc显卡占用情况
+        libva-utils # VAAPI 的东西
         # 解压缩软件
         p7zip # 7z
         zstd

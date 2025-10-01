@@ -61,26 +61,46 @@
                 matches = [
                   {
                     ## 匹配所有蓝牙设备
-                    device.name = "~bluez_card.*";
+                    "device.name" = "~bluez_card.*";
                   }
                 ];
                 actions = {
                   update-props = {
                     # 默认使用A2DP（不可使用麦克风）
-                    bluez5.auto-connect = [ "a2dp_sink" ];
+                    "bluez5.auto-connect" = [ "a2dp_sink" ];
                     # 同步设备音量
-                    bluez5.hw-volume = [ "a2dp_sink" ];
+                    "bluez5.hw-volume" = [ "a2dp_sink" ];
                     # sbc_xq 应该比 sbc 和 aac 要好 （不过还是不锁死了）
-                    # api.bluez5.codec = "sbc_xq";
+                    # "api.bluez5.codec" = "sbc_xq";
                   };
                 };
               }
             ];
             monitor.bluez.properties = {
-              bluez5.roles = [ "a2dp_sink" ];
+              "bluez5.roles" = [ "a2dp_sink" ];
               # 避免切换到 HSP/HFP （虽然可以使用麦克风但是音质极差）
-              bluez5.hfphsp-backend = "none";
+              "bluez5.hfphsp-backend" = "none";
             };
+          };
+          "set-arc-gpu-profile" = {
+            "monitor.alsa.rules" = [
+              {
+                matches = [
+                  {
+                    # 使用从 `pactl list cards` 或 `pw-cli info` 中找到的
+                    # 独一无二且稳定的设备名称来精确匹配您的 Intel Arc 显卡
+                    "device.name" = "alsa_card.pci-0000_04_00.0";
+                  }
+                ];
+                actions = {
+                  # 强制将此设备的配置文件设置为索引 2
+                  # 索引 2 对应我们找到的 "output:hdmi-stereo-extra1"
+                  update-props = {
+                    "device.profile" = "output:hdmi-stereo-extra1";
+                  };
+                };
+              }
+            ];
           };
         };
       };
