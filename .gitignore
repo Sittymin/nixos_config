@@ -1,2 +1,5 @@
 # 构建时需要 git 跟踪它
 # hardware-configuration.nix
+
+# 回收站
+.Trash*

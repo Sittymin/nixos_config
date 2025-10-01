@@ -500,7 +500,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Q { spawn "kitty"; }
-    Mod+B { spawn "firefox"; }
+    Mod+B { spawn "firefox-nightly"; }
     // 用到了四个程序 sh tofi xargs niri
     Mod+R { spawn "sh" "-c" "tofi-drun | xargs niri msg action spawn --"; }
 

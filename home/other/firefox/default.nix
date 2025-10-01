@@ -9,16 +9,21 @@
     sessionVariables.BROWSER = "firefox";
 
     #   使用firefox-gnome-theme主题
-    file."firefox-gnome-theme" = {
-      target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
-      #     需要flake导入
-      source = inputs.firefox-gnome-theme;
+    # file."firefox-gnome-theme" = {
+    #   target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
+    #   #     需要flake导入
+    #   source = inputs.firefox-gnome-theme;
+    # };
+    file."firefox-gnome-theme-nightly" = {
+      target = ".mozilla/firefox/default/chrome/firefox-gnome-theme-nightly";
+      source = inputs.firefox-gnome-theme-nightly;
     };
   };
 
   programs.firefox = {
     enable = true;
-    # package = inputs.firefox-nightly.packages.${pkgs.system}.firefox-nightly-bin;
+    # 如果要中文版就需要下载另外的软件包，但是提供的都是硬编码的英文
+    package = inputs.firefox-nightly.packages.${pkgs.system}.firefox-nightly-bin;
     # package = pkgs.firefox-wayland;
     # https://github.com/nix-community/home-manager/blob/83ecd50915a09dca928971139d3a102377a8d242/modules/programs/firefox/mkFirefoxModule.nix#L269
     languagePacks = [ "zh-CN" ];
@@ -51,11 +56,19 @@
         #       将选项卡放置在窗口顶部
         "gnomeTheme.tabsAsHeaderbar" = false;
       };
+      # Stable 版本
+      # userChrome = ''
+      #   @import "firefox-gnome-theme/userChrome.css";
+      # '';
+      # userContent = ''
+      #   @import "firefox-gnome-theme/userContent.css";
+      # '';
+      # Nightly 版本
       userChrome = ''
-        @import "firefox-gnome-theme/userChrome.css";
+        @import "firefox-gnome-theme-nightly/userChrome.css";
       '';
       userContent = ''
-        @import "firefox-gnome-theme/userContent.css";
+        @import "firefox-gnome-theme-nightly/userContent.css";
       '';
     };
   };

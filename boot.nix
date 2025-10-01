@@ -52,8 +52,10 @@
       v4l2loopback
     ];
     # 配置 v4l2loopback 虚拟摄像头
+    # 配置无线监管域（对于 Intel 的傻逼网卡没有用）
     extraModprobeConfig = ''
       options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+      options cfg80211 ieee80211_regdom=CN
     '';
     loader = {
       # NOTE:引导最多为10个配置文件

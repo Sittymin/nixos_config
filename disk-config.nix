@@ -19,6 +19,8 @@
       "/var/lib/sbctl"
       # Docker 相关数据
       "/var/lib/docker"
+      # flatpak 安装软件与远程仓库(全局的)
+      "/var/lib/flatpak"
     ];
     # 映射文件
     files = [
@@ -73,6 +75,11 @@
         ".config/Cursor"
         # Bun 全局安装包
         ".bun"
+        # WARN: 默认软件 取消注释将直接导致每次 build 锁死系统
+        # ".config/mimeapps.list"
+        # 笔记
+        ".config/obsidian"
+        ".config/alvr"
       ];
       files = [
         # Rime 的安装信息（不可以 NixOS 配置来生成）
@@ -238,6 +245,21 @@
     options = [
       "umask=0077"
     ];
+  };
+
+  fileSystems = {
+    "/mnt/CT1000MX500SSD1" = {
+      device = "/dev/disk/by-uuid/865ae1d4-2e71-46a0-8c27-dff6397df5bd";
+      fsType = "btrfs";
+      options = [
+        "ssd" # 明确告知BTRFS这是SSD，启用相关优化
+        "compress=zstd" # zstd压缩，对性能影响小，能节省空间
+        "space_cache=v2" # 使用更新、更高效的空间缓存格式
+        "noatime"
+        "nodiratime"
+        "users" # 允许任何用户挂载和卸载该文件系统
+      ];
+    };
   };
 
   # 内存一部分空间使用压缩

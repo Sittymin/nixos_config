@@ -30,9 +30,13 @@
 
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
-    # firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
+    firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
+      flake = false;
+    };
+    firefox-gnome-theme-nightly = {
+      url = "github:rafaelmardojai/firefox-gnome-theme/nightly";
       flake = false;
     };
     rime-dicts = {
@@ -102,9 +106,9 @@
     helix.url = "github:helix-editor/helix";
 
     # 另外一个终端
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
+    # ghostty = {
+    #   url = "github:ghostty-org/ghostty";
+    # };
 
     # 好看的 Fcitx5 主题
     # 不知道为啥不能使用 SVG 作为背景
@@ -148,9 +152,6 @@
 
     # 无状态
     impermanence.url = "github:nix-community/impermanence";
-
-    # flatpak 由 nix 管理
-    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
 
     # 安全启动
     lanzaboote = {
@@ -261,8 +262,6 @@
                 };
               }
             )
-
-            inputs.flatpaks.nixosModule
 
             # inputs.lix-module.nixosModules.default
             inputs.nur.modules.nixos.default

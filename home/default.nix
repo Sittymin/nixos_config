@@ -40,7 +40,12 @@
   home.packages =
     with pkgs;
     [
+      # inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default
+      ghostty
+      alvr
       jetbrains.idea-ultimate
+      # WARN: 将会导致重启相关命令也被指向 busybox 当中的实现
+      # less 相关实现也会变为更加简易的版本
       # busybox
       kdePackages.kdeconnect-kde
       # (android-studio.withSdk
